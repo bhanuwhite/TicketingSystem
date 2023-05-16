@@ -3,20 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SupportComponent } from './admin-panel/support/support.component';
-import { RaiseTicketComponent } from './admin-panel/raise-ticket/raise-ticket.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AdminModule } from './admin-panel/admin/admin.module';
+
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SupportComponent,
-    RaiseTicketComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  declarations: [AppComponent],
+  imports: [BrowserModule, AppRoutingModule, AdminModule,BrowserAnimationsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
