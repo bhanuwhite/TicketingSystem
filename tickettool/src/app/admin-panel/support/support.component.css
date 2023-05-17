@@ -75,4 +75,6 @@ position: relative;
 i.pi.pi-comment.text-3xl {
     color: #2c68fa;
 }
-
+.modalButton{
+    cursor: pointer;
+}
