@@ -10,6 +10,7 @@ import { DataFetchService } from 'src/app/data-fetch.service';
   styleUrls: ['./support.component.css'],
 })
 export class SupportComponent {
+  currentPage = 1;
   fliters = fliters;
   isShow: {
     search: boolean;

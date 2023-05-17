@@ -34,7 +34,7 @@
     <button class="btn btn-success" type="button" (click)="onToggle($event,'3')" style="background: #00875A">Resloved</button>
     <button class="btn btn-secondary" type="button" (click)="onToggle($event,'4')">Internal</button>
   </div>
-  <div class="button-content mt-2" *ngFor="let data of fliteredData ">
+  <div class="button-content mt-2" *ngFor="let data of fliteredData | paginate: { itemsPerPage: 3, currentPage: currentPage }">
     <div class="row mx-2 align-items-center">
       <div class="col-md-6">
         <div class="d-flex" style="gap: 40px">
@@ -77,5 +77,5 @@
       </div>
     </div>
   </div>
-
+  <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
 </div>
