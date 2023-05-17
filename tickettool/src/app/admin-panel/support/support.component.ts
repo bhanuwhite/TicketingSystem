@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { User, filterButtons } from '../../constant';
+import { fliters } from '../../constant';
+import { DataFetchService } from 'src/app/data-fetch.service';
 
 @Component({
   selector: 'app-support',
@@ -7,26 +10,45 @@ import { Router } from '@angular/router';
   styleUrls: ['./support.component.css'],
 })
 export class SupportComponent {
-  cities: any = [
-    { name: 'New York' },
-    { name: 'New York' },
-    { name: 'New York' },
-  ];
-  isShowsearch: any = true;
-  isShowNewMessage: any;
-  isShowResolved: any;
-  constructor(private router: Router) {}
+  fliters = fliters;
+  isShow: {
+    search: boolean;
+    newMessage: boolean;
+    resolved: boolean;
+  } = {
+    search: true,
+    newMessage: false,
+    resolved: false,
+  };
 
+  fliteredData: User[]=[];
+
+  constructor(private router: Router, private service: DataFetchService) {
+    this.fetchData();
+  }
+  fetchData(): void {
+    this.service.getData().subscribe((data) => {
+      this.fliteredData = data;
+      console.log(this.fliteredData);
+
+    });
+  }
   onToggle(event: Event, id: any): void {
-    this.isShowsearch = false;
-    this.isShowNewMessage = false;
-    this.isShowResolved = false;
-    if (id == '1') {
-      this.isShowsearch = true;
-    } else if (id == '2' || id == '4') {
-      this.isShowNewMessage = true;
-    } else if (id == '3') {
-      this.isShowResolved = true;
+    if (id == filterButtons.unassigned) {
+      this.isShow.search = true;
+      this.isShow.newMessage = false;
+      this.isShow.resolved = false;
+    } else if (id == filterButtons.allTickets || id == filterButtons.internal) {
+      this.isShow.newMessage = true;
+      this.isShow.search = false;
+      this.isShow.resolved = false;
+    } else if (id == filterButtons.resolved) {
+      this.isShow.resolved = true;
+      this.isShow.newMessage = false;
+      this.isShow.search = false;
     }
+  }
+  openModal(){
+    console.log("open")
   }
 }

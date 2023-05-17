@@ -1,7 +1,7 @@
 <div class="container">
   <h3 class="my-4">Support</h3>
   <div class="row">
-    <div class="col-lg-7">
+    <div class="col-lg-6">
       <div class="form-group has-search">
         <input
           type="text"
@@ -11,29 +11,35 @@
         <span class="fa fa-search form-control-feedback"></span>
       </div>
     </div>
-    <div class="col-lg-5 mt-3">
-      <p-dropdown [options]="cities" optionLabel="name"></p-dropdown>
+    <div class="col-lg-6 mt-3">
+      <div class="d-flex justify-content-end">
+        <div class="dropdown">
+          <p-dropdown [options]="fliters" optionLabel="name"></p-dropdown>
+        </div>
+        
 
-      <button class="raiseButton ml-3" type="button" routerLink="/raise-ticket">
-        Raise Ticket
-      </button>
+        <button class="raiseButton ml-3" type="button" routerLink="/raise-ticket">
+          Raise Ticket
+        </button>
+      </div>
+
     </div>
   </div>
-  <div class="row justify-content-center mt-3" style="gap: 30px">
+  <div class="row justify-content-end mt-3 mx-2" style="gap: 30px">
     <button class="btn btn-danger" type="button" (click)="onToggle($event,'1')">
       Unassigned
       <!-- <span style="background: aquamarine; border-radius: 50%">10</span> -->
     </button>
-    <button class="btn btn-primary" type="button" (click)="onToggle($event,'2')">All Tickets</button>
+    <button class="btn btn-primary" type="button" (click)="onToggle($event,'2' )">All Tickets</button>
     <button class="btn btn-success" type="button" (click)="onToggle($event,'3')" style="background: #00875A">Resloved</button>
     <button class="btn btn-secondary" type="button" (click)="onToggle($event,'4')">Internal</button>
   </div>
-  <div class="button-content mt-2">
-    <div class="row mx-2">
+  <div class="button-content mt-2" *ngFor="let data of fliteredData ">
+    <div class="row mx-2 align-items-center">
       <div class="col-md-6">
         <div class="d-flex" style="gap: 40px">
-          <h6>Cannot access the system</h6>
-          <h6>Client</h6>
+          <h6 (click)="openModal()">{{data.Title}}</h6>
+          <h6>| {{data.name}}</h6>
         </div>
       </div>
       <div class="col-md-6">
@@ -41,13 +47,13 @@
           class="d-flex align-items-center justify-content-end"
           style="gap: 40px"
         >
-        <div *ngIf="isShowNewMessage">
-          <p class="newMessage">New message</p>
+        <div *ngIf="isShow.newMessage">
+          <p class="newMessage"><span class="dot"></span> New message</p>
         </div>
-        <div *ngIf="isShowResolved">
+        <div *ngIf="isShow.resolved">
           <p class="resolvedMessage">Resolved</p>
         </div>
-          <div *ngIf="isShowsearch" style="position: relative">
+          <div *ngIf="isShow.search" style="position: relative">
             <input type="text" class="form-control" placeholder="Assign to" />
             <span class="fa fa-search fa-inner form-control-feedback"></span>
           </div>
@@ -57,16 +63,14 @@
       </div>
       <div class="col-lg-12 mt-1">
         <p>
-          Troubling accessing certain features. Cannot access the system to
-          remove the package or to close it. Attempting to restore from the
-          package is possible, but it is not usually possible…
+         {{data.Description}}
         </p>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 mt-3">
         <p-tag   value="Access settings"></p-tag>
         <p-tag   class="ml-2" value="Tech"></p-tag>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 mt-3">
         <div class="d-flex justify-content-end">
           <i class="pi pi-comment text-3xl" pBadge value="3"></i>
         </div>

@@ -1,0 +1,37 @@
+[
+    {
+        "name": "Ahex",
+        "Title": "Cannot the access the system",
+        "Description": "Trouble in accessing certain features",
+        "Topic": "Tech",
+        "AssignTo": "Asif"
+    },
+    {
+        "name": "Accenture",
+        "Title": "Slow Performance",
+        "Description": "Slow loading times or delays in ticket updates can lead to frustration",
+        "Topic": "Tech",
+        "AssignTo": "Amit"
+    },
+    {
+        "name": "IBM",
+        "Title": "Lack of Training",
+        "Description": "Inadequate training for support agents can result in subpar customer interactions.",
+        "Topic": "HR",
+        "AssignTo": "Navya"
+    },
+    {
+        "name": "Infosys",
+        "Title": "Billing Errors",
+        "Description": "Incorrect billing, invoicing, or subscription management can lead to customer.",
+        "Topic": "Business Payment",
+        "AssignTo": "Shubham"
+    },
+    {
+        "name": "TCS",
+        "Title": "Inadequate Reporting and Analytics",
+        "Description": "If the ticketing system lacks robust reporting capabilities, it can be challenging.",
+        "Topic": "Business",
+        "AssignTo": "Akash"
+    }
+] 
