@@ -6,6 +6,8 @@ import { SupportComponent } from '../support/support.component';
 
     import { TagModule } from 'primeng/tag';
     import { PaginatorModule } from 'primeng/paginator';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from 'src/app/app-routing.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,8 @@ import { SupportComponent } from '../support/support.component';
   imports: [CommonModule,
     DropdownModule,
   TagModule ,
-  PaginatorModule
+  PaginatorModule,
+  ReactiveFormsModule,
 
   ]
 })

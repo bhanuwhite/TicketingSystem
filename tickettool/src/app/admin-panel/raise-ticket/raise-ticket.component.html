@@ -1,1 +1,143 @@
-<p>raise-ticket works!</p>
+<div class="container">
+    <div class="support-form">
+        <h3 class="main-heading">Support > New ticket</h3>
+
+        <div class="form-toggle-button-container">
+            <button class="client-button"
+                    [ngStyle]="{'background-color': formVisibility.showClient ? '#1954f5' : '#ccc', 'color': formVisibility.showClient ? '#fff' : 'black'}"
+                    (click)="toggleForm(true)">Client</button>
+            <button class="internal-button"
+                    [ngStyle]="{'background-color': formVisibility.showClient ? '#ccc' : '#1954f5', 'color': formVisibility.showClient ? 'black' : '#fff'}"
+                    (click)="toggleForm(false)">Internal</button>
+          </div>
+        
+        <div *ngIf="formVisibility.isClientFormVisible">
+            <form [formGroup]="ticketForm" (ngSubmit)="submitForm()">
+                <div class="form-field-1">
+                    <div class="client-form-fields ">
+                        <label for="client-select-company">Select company</label>
+                        <select formControlName="company">
+                            <option>All</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                        <p *ngIf="ticketForm.get('company')?.invalid && ticketForm.get('company')?.touched">
+                            Company is required
+                        </p>
+                    </div>
+                    <div class="client-form-fields input-form ">
+                        <label for="client-select-company">Select employee</label>
+                        <select formControlName="employee">
+                            <option>All</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                        <p *ngIf="ticketForm.get('employee')?.invalid && ticketForm.get('employee')?.touched">
+                            Employee is required
+                        </p>   
+                    </div>
+                </div>
+                <div class="form-field-2">
+                    <div class="client-form-fields ">
+                        <label for="client-select-company">Topic</label>
+                        <select formControlName="topic">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                        <p *ngIf="ticketForm.get('topic')?.invalid && ticketForm.get('topic')?.touched">
+                            Topic is required
+                        </p>
+                    </div>
+                    <div class="client-form-fields input-form">
+                        <label for="client-select-company">Title</label>
+                        <input type="text" id="client-select-company" formControlName="title">
+                        <p *ngIf="ticketForm.get('title')?.invalid && ticketForm.get('title')?.touched">
+                            Title is required
+                        </p>
+                    </div>
+                </div>
+                <div class="message-form-fields">
+                    <label for="message">Message</label>
+                    <textarea cols="40" rows="50" formControlName="message"></textarea>
+                    <p *ngIf="ticketForm.get('message')?.invalid && ticketForm.get('message')?.touched">
+                        Message is required
+                    </p>
+                </div>
+                <div class="upload-container">
+                    <div class="upload-box-container">
+
+                        <input type="file" id="uploadBtn">
+                        <label for="uploadBtn"><i class="fa-solid fa-upload upload"></i></label>
+                    </div>
+                    <div class="upload-text-container">
+                        <p class="upload-text">You can attach a file to the ticket</p>
+                        <p class="upload-text">--documents (.doc(x),pages,.xls(x), .numbers, .key, .pdf)</p>
+                        <p class="upload-text">--video (.mp4, .mov, .avi)</p>
+                        <p class="upload-text">max 20 MB</p>
+
+                    </div>
+                </div>
+                <div class="form-button-container">
+                    <button class="cancel-button">Cancel</button>
+                    <button class="btn btn-primary raise-ticket-button" [disabled]="ticketForm.invalid">Raise ticket</button>
+                </div>
+            </form>
+        </div>
+
+        <div *ngIf="formVisibility.isInternalFormVisible">
+            <form>
+                <div class="form-field-1">
+                    <div class="client-form-fields ">
+                        <label for="client-select-company">Select admin</label>
+                        <select>
+                            <option>Superadmin</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                    </div>
+                    <div class="client-form-fields input-form ">
+                        <label for="client-select-company">Topic</label>
+                        <select>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-field-2">
+                    <div class="client-form-fields input-form">
+                        <label for="client-select-company">Title</label>
+                        <input type="text" id="client-select-company">
+                    </div>
+                </div>
+                <div class="message-form-fields">
+                    <label for="message">Message</label>
+                    <textarea cols="40" rows="50"></textarea>
+                </div>
+                <div class="upload-container">
+                    <div class="upload-box-container">
+
+                        <input type="file" id="uploadBtn">
+                        <label for="uploadBtn"><i class="fa-solid fa-upload upload"></i></label>
+                    </div>
+                    <div class="upload-text-container">
+                        <p class="upload-text">You can attach a file to the ticket</p>
+                        <p class="upload-text">--documents (.doc(x),pages,.xls(x), .numbers, .key, .pdf)</p>
+                        <p class="upload-text">--video (.mp4, .mov, .avi)</p>
+                        <p class="upload-text">max 20 MB</p>
+
+                    </div>
+                </div>
+                <div class="form-button-container">
+                    <button class="cancel-button">Cancel</button>
+                    <button class="btn btn-primary raise-ticket-button">Raise ticket</button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+</div>
