@@ -1,0 +1,173 @@
+.main-heading{
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.form-toggle-button-container button{
+    border: none;
+    border-radius: 20px;
+      height: 30px;
+    width: 90px;
+    background-color: #ccc;
+
+}
+.form-toggle-button-container{
+    display: flex;
+    background-color: #ccc;
+    width: 160px;
+    border-radius: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    position: relative;
+}
+.form-toggle-button-container .client-button{
+    position: relative;
+    left: 0px;
+    z-index: 10;
+    overflow: hidden;
+    color: #ffffff;
+  color: white;
+}
+
+
+.form-toggle-button-container .client-button:focus{
+    background-color: #1954f5;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    color: #ffffff;
+}
+.form-toggle-button-container .internal-button{
+    position: absolute;
+    left: 76px;
+    background-color: #ccc;
+    color: white;
+
+}
+/* .blue {
+    background-color: blue;
+  }
+  
+  .green {
+    background-color: #ccc;
+  } */
+
+.form-toggle-button-container .internal-button:focus{
+    background-color: #1954f5;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius:0px;
+    overflow: hidden;
+    color: #ffffff;
+     
+
+}
+
+.client-form-fields{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+.client-form-fields label{
+    margin-bottom: 5px;
+}
+.client-form-fields input{
+    height: 40px;
+    width: 300px;
+}
+
+
+.form-field-1{
+    display: flex;
+    flex-direction: row;
+gap: 15px;
+}
+.form-field-2{
+    display: flex;
+    flex-direction: row;
+gap: 15px;
+
+}
+input{
+    outline: none;
+}
+label{
+    font-size: 13px;
+}
+.message-input{
+    height: 100px;
+    width: 700px;
+}
+.message-form-fields{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;  
+}
+.message-form-fields textarea{
+    height: 100px;
+    width: 700px;
+    outline: none;
+}
+.message-form-fields label{
+    margin-bottom: 5px; 
+}
+.toggle-button .active{
+    background-color: blue !important;
+    color: #ffffff;
+
+}
+.toggle-button .active:focus{
+    background-color: blue !important;
+
+}
+input[type="file"]{
+    display: none;
+}
+.upload-box-container{
+    border: 1px black solid;
+    height: 70px;
+    width: 220px;
+    padding-top: 20px;
+    text-align: center; 
+    border-radius: 20px;
+}
+.upload{
+    color: #007bff;
+}
+.upload-container{
+    display: flex;
+    flex-direction: row;
+}
+.upload-container .upload-text{
+    font-size: 12px;
+    margin-bottom: 0px !important;
+    font-weight:500;
+}
+.upload-text-container{
+  margin-left: 30px;
+}
+.form-button-container{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-left: 55px;
+    
+}
+.form-button-container button{
+    outline: none;
+    border-radius: 20px;
+    border: none;
+    height: 34px;
+    width: 110px;
+    font-size: 14px;
+
+}
+.cancel-button{
+background-color: #ccc;
+}
+.raise-ticket-button{
+background-color:#1954f5 ;
+}
+select{
+    height: 40px;
+    width: 300px;
+    outline: none;
+}
