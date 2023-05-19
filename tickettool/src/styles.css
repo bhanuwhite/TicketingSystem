@@ -18,3 +18,16 @@ span.p-tag.p-component {
     width: 25%;
     color: #fff;
 }
+.filter_box{
+    .p-dropdown.p-component {
+        background: #80808036 !important;
+        
+    }
+}
+.accord_area{
+    .p-accordion .p-accordion-header a{
+        background: transparent !important;
+        text-decoration: none;
+        border-color:#80808036 !important ;
+    }
+}
