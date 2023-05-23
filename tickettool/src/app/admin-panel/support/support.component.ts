@@ -4,7 +4,6 @@ import { User, filterButtons } from '../../constant';
 import { fliters } from '../../constant';
 import { DataFetchService } from 'src/app/data-fetch.service';
 
-
 @Component({
   selector: 'app-support',
   templateUrl: './support.component.html',
@@ -13,17 +12,33 @@ import { DataFetchService } from 'src/app/data-fetch.service';
 export class SupportComponent {
   currentPage = 1;
   fliters = fliters;
+
   isShow: {
     search: boolean;
     newMessage: boolean;
     resolved: boolean;
+    companyName: boolean;
+    type: boolean;
   } = {
     search: true,
     newMessage: false,
     resolved: false,
+    companyName: false,
+    type: false,
   };
 
-  fliteredData: User[]=[];
+  fliteredData: User[] = [];
+  data: {
+    unassign: User[];
+    resloved: User[];
+    allTicket: User[];
+    internal: User[];
+  } = {
+    unassign: [],
+    resloved: [],
+    allTicket: [],
+    internal: [],
+  };
 
   constructor(private router: Router, private service: DataFetchService) {
     this.fetchData();
@@ -31,8 +46,22 @@ export class SupportComponent {
   fetchData(): void {
     this.service.getData().subscribe((data) => {
       this.fliteredData = data;
-      console.log(this.fliteredData);
-
+      this.data.allTicket = data;
+      this.fliteredData.map((res) => {
+        if (res.status == 'unassigned') {
+          this.data.unassign.push(res);
+        }
+      });
+      this.fliteredData.map((res) => {
+        if (res.type == 'internal') {
+          this.data.internal.push(res);
+        }
+      });
+      this.fliteredData.map((res) => {
+        if (res.status == 'assigned') {
+          this.data.resloved.push(res);
+        }
+      });
     });
   }
   onToggle(event: Event, id: any): void {
@@ -40,17 +69,38 @@ export class SupportComponent {
       this.isShow.search = true;
       this.isShow.newMessage = false;
       this.isShow.resolved = false;
-    } else if (id == filterButtons.allTickets || id == filterButtons.internal) {
+      this.isShow.companyName = true;
+      this.isShow.type = false;
+      this.fliteredData = this.data.unassign;
+      this.currentPage = 1;
+      console.log(this.fliteredData);
+    } else if (id == filterButtons.allTickets) {
       this.isShow.newMessage = true;
       this.isShow.search = false;
       this.isShow.resolved = false;
+      this.isShow.companyName = false;
+      this.isShow.type = false;
+      this.fliteredData = this.data.allTicket;
+      this.currentPage = 1;
     } else if (id == filterButtons.resolved) {
       this.isShow.resolved = true;
       this.isShow.newMessage = false;
       this.isShow.search = false;
+      this.isShow.companyName = false;
+      this.isShow.type = true;
+      this.fliteredData = this.data.resloved;
+      this.currentPage = 1;
+    } else if (id == filterButtons.internal) {
+      this.isShow.newMessage = true;
+      this.isShow.search = false;
+      this.isShow.resolved = false;
+      this.isShow.companyName = false;
+      this.fliteredData = this.data.internal;
+      this.currentPage = 1;
+      this.isShow.type = false;
     }
   }
-  openModal(){
-    console.log("open")
+  openModal() {
+    console.log('open');
   }
 }

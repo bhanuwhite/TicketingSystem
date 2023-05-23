@@ -11,9 +11,15 @@ export const fliters: any = [
   { name: 'Fliters 3' },
 ];
 export interface User {
-  name: string;
-  Title: string;
-  Description: string;
-  Topic: string;
-  AssignTo: string;
+  _id: string;
+  type: string;
+  company: string;
+  employee: string;
+  topic: string;
+  title: string;
+  message: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: 0;
 }

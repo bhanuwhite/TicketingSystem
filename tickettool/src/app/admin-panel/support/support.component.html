@@ -29,20 +29,20 @@
   </div>
   <div class="row justify-content-end mt-3 mx-2" style="gap: 30px">
     <button
+    class="btn btn-primary filterButton"
+    type="button"
+    (click)="onToggle($event, '2')"
+  >
+    All Tickets
+  </button>
+    <button
       class="btn btn-danger filterButton"
       type="button"
       (click)="onToggle($event, '1')"
     >
       Unassigned
-      <!-- <span style="background: aquamarine; border-radius: 50%">10</span> -->
     </button>
-    <button
-      class="btn btn-primary filterButton"
-      type="button"
-      (click)="onToggle($event, '2')"
-    >
-      All Tickets
-    </button>
+   
     <button
       class="btn btn-success filterButton"
       type="button"
@@ -74,9 +74,10 @@
             data-toggle="modal"
             data-target="#exampleModal"
           >
-            {{ data.Title }}
+            {{ data.title }}
           </h6>
-          <h6>| {{ data.name }}</h6>
+          <h6 *ngIf="isShow.companyName">| {{ data.company }}</h6>
+          <h6 *ngIf="isShow.type">| {{ data.type }}</h6>
         </div>
       </div>
       <div class="col-md-6">
@@ -100,7 +101,7 @@
       </div>
       <div class="col-lg-12 mt-1">
         <p>
-          {{ data.Description }}
+          {{ data.message }}
         </p>
       </div>
       <div class="col-md-6 mt-3">
@@ -118,7 +119,7 @@
     (pageChange)="currentPage = $event"
   ></pagination-controls>
 </div>
-<!-- Modal -->
+
 <div
   class="modal fade"
   id="exampleModal"
@@ -146,7 +147,6 @@
               <span class="ml-2">12</span>
             </div>
             <div class="col-md-1">
-              <!-- <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> -->
               <i class="fa fa-thumbs-up" aria-hidden="true"></i>
             </div>
             <div class="col-md-1">
@@ -166,25 +166,13 @@
               </button>
             </div>
           </div>
-          <!-- <div class="d-flex justify-content-between align-items-center">
-            
-           
-               
-                
-                
-               
          
-              
-            
-          
-          </div> -->
         </div>
 
-        <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-md-7">
+          <div class="col-md-8">
             <div class="body_title">
               <h5>Cannot the access the system</h5>
             </div>
@@ -262,14 +250,12 @@
               </div>
             </div>
           </div>
-          <div class="col-md-5">
-            <div
-              class=" mb-1 d-flex align-items-center justify-content-between"
-            >
-              <div class="filter_box" style="width: 60%;">
+          <div class="col-md-4">
+            <div class="mb-1 d-flex align-items-center justify-content-between">
+              <div class="filter_box" style="width: 60%">
                 <p-dropdown [options]="fliters" optionLabel="name"></p-dropdown>
               </div>
-              <div class=" position-relative" style="width: 38%;" >
+              <div class="position-relative" style="width: 38%">
                 <p-dropdown [options]="fliters" optionLabel="name"></p-dropdown>
               </div>
             </div>
@@ -278,53 +264,96 @@
                 <p-accordionTab header="Your pinned fields">
                   <div class="row">
                     <div class="col-md-4">
-                      <span style="font-weight: 500;">
-                        Labels
-                      </span>
+                      <span style="font-weight: 500"> Labels </span>
                     </div>
                     <div class="col-md-4">
-                      <span style="font-weight: 400;">
-                        None
-                      </span>
+                      <span style="font-weight: 400"> None </span>
                     </div>
                   </div>
-                  
                 </p-accordionTab>
                 <p-accordionTab header="Details">
-                  <div class="row d-flex align-items-center">
-                    <div class="col-md-4">
-                      <h6 style="font-weight: 500;">
-                     Assignee  
-                      </h6>
-                      <h6 style="font-weight: 500;">
-                        Reporter  
-                         </h6>
-                      
-                    </div>
-                <span class="user_name mr-1"> SS </span>
-                <div class="col-md-4">
-                      <h5 style="font-weight: 400;">
-                        Saurabh 
-                      </h5>
-                      <h5 style="font-weight: 400;">
-                        Saurabh 
-                      </h5>
-                    </div>
-                  </div>
+                  <ul class="accord-ul">
+                    <li>Assignee</li>
+                    <li class="d-flex align-items-center">
+                      <span class="user_name mr-3" style="width: 33px">
+                        SS
+                      </span>
+                      Saurabh Srivastav
+                    </li>
+                  </ul>
+                  <ul class="accord-ul">
+                    <li>Reporter</li>
+                    <li class="d-flex align-items-center">
+                      <span class="user_name mr-4" style="width: 33px">
+                        SL
+                      </span>
+                      Stephen Lencher
+                    </li>
+                  </ul>
+                  <ul class="accord-ul">
+                    <li>Priority</li>
+                    <li class="d-flex align-items-center">
+                      <div class="d-block mr-2 position-relative">
+                        <i
+                          class="fa fa-minus d-block"
+                          style="color: yellow"
+                          aria-hidden="true"
+                        ></i>
+
+                        <i
+                          class="fa fa-minus minus-icon"
+                          aria-hidden="true"
+                        ></i>
+                      </div>
+                      Medium
+                    </li>
+                  </ul>
                 </p-accordionTab>
-                <p-accordionTab header="Header III">
-                  <p>
-                    At vero eos et accusamus et iusto odio dignissimos ducimus
-                    qui blanditiis praesentium voluptatum deleniti atque
-                    corrupti quos dolores et quas molestias excepturi sint
-                    occaecati cupiditate non provident, similique sunt in culpa
-                    qui officia deserunt mollitia animi, id est laborum et
-                    dolorum fuga. Et harum quidem rerum facilis est et expedita
-                    distinctio. Nam libero tempore, cum soluta nobis est
-                    eligendi optio cumque nihil impedit quo minus.
-                  </p>
+                <p-accordionTab header="More fields">
+                  <ul class="accord-ul">
+                    <li>Original Estimate</li>
+                    <li>
+                      <span class="estimate"> 0m </span>
+                    </li>
+                  </ul>
+                  <ul class="accord-ul">
+                    <li>Time Tracking</li>
+                    <li>
+                       No time logged 
+                    </li>
+                  </ul>
+                  <ul class="accord-ul">
+                    <li>Components </li>
+                    <li>
+                       None  
+                    </li>
+                  </ul>
+                  <ul class="accord-ul">
+                    <li>Sprint </li>
+                    <li>
+                       None  
+                    </li>
+                  </ul>
+                  <ul class="accord-ul">
+                    <li>Fix Version </li>
+                    <li>
+                     None  
+                    </li>
+                  </ul>
                 </p-accordionTab>
               </p-accordion>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <p>Updated 15 may at 15.22</p>
+                <p>
+                  Created 13 feb at 11.32pm 
+                </p>
+              </div>
+              <div>
+                <i class="pi pi-cog" style="font-size: 1rem"></i>
+                Configuration
+              </div>
             </div>
           </div>
         </div>

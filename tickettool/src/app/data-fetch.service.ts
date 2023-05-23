@@ -6,6 +6,7 @@ import { User } from './constant';
 })
 export class DataFetchService {
 
+
   constructor(private http:HttpClient) { }
 
   getData(){
