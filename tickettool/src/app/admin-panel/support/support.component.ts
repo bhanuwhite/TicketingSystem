@@ -12,7 +12,6 @@ import { DataFetchService } from 'src/app/data-fetch.service';
 export class SupportComponent {
   currentPage = 1;
   fliters = fliters;
-
   isShow: {
     search: boolean;
     newMessage: boolean;
@@ -40,11 +39,47 @@ export class SupportComponent {
     internal: [],
   };
 
+  modalview: any;
+  modalData: {
+    _id: string;
+    title: string;
+    message: string;
+    status: string;
+    view_count: string;
+    label: string;
+    priority: string;
+    assignee: string;
+    reporter: string;
+    sprint: string;
+    Fix_version: string;
+    original_estimate: string;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+  }={
+    "_id": "",
+    "title": "",
+    "message": "",
+    "status": "",
+    "view_count": "",
+    "label": "",
+    "priority": "",
+    "assignee": "",
+    "reporter": "",
+    "sprint": "",
+    "Fix_version": "",
+    "original_estimate": "",
+    "createdAt": "",
+    "updatedAt": "",
+    "__v": 0
+  } ;
+
   constructor(private router: Router, private service: DataFetchService) {
     this.fetchData();
   }
   fetchData(): void {
-    this.service.getData().subscribe((data) => {
+    this.service.getData('users').subscribe((data) => {
+      console.log(data);
       this.fliteredData = data;
       this.data.allTicket = data;
       this.fliteredData.map((res) => {
@@ -103,4 +138,12 @@ export class SupportComponent {
   openModal() {
     console.log('open');
   }
+  get_id(id: any) {
+    this.service.getData('user/' + id).subscribe((data) => {
+      this.modalData = data.popUpList[0];
+      console.log(this.modalData);
+    });
+  }
+
+  getModalData() {}
 }

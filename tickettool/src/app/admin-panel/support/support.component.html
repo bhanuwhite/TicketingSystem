@@ -69,7 +69,7 @@
     <div class="row mx-2 align-items-center">
       <div class="col-md-6">
         <div class="d-flex" style="gap: 40px">
-          <h6
+          <h6 (click)="get_id(data._id)"
             class="modalButton"
             data-toggle="modal"
             data-target="#exampleModal"
@@ -144,7 +144,7 @@
             </div>
             <div class="col-md-2">
               <i class="fa fa-eye" aria-hidden="true"></i>
-              <span class="ml-2">12</span>
+              <span class="ml-2">{{modalData.view_count}}</span>
             </div>
             <div class="col-md-1">
               <i class="fa fa-thumbs-up" aria-hidden="true"></i>
@@ -174,7 +174,7 @@
         <div class="row">
           <div class="col-md-8">
             <div class="body_title">
-              <h5>Cannot the access the system</h5>
+              <h5>{{modalData.title}}</h5>
             </div>
             <div class="d-flex my-2 mx-1" style="gap: 10px">
               <span class="five-icons">
@@ -196,13 +196,12 @@
             <div class="my-3 mx-1">
               <h6 class="mb-2">Description</h6>
               <p class="mb-3">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Accusantium suscipit hic aliquid? Quae sunt fugit,
+                {{modalData.message}}
               </p>
-              <p class="mb-4">
+              <!-- <p class="mb-4">
                 tempora dolor sed rerum nobis officia necessitatibus aliquam ab,
                 voluptatibus nisi exercitationem ipsa doloribus architecto.
-              </p>
+              </p> -->
               <h6 class="mb-3">Environment</h6>
               <p>None</p>
             </div>
@@ -267,7 +266,7 @@
                       <span style="font-weight: 500"> Labels </span>
                     </div>
                     <div class="col-md-4">
-                      <span style="font-weight: 400"> None </span>
+                      <span style="font-weight: 400"> {{modalData.label}} </span>
                     </div>
                   </div>
                 </p-accordionTab>
@@ -278,7 +277,7 @@
                       <span class="user_name mr-3" style="width: 33px">
                         SS
                       </span>
-                      Saurabh Srivastav
+                      {{modalData.assignee}}
                     </li>
                   </ul>
                   <ul class="accord-ul">
@@ -287,7 +286,7 @@
                       <span class="user_name mr-4" style="width: 33px">
                         SL
                       </span>
-                      Stephen Lencher
+                      {{modalData.reporter}}
                     </li>
                   </ul>
                   <ul class="accord-ul">
@@ -305,7 +304,7 @@
                           aria-hidden="true"
                         ></i>
                       </div>
-                      Medium
+                      {{modalData.priority}}
                     </li>
                   </ul>
                 </p-accordionTab>
@@ -313,7 +312,7 @@
                   <ul class="accord-ul">
                     <li>Original Estimate</li>
                     <li>
-                      <span class="estimate"> 0m </span>
+                      <span class="estimate"> {{modalData.original_estimate}} </span>
                     </li>
                   </ul>
                   <ul class="accord-ul">
@@ -331,13 +330,13 @@
                   <ul class="accord-ul">
                     <li>Sprint </li>
                     <li>
-                       None  
+                      {{modalData.sprint}} 
                     </li>
                   </ul>
                   <ul class="accord-ul">
                     <li>Fix Version </li>
                     <li>
-                     None  
+                      {{modalData.Fix_version}} 
                     </li>
                   </ul>
                 </p-accordionTab>

@@ -6,10 +6,10 @@ import { User } from './constant';
 })
 export class DataFetchService {
 
-
+baseUrl="http://192.168.0.166:3000/api/"
   constructor(private http:HttpClient) { }
 
-  getData(){
-    return this.http.get<User[]>('assets/data.json');
+  getData(url:string){
+    return this.http.get<any>(this.baseUrl+url);
   }
 }
