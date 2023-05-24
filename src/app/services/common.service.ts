@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User } from './constant';
+import { baseUrl } from '../constant';
 @Injectable({
   providedIn: 'root'
 })
 export class DataFetchService {
-
-baseUrl="http://192.168.0.166:3000/api/"
+baseUrl = baseUrl;
   constructor(private http:HttpClient) { }
 
   getData(url:string){

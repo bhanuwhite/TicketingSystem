@@ -29,29 +29,32 @@
   </div>
   <div class="row justify-content-end mt-3 mx-2" style="gap: 30px">
     <button
-    class="btn btn-primary filterButton"
-    type="button"
-    (click)="onToggle($event, '2')"
-  >
-    All Tickets
-  </button>
+      [ngClass]="{ selectedButton: selectedButtons.selectAll }"
+      class="btn btn-primary filterButton"
+      type="button"
+      (click)="onToggle($event, '2')"
+    >
+      All Tickets
+    </button>
     <button
+      [ngClass]="{ selectedButton: selectedButtons.selectunassigned }"
       class="btn btn-danger filterButton"
       type="button"
       (click)="onToggle($event, '1')"
     >
       Unassigned
     </button>
-   
+
     <button
+      [ngClass]="{ selectedButton: selectedButtons.selectResolved }"
       class="btn btn-success filterButton"
       type="button"
       (click)="onToggle($event, '3')"
-      style="background: #00875a"
     >
       Resloved
     </button>
     <button
+      [ngClass]="{ selectedButton: selectedButtons.selectInternal }"
       class="btn btn-secondary filterButton"
       type="button"
       (click)="onToggle($event, '4')"
@@ -69,7 +72,8 @@
     <div class="row mx-2 align-items-center">
       <div class="col-md-6">
         <div class="d-flex" style="gap: 40px">
-          <h6 (click)="get_id(data._id)"
+          <h6
+            (click)="get_id(data._id)"
             class="modalButton"
             data-toggle="modal"
             data-target="#exampleModal"
@@ -133,7 +137,7 @@
         <div class="col-md-7">
           <div>
             <img src="../../../assets/red_Dot.png" />
-            <span class="ml-2">SB-209</span>
+            <span class="ml-2">{{ modalData.ticketId }}</span>
           </div>
         </div>
         <div class="col-md-5">
@@ -144,7 +148,7 @@
             </div>
             <div class="col-md-2">
               <i class="fa fa-eye" aria-hidden="true"></i>
-              <span class="ml-2">{{modalData.view_count}}</span>
+              <span class="ml-2">{{ modalData.view_count }}</span>
             </div>
             <div class="col-md-1">
               <i class="fa fa-thumbs-up" aria-hidden="true"></i>
@@ -166,15 +170,13 @@
               </button>
             </div>
           </div>
-         
         </div>
-
       </div>
       <div class="modal-body">
         <div class="row">
           <div class="col-md-8">
             <div class="body_title">
-              <h5>{{modalData.title}}</h5>
+              <h5>{{ modalData.title }}</h5>
             </div>
             <div class="d-flex my-2 mx-1" style="gap: 10px">
               <span class="five-icons">
@@ -196,7 +198,7 @@
             <div class="my-3 mx-1">
               <h6 class="mb-2">Description</h6>
               <p class="mb-3">
-                {{modalData.message}}
+                {{ modalData.message }}
               </p>
               <!-- <p class="mb-4">
                 tempora dolor sed rerum nobis officia necessitatibus aliquam ab,
@@ -266,88 +268,119 @@
                       <span style="font-weight: 500"> Labels </span>
                     </div>
                     <div class="col-md-4">
-                      <span style="font-weight: 400"> {{modalData.label}} </span>
+                      <span style="font-weight: 400">
+                        {{ modalData.label }}
+                      </span>
                     </div>
                   </div>
                 </p-accordionTab>
                 <p-accordionTab header="Details">
                   <ul class="accord-ul">
-                    <li>Assignee</li>
-                    <li class="d-flex align-items-center">
-                      <span class="user_name mr-3" style="width: 33px">
-                        SS
-                      </span>
-                      {{modalData.assignee}}
-                    </li>
+                    <div>
+                      <li>Assignee</li>
+                    </div>
+                    <div>
+                      <li class="d-flex align-items-center">
+                        <span class="user_name mr-3" style="width: 33px">
+                          SS
+                        </span>
+                        {{ modalData.assignee }}
+                      </li>
+                    </div>
                   </ul>
                   <ul class="accord-ul">
-                    <li>Reporter</li>
-                    <li class="d-flex align-items-center">
-                      <span class="user_name mr-4" style="width: 33px">
-                        SL
-                      </span>
-                      {{modalData.reporter}}
-                    </li>
+                    <div>
+                      <li>Reporter</li>
+                    </div>
+                    <div class="">
+                      <li class="d-flex align-items-center">
+                        <span class="user_name mr-3" style="width: 33px">
+                          SL
+                        </span>
+                        {{ modalData.reporter }}
+                      </li>
+                    </div>
                   </ul>
                   <ul class="accord-ul">
-                    <li>Priority</li>
-                    <li class="d-flex align-items-center">
-                      <div class="d-block mr-2 position-relative">
-                        <i
-                          class="fa fa-minus d-block"
-                          style="color: yellow"
-                          aria-hidden="true"
-                        ></i>
+                    <div>
+                      <li>Priority</li>
+                    </div>
+                    <div>
+                      <li
+                        class="d-flex align-items-center ml-3"
+                        style="gap: 25px"
+                      >
+                        <div class="d-block mr-2 position-relative">
+                          <i
+                            class="fa fa-minus d-block"
+                            style="color: yellow"
+                            aria-hidden="true"
+                          ></i>
 
-                        <i
-                          class="fa fa-minus minus-icon"
-                          aria-hidden="true"
-                        ></i>
-                      </div>
-                      {{modalData.priority}}
-                    </li>
+                          <i
+                            class="fa fa-minus minus-icon"
+                            aria-hidden="true"
+                          ></i>
+                        </div>
+                        {{ modalData.priority }}
+                      </li>
+                    </div>
                   </ul>
                 </p-accordionTab>
                 <p-accordionTab header="More fields">
                   <ul class="accord-ul">
-                    <li>Original Estimate</li>
-                    <li>
-                      <span class="estimate"> {{modalData.original_estimate}} </span>
-                    </li>
+                    <div class="w-50">
+                      <li>Original Estimate</li>
+                    </div>
+                    <div class="w-50">
+                      <li>
+                        <span class="estimate">
+                          {{ modalData.original_estimate }}
+                        </span>
+                      </li>
+                    </div>
                   </ul>
                   <ul class="accord-ul">
-                    <li>Time Tracking</li>
-                    <li>
-                       No time logged 
-                    </li>
+                    <div class="w-50">
+                      <li>Time Tracking</li>
+                    </div>
+                    <div class="w-50">
+                      <li>No time logged</li>
+                    </div>
                   </ul>
                   <ul class="accord-ul">
-                    <li>Components </li>
-                    <li>
-                       None  
-                    </li>
+                    <div class="w-50">
+                      <li>Components</li>
+                    </div>
+                    <div class="w-50">
+                      <li>None</li>
+                    </div>
                   </ul>
                   <ul class="accord-ul">
-                    <li>Sprint </li>
-                    <li>
-                      {{modalData.sprint}} 
-                    </li>
+                    <div class="w-50">
+                      <li>Sprint</li>
+                    </div>
+                    <div class="w-50">
+                      <li>
+                        {{ modalData.sprint }}
+                      </li>
+                    </div>
                   </ul>
                   <ul class="accord-ul">
-                    <li>Fix Version </li>
-                    <li>
-                      {{modalData.Fix_version}} 
-                    </li>
+                    <div class="w-50"><li>Fix Version</li></div>
+                    <div class="w-50">
+                      <li>
+                        {{ modalData.Fix_version }}
+                      </li>
+                    </div>
                   </ul>
                 </p-accordionTab>
               </p-accordion>
             </div>
             <div class="d-flex justify-content-between align-items-center">
               <div>
-                <p>Updated 15 may at 15.22</p>
-                <p>
-                  Created 13 feb at 11.32pm 
-                </p>
+                <p>Updated {{ modalData.updatedAt | date : "short" }}</p>
+                <p>Created {{ modalData.createdAt | date : "short" }}</p>
               </div>
               <div>
                 <i class="pi pi-cog" style="font-size: 1rem"></i>

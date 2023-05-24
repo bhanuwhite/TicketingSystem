@@ -149,15 +149,10 @@ i.pi.pi-comment.text-3xl {
     background: #2c68fa;
     height: 30px;
 }
-/* .rightSide_selectbox{
-    display: flex;
-    align-items: center;
-} */
 
 .accord-ul{
     display: flex;
-    /* gap: 80px; */
-    justify-content: space-between;
+    gap: 40px;
     list-style-type: none;
     padding: 0;
     align-items: center;
@@ -176,5 +171,9 @@ span.estimate {
     width: 50px;
     border-radius: 50px;
 }
-
-
+.w-50{
+    width: 50%;
+}
+.selectedButton{
+    background-color:grey;
+}

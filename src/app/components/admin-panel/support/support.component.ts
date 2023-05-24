@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { User, filterButtons } from '../../constant';
-import { fliters } from '../../constant';
-import { DataFetchService } from 'src/app/data-fetch.service';
+import { DataFetchService } from 'src/app/services/common.service';
+import { User } from 'src/app/interface';
+import { filterButtons } from 'src/app/enum';
+import { fliters, selectedButtons } from 'src/app/constant';
 
 @Component({
   selector: 'app-support',
@@ -25,8 +26,9 @@ export class SupportComponent {
     companyName: false,
     type: false,
   };
-
+  selected: boolean = false;
   fliteredData: User[] = [];
+  selectedButtons = selectedButtons;
   data: {
     unassign: User[];
     resloved: User[];
@@ -39,7 +41,6 @@ export class SupportComponent {
     internal: [],
   };
 
-  modalview: any;
   modalData: {
     _id: string;
     title: string;
@@ -55,48 +56,43 @@ export class SupportComponent {
     original_estimate: string;
     createdAt: string;
     updatedAt: string;
+    ticketId: string;
     __v: number;
-  }={
-    "_id": "",
-    "title": "",
-    "message": "",
-    "status": "",
-    "view_count": "",
-    "label": "",
-    "priority": "",
-    "assignee": "",
-    "reporter": "",
-    "sprint": "",
-    "Fix_version": "",
-    "original_estimate": "",
-    "createdAt": "",
-    "updatedAt": "",
-    "__v": 0
-  } ;
+  } = {
+    _id: '',
+    title: '',
+    message: '',
+    status: '',
+    view_count: '',
+    label: '',
+    priority: '',
+    assignee: '',
+    reporter: '',
+    sprint: '',
+    Fix_version: '',
+    original_estimate: '',
+    createdAt: '',
+    updatedAt: '',
+    ticketId: '',
+    __v: 0,
+  };
 
   constructor(private router: Router, private service: DataFetchService) {
     this.fetchData();
   }
   fetchData(): void {
     this.service.getData('users').subscribe((data) => {
-      console.log(data);
       this.fliteredData = data;
       this.data.allTicket = data;
-      this.fliteredData.map((res) => {
-        if (res.status == 'unassigned') {
-          this.data.unassign.push(res);
-        }
-      });
-      this.fliteredData.map((res) => {
-        if (res.type == 'internal') {
-          this.data.internal.push(res);
-        }
-      });
-      this.fliteredData.map((res) => {
-        if (res.status == 'assigned') {
-          this.data.resloved.push(res);
-        }
-      });
+      this.data.unassign = this.fliteredData.filter(
+        (e) => e.status === 'unassigned'
+      );
+      this.data.internal = this.fliteredData.filter(
+        (e) => e.type === 'internal'
+      );
+      this.data.resloved = this.fliteredData.filter(
+        (e) => e.status === 'assigned'
+      );
     });
   }
   onToggle(event: Event, id: any): void {
@@ -107,14 +103,21 @@ export class SupportComponent {
       this.isShow.companyName = true;
       this.isShow.type = false;
       this.fliteredData = this.data.unassign;
+      this.selectedButtons.selectAll = false;
+      this.selectedButtons.selectunassigned = true;
+      this.selectedButtons.selectResolved = false;
+      this.selectedButtons.selectInternal = false;
       this.currentPage = 1;
-      console.log(this.fliteredData);
     } else if (id == filterButtons.allTickets) {
       this.isShow.newMessage = true;
       this.isShow.search = false;
       this.isShow.resolved = false;
       this.isShow.companyName = false;
       this.isShow.type = false;
+      this.selectedButtons.selectAll = true;
+      this.selectedButtons.selectunassigned = false;
+      this.selectedButtons.selectResolved = false;
+      this.selectedButtons.selectInternal = false;
       this.fliteredData = this.data.allTicket;
       this.currentPage = 1;
     } else if (id == filterButtons.resolved) {
@@ -122,6 +125,10 @@ export class SupportComponent {
       this.isShow.newMessage = false;
       this.isShow.search = false;
       this.isShow.companyName = false;
+      this.selectedButtons.selectAll = false;
+      this.selectedButtons.selectunassigned = false;
+      this.selectedButtons.selectResolved = true;
+      this.selectedButtons.selectInternal = false;
       this.isShow.type = true;
       this.fliteredData = this.data.resloved;
       this.currentPage = 1;
@@ -130,20 +137,18 @@ export class SupportComponent {
       this.isShow.search = false;
       this.isShow.resolved = false;
       this.isShow.companyName = false;
+      this.selectedButtons.selectAll = false;
+      this.selectedButtons.selectunassigned = false;
+      this.selectedButtons.selectResolved = false;
+      this.selectedButtons.selectInternal = true;
       this.fliteredData = this.data.internal;
       this.currentPage = 1;
       this.isShow.type = false;
     }
   }
-  openModal() {
-    console.log('open');
-  }
-  get_id(id: any) {
+  get_id(id: string): void {
     this.service.getData('user/' + id).subscribe((data) => {
       this.modalData = data.popUpList[0];
-      console.log(this.modalData);
     });
   }
-
-  getModalData() {}
 }
