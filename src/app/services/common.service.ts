@@ -11,4 +11,7 @@ baseUrl = baseUrl;
   getData(url:string){
     return this.http.get<any>(this.baseUrl+url);
   }
+  postData(url:string,body:any){
+    return this.http.post<any>(this.baseUrl+url,body);
+  }
 }

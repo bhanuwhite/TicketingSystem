@@ -20,7 +20,7 @@ export class SupportComponent {
     companyName: boolean;
     type: boolean;
   } = {
-    search: true,
+    search: false,
     newMessage: false,
     resolved: false,
     companyName: false,
@@ -95,7 +95,7 @@ export class SupportComponent {
       );
     });
   }
-  onToggle(event: Event, id: any): void {
+  onToggle(event: Event, id: string): void {
     if (id == filterButtons.unassigned) {
       this.isShow.search = true;
       this.isShow.newMessage = false;

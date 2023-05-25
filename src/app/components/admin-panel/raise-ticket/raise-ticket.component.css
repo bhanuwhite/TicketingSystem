@@ -43,14 +43,9 @@
     color: white;
 
 }
-/* .blue {
-    background-color: blue;
-  }
-  
-  .green {
-    background-color: #ccc;
-  } */
-
+.invalid-error{
+    color: red !important;
+}
 .form-toggle-button-container .internal-button:focus{
     background-color: #1954f5;
     border-top-left-radius: 0px;

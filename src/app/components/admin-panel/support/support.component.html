@@ -89,9 +89,9 @@
           class="d-flex align-items-center justify-content-end"
           style="gap: 40px"
         >
-          <div *ngIf="isShow.newMessage">
+          <!-- <div *ngIf="isShow.newMessage">
             <p class="newMessage"><span class="dot"></span> New message</p>
-          </div>
+          </div> -->
           <div *ngIf="isShow.resolved">
             <p class="resolvedMessage">Resolved</p>
           </div>
@@ -100,7 +100,7 @@
             <span class="fa fa-search fa-inner form-control-feedback"></span>
           </div>
 
-          <h6>3h Ago</h6>
+          <h6>{{ data.createdAt | date : "mediumDate" }}</h6>
         </div>
       </div>
       <div class="col-lg-12 mt-1">
@@ -112,11 +112,11 @@
         <p-tag value="Access settings"></p-tag>
         <p-tag class="ml-2" value="Tech"></p-tag>
       </div>
-      <div class="col-md-6 mt-3">
+      <!-- <div class="col-md-6 mt-3">
         <div class="d-flex justify-content-end">
           <i class="pi pi-comment text-3xl" pBadge value="3"></i>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
   <pagination-controls
