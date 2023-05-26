@@ -7,8 +7,9 @@
           type="text"
           class="form-control searchBox mt-3"
           placeholder="Search"
+          [(ngModel)]="searchedValue"
         />
-        <span class="fa fa-search form-control-feedback"></span>
+        <span class="fa fa-search form-control-feedback" (click)="search()"></span>
       </div>
     </div>
     <div class="col-lg-6 mt-3">
@@ -96,8 +97,14 @@
             <p class="resolvedMessage">Resolved</p>
           </div>
           <div *ngIf="isShow.search" style="position: relative">
-            <input type="text" class="form-control" placeholder="Assign to" />
-            <span class="fa fa-search fa-inner form-control-feedback"></span>
+            <!-- <input type="text" class="form-control" placeholder="Assign to" />
+            <span class="fa fa-search fa-inner form-control-feedback"></span> -->
+            <!-- <div class="position-relative" style="width: 38%"> -->
+              <!-- <p-dropdown [options]="employeesList" optionLabel="employee" ></p-dropdown> -->
+            <!-- </div> -->
+            <select>
+              <option *ngFor="let items of employeesList">{{items.employee}}</option>
+            </select>
           </div>
 
           <h6>{{ data.createdAt | date : "mediumDate" }}</h6>
@@ -111,6 +118,7 @@
       <div class="col-md-6 mt-3">
         <p-tag value="Access settings"></p-tag>
         <p-tag class="ml-2" value="Tech"></p-tag>
+
       </div>
       <!-- <div class="col-md-6 mt-3">
         <div class="d-flex justify-content-end">

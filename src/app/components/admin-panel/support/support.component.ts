@@ -13,6 +13,7 @@ import { fliters, selectedButtons } from 'src/app/constant';
 export class SupportComponent {
   currentPage = 1;
   fliters = fliters;
+  searchedValue='';
   isShow: {
     search: boolean;
     newMessage: boolean;
@@ -76,9 +77,13 @@ export class SupportComponent {
     ticketId: '',
     __v: 0,
   };
+  employeesList: any;
+  getCompany!: string;
+  selectedCompany!: any;
 
   constructor(private router: Router, private service: DataFetchService) {
     this.fetchData();
+    // this.search();
   }
   fetchData(): void {
     this.service.getData('users').subscribe((data) => {
@@ -108,6 +113,19 @@ export class SupportComponent {
       this.selectedButtons.selectResolved = false;
       this.selectedButtons.selectInternal = false;
       this.currentPage = 1;
+      console.log(this.fliteredData)
+      for(let i =0 ;i<this.fliteredData.length;i++){
+        this.getCompany=this.fliteredData[i].company;
+        this.getemployees(this.getCompany);
+      console.log(this.getCompany)
+
+      }
+      // this.fliteredData.filter(e=>{
+      //   this.getCompany=e.company;
+      // })
+      // console.log(this.fliteredData[0].company)
+      // this.getemployees(this.getCompany);
+
     } else if (id == filterButtons.allTickets) {
       this.isShow.newMessage = true;
       this.isShow.search = false;
@@ -149,6 +167,27 @@ export class SupportComponent {
   get_id(id: string): void {
     this.service.getData('user/' + id).subscribe((data) => {
       this.modalData = data.popUpList[0];
+    });
+  }
+
+  onAssign(event:any,companyName:string){
+    this.selectedCompany= companyName;
+
+  }
+  getemployees(companyName:string): void {
+    this.service.getData('users/' + companyName).subscribe((data) => {
+      this.employeesList = data.company;
+      console.log(this.employeesList);
+    });
+  }
+
+  search(): void {
+    const data={
+      title:this.searchedValue
+    }
+    this.service.postData('search',data).subscribe((res) => {
+      this.fliteredData=res.data;
+      console.log(res);
     });
   }
 }
