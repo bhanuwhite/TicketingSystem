@@ -9,14 +9,14 @@
           placeholder="Search"
           [(ngModel)]="searchedValue"
         />
-        <span class="fa fa-search form-control-feedback" (click)="search()"></span>
+        <span class="fa fa-search form-control-feedback" (click)="search($event)"></span>
       </div>
     </div>
     <div class="col-lg-6 mt-3">
       <div class="d-flex justify-content-end">
-        <div class="dropdown">
+        <!-- <div class="dropdown">
           <p-dropdown [options]="fliters" optionLabel="name"></p-dropdown>
-        </div>
+        </div> -->
 
         <button
           class="raiseButton ml-3"
@@ -67,7 +67,7 @@
     class="button-content mt-2"
     *ngFor="
       let data of fliteredData
-        | paginate : { itemsPerPage: 3, currentPage: currentPage }
+        | paginate : { itemsPerPage: 3, currentPage: currentPage };let i=index
     "
   >
     <div class="row mx-2 align-items-center">
@@ -81,8 +81,8 @@
           >
             {{ data.title }}
           </h6>
-          <h6 *ngIf="isShow.companyName">| {{ data.company }}</h6>
-          <h6 *ngIf="isShow.type">| {{ data.type }}</h6>
+          <!-- <h6 *ngIf="isShow.companyName">| {{ data.company }}</h6> -->
+          <!-- <h6 *ngIf="isShow.type">| {{ data.type }}</h6> -->
         </div>
       </div>
       <div class="col-md-6">
@@ -102,8 +102,8 @@
             <!-- <div class="position-relative" style="width: 38%"> -->
               <!-- <p-dropdown [options]="employeesList" optionLabel="employee" ></p-dropdown> -->
             <!-- </div> -->
-            <select>
-              <option *ngFor="let items of employeesList">{{items.employee}}</option>
+            <select (change)="assigneeChange($event,data._id)">
+              <option *ngFor="let items of data?.employeeNames"  >{{items.name}}</option>
             </select>
           </div>
 

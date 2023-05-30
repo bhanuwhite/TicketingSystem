@@ -10,5 +10,7 @@ export interface User {
     createdAt: string;
     updatedAt: string;
     __v: 0;
+    employeeNames?:any
+    assignee?:string;
   };
   

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { DataFetchService } from 'src/app/services/common.service';
 
 @Component({
@@ -25,7 +26,8 @@ export class RaiseTicketComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private service: DataFetchService
+    private service: DataFetchService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -56,7 +58,7 @@ export class RaiseTicketComponent {
   }
   getcompany(): void {
     this.service.getData('companyNames').subscribe((data) => {
-      this.companyList = data.list;
+      this.companyList = data.Data;
     });
   }
   getTopic(): void {
@@ -93,7 +95,13 @@ export class RaiseTicketComponent {
         formData.append('title', formVaules.title);
         formData.append('message', formVaules.message);
         formData.append('image', this.file);
-        this.service.postData('users', formData).subscribe((data) => {});
+        this.service.postData('users', formData).subscribe((response) => {
+          if (response.data.statusCode === '201') {
+            this.router.navigate(['/support']);
+          } else {
+            alert('Something went wrong');
+          }
+        });
       }
     } else if (this.selectedForm === 'internal') {
       if (this.internalForm.invalid) {
@@ -107,7 +115,13 @@ export class RaiseTicketComponent {
         formData.append('title', formVaules.title);
         formData.append('message', formVaules.message);
         formData.append('image', this.file);
-        this.service.postData('users', formData).subscribe((data) => {});
+        this.service.postData('users', formData).subscribe((response) => {
+          if (response.data.statusCode === '201') {
+            this.router.navigate(['/support']);
+          } else {
+            alert('Something went wrong');
+          }
+        });
       }
     }
   }

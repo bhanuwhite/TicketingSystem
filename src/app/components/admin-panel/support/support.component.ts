@@ -13,7 +13,7 @@ import { fliters, selectedButtons } from 'src/app/constant';
 export class SupportComponent {
   currentPage = 1;
   fliters = fliters;
-  searchedValue='';
+  searchedValue = '';
   isShow: {
     search: boolean;
     newMessage: boolean;
@@ -83,7 +83,6 @@ export class SupportComponent {
 
   constructor(private router: Router, private service: DataFetchService) {
     this.fetchData();
-    // this.search();
   }
   fetchData(): void {
     this.service.getData('users').subscribe((data) => {
@@ -113,19 +112,8 @@ export class SupportComponent {
       this.selectedButtons.selectResolved = false;
       this.selectedButtons.selectInternal = false;
       this.currentPage = 1;
-      console.log(this.fliteredData)
-      for(let i =0 ;i<this.fliteredData.length;i++){
-        this.getCompany=this.fliteredData[i].company;
-        this.getemployees(this.getCompany);
-      console.log(this.getCompany)
-
-      }
-      // this.fliteredData.filter(e=>{
-      //   this.getCompany=e.company;
-      // })
-      // console.log(this.fliteredData[0].company)
-      // this.getemployees(this.getCompany);
-
+      this.searchedValue='';
+      this.getCompanyName(this.fliteredData);
     } else if (id == filterButtons.allTickets) {
       this.isShow.newMessage = true;
       this.isShow.search = false;
@@ -138,6 +126,7 @@ export class SupportComponent {
       this.selectedButtons.selectInternal = false;
       this.fliteredData = this.data.allTicket;
       this.currentPage = 1;
+      this.searchedValue='';
     } else if (id == filterButtons.resolved) {
       this.isShow.resolved = true;
       this.isShow.newMessage = false;
@@ -150,6 +139,7 @@ export class SupportComponent {
       this.isShow.type = true;
       this.fliteredData = this.data.resloved;
       this.currentPage = 1;
+      this.searchedValue='';
     } else if (id == filterButtons.internal) {
       this.isShow.newMessage = true;
       this.isShow.search = false;
@@ -161,6 +151,7 @@ export class SupportComponent {
       this.selectedButtons.selectInternal = true;
       this.fliteredData = this.data.internal;
       this.currentPage = 1;
+      this.searchedValue='';
       this.isShow.type = false;
     }
   }
@@ -170,24 +161,37 @@ export class SupportComponent {
     });
   }
 
-  onAssign(event:any,companyName:string){
-    this.selectedCompany= companyName;
-
+  onAssign(event: any, companyName: string) {
+    this.selectedCompany = companyName;
   }
-  getemployees(companyName:string): void {
-    this.service.getData('users/' + companyName).subscribe((data) => {
-      this.employeesList = data.company;
-      console.log(this.employeesList);
+  getCompanyName(filter: any) {
+    this.service.getData('companyNames').subscribe((data) => {
+      this.employeesList = data.Data;
+      filter.forEach((e: any) => {
+        this.employeesList.forEach((j: any) => {
+          if (e.company == j.company) {
+            e['employeeNames'] = j.employeeNames;
+          }
+        });
+      });
+      this.fliteredData = filter;
     });
   }
 
-  search(): void {
-    const data={
-      title:this.searchedValue
-    }
-    this.service.postData('search',data).subscribe((res) => {
-      this.fliteredData=res.data;
-      console.log(res);
+  search(fliteredData: any): void {
+    const data = {
+      title: this.searchedValue,
+    };
+    this.service.postData('search', data).subscribe((res) => {
+      this.fliteredData = res.data;
+    });
+  }
+  assigneeChange(event: any, id: string): void {
+    const assigneValue = event.target.value;
+    const body = {
+      assignee: assigneValue,
+    };
+    this.service.putData('user/' + id, body).subscribe((res) => {
     });
   }
 }
