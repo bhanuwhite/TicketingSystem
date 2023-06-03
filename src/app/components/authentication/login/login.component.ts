@@ -2,7 +2,7 @@ import { compileDeclareDirectiveFromMetadata } from '@angular/compiler';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DataFetchService } from 'src/app/services/common.service';
+import { DataFetchService } from 'src/app/shared/services/common.service';
 
 @Component({
   selector: 'app-login',

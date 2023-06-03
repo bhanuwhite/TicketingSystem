@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataFetchService } from 'src/app/services/common.service';
-import { User } from 'src/app/interface';
-import { filterButtons } from 'src/app/enum';
-import { fliters, selectedButtons } from 'src/app/constant';
+import { DataFetchService } from 'src/app/shared/services/common.service';
+import { User, modalData } from 'src/app/shared/interface';
+import { filterButtons } from 'src/app/shared/enum';
+import { fliters, selectedButtons } from 'src/app/shared/constant';
 
 @Component({
   selector: 'app-support',
@@ -42,41 +42,7 @@ export class SupportComponent {
     internal: [],
   };
 
-  modalData: {
-    _id: string;
-    title: string;
-    message: string;
-    status: string;
-    view_count: string;
-    label: string;
-    priority: string;
-    assignee: string;
-    reporter: string;
-    sprint: string;
-    Fix_version: string;
-    original_estimate: string;
-    createdAt: string;
-    updatedAt: string;
-    ticketId: string;
-    __v: number;
-  } = {
-    _id: '',
-    title: '',
-    message: '',
-    status: '',
-    view_count: '',
-    label: '',
-    priority: '',
-    assignee: '',
-    reporter: '',
-    sprint: '',
-    Fix_version: '',
-    original_estimate: '',
-    createdAt: '',
-    updatedAt: '',
-    ticketId: '',
-    __v: 0,
-  };
+  modalData!:modalData;
   employeesList: any;
   getCompany!: string;
   selectedCompany!: any;
@@ -85,22 +51,27 @@ export class SupportComponent {
     this.fetchData();
   }
   fetchData(): void {
-    this.service.getData('users').subscribe((data) => {
-      this.fliteredData = data;
-      this.data.allTicket = data;
-      this.data.unassign = this.fliteredData.filter(
-        (e) => e.status === 'unassigned'
-      );
-      this.data.internal = this.fliteredData.filter(
-        (e) => e.type === 'internal'
-      );
-      this.data.resloved = this.fliteredData.filter(
-        (e) => e.status === 'assigned'
-      );
-    });
+    try {
+      this.service.getData('users').subscribe((data) => {
+        this.fliteredData = data;
+        this.data.allTicket = data;
+        this.data.unassign = this.fliteredData.filter(
+          (e) => e.status === 'unassigned'
+        );
+        this.data.internal = this.fliteredData.filter(
+          (e) => e.type === 'internal'
+        );
+        this.data.resloved = this.fliteredData.filter(
+          (e) => e.status === 'assigned'
+        );
+      });
+    } catch (error) {
+      // Handle the error here
+      console.error('An error occurred while fetching data:', error);
+    }
   }
   onToggle(event: Event, id: string): void {
-    if (id == filterButtons.unassigned) {
+    if (id === filterButtons.unassigned) {
       this.isShow.search = true;
       this.isShow.newMessage = false;
       this.isShow.resolved = false;
@@ -114,7 +85,7 @@ export class SupportComponent {
       this.currentPage = 1;
       this.searchedValue='';
       this.getCompanyName(this.fliteredData);
-    } else if (id == filterButtons.allTickets) {
+    } else if (id === filterButtons.allTickets) {
       this.isShow.newMessage = true;
       this.isShow.search = false;
       this.isShow.resolved = false;
@@ -127,7 +98,7 @@ export class SupportComponent {
       this.fliteredData = this.data.allTicket;
       this.currentPage = 1;
       this.searchedValue='';
-    } else if (id == filterButtons.resolved) {
+    } else if (id === filterButtons.resolved) {
       this.isShow.resolved = true;
       this.isShow.newMessage = false;
       this.isShow.search = false;
@@ -140,7 +111,7 @@ export class SupportComponent {
       this.fliteredData = this.data.resloved;
       this.currentPage = 1;
       this.searchedValue='';
-    } else if (id == filterButtons.internal) {
+    } else if (id === filterButtons.internal) {
       this.isShow.newMessage = true;
       this.isShow.search = false;
       this.isShow.resolved = false;
@@ -161,7 +132,7 @@ export class SupportComponent {
     });
   }
 
-  onAssign(event: any, companyName: string) {
+  onAssign(companyName: string) {
     this.selectedCompany = companyName;
   }
   getCompanyName(filter: any) {
@@ -178,7 +149,7 @@ export class SupportComponent {
     });
   }
 
-  search(fliteredData: any): void {
+  search(): void {
     const data = {
       title: this.searchedValue,
     };
@@ -191,7 +162,6 @@ export class SupportComponent {
     const body = {
       assignee: assigneValue,
     };
-    this.service.putData('user/' + id, body).subscribe((res) => {
-    });
+    this.service.putData('user/' + id, body).subscribe();
   }
 }

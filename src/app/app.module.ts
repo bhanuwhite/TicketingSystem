@@ -12,7 +12,7 @@ import { FooterComponent } from './common/footer/footer.component';
 import { AdminDashboardComponent } from './components/dashboards/admin-dashboard/admin-dashboard.component';
 import { LoginComponent } from './components/authentication/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MyInterceptor } from './my-http-Interceptor';
+import { MyInterceptor } from './shared/my-http-Interceptor';
 
 
 @NgModule({
