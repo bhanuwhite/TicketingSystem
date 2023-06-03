@@ -1,0 +1,48 @@
+<div class="logo text-center">
+  <!-- <h1>Logo</h1> -->
+</div>
+<div class="wrapper">
+  <div class="inner-warpper text-center">
+    <h2 class="title">Login to your account</h2>
+    <form [formGroup]="userLoginForm" (ngSubmit)="login()">
+      <div class="mt-2">
+        <label class="" for="userName">User Email</label>
+
+        <input
+          class="form-control"
+          type="email"
+          placeholder="email"
+          formControlName="email"
+        />
+        <span class="lighting"></span>
+      </div>
+
+      <div class="mt-3 mb-3">
+        <label class="" for="userPassword">Password</label>
+
+        <input
+          class="form-control"
+          id="userPassword"
+          type="password"
+          placeholder="password"
+          formControlName="password"
+        />
+        <span class="lighting"></span>
+      </div>
+
+      <button type="submit">Login</button>
+      <div class="clearfix supporter">
+        <div class="pull-left remember-me">
+          <input id="rememberMe" type="checkbox" />
+          <label for="rememberMe">Remember Me</label>
+        </div>
+        <a class="forgot pull-right" href="#">Forgot Password?</a>
+      </div>
+    </form>
+  </div>
+  <!-- <div class="signup-wrapper text-center">
+    <a href="#"
+      >Don't have an accout? <span class="text-primary">Create One</span></a
+    >
+  </div> -->
+</div>
