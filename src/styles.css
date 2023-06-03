@@ -30,4 +30,9 @@ span.p-tag.p-component {
         text-decoration: none;
         border-color:#80808036 !important ;
     }
+}.dropdown-menu-first .dropdown-item {
+    padding: 0.25rem 0.5rem !important;
+
 }
+
+  

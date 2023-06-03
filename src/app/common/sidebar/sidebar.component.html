@@ -1,1 +1,33 @@
-<p>sidebar works!</p>
+<!-- <div class="wrapper">
+    <div class="sidebar">
+       <ul>
+        <li><a href="#">Home</a></li>
+        <li>
+            <a href="#">category</a>
+            <ul class="dropdown">
+                <li><a href="#">option1</a></li>
+                <li><a href="#">option2</a></li>
+                <li><a href="#">option3</a></li>
+                <li><a href="#">option4</a></li>
+            </ul>
+        </li>
+        <li><a href="#">About Us</a></li>
+
+       </ul>
+    </div> -->
+
+<div class="main-container">
+  <div class="sidenav">
+    <button><i class="pi pi-home" ></i> Home</button>
+    <button class="category-button" (click)="toggleDropdown()">
+      <i class="pi pi-bars" ></i> category
+    </button>
+    <ul [ngClass]="{ dropdown: dropdownOpen }" class="dropdown-block">
+      <li><a href="#">category 1</a></li>
+      <li><a href="#">category 2</a></li>
+      <li><a href="#">category 3</a></li>
+      <li><a href="#">category 4</a></li>
+    </ul>
+  </div>
+  <app-header></app-header>
+</div>
