@@ -8,11 +8,11 @@
     height: 45px;
     border-radius: 10px;
 }
-span.p-tag.p-component {
+/* span.p-tag.p-component {
     background: #eee;
     color: #000;
     width: 25%;
-}
+} */
 .ml-2 .p-tag.p-component{
     background-color: rgb(44 104 250);
     width: 25%;

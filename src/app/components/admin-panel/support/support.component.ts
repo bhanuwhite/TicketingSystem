@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataFetchService } from 'src/app/shared/services/common.service';
 import { User, modalData } from 'src/app/shared/interface';
 import { filterButtons } from 'src/app/shared/enum';
 import { fliters, selectedButtons } from 'src/app/shared/constant';
+import { DataFetchService } from 'src/app/shared/services/common.service';
 
 @Component({
   selector: 'app-support',
@@ -52,7 +52,7 @@ export class SupportComponent {
   }
   fetchData(): void {
     try {
-      this.service.getData('users').subscribe((data) => {
+      this.service.getData('users').subscribe((data:any) => {
         this.fliteredData = data;
         this.data.allTicket = data;
         this.data.unassign = this.fliteredData.filter(
@@ -127,7 +127,7 @@ export class SupportComponent {
     }
   }
   get_id(id: string): void {
-    this.service.getData('user/' + id).subscribe((data) => {
+    this.service.getData('user/' + id).subscribe((data:any) => {
       this.modalData = data.popUpList[0];
     });
   }
@@ -136,7 +136,7 @@ export class SupportComponent {
     this.selectedCompany = companyName;
   }
   getCompanyName(filter: any) {
-    this.service.getData('companyNames').subscribe((data) => {
+    this.service.getData('companyNames').subscribe((data:any) => {
       this.employeesList = data.Data;
       filter.forEach((e: any) => {
         this.employeesList.forEach((j: any) => {
@@ -153,7 +153,7 @@ export class SupportComponent {
     const data = {
       title: this.searchedValue,
     };
-    this.service.postData('search', data).subscribe((res) => {
+    this.service.postData('search', data).subscribe((res:any) => {
       this.fliteredData = res.data;
     });
   }

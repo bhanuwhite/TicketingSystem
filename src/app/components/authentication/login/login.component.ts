@@ -34,10 +34,10 @@ export class LoginComponent {
       email: this.userLoginForm.value.email,
       password: this.userLoginForm.value.password,
     };
-    this.service.postData('role/login', data).subscribe((res) => {
-      console.log(res.data.status);
+    this.service.postData('role/login', data).subscribe((res:any) => {
+      console.log(res.data.roleId);
       if (res.data.status === '200') {
-        if (res.data.RoleId === 1) {
+        if (res.data.roleId === 1) {
           this.router.navigate(['/admin-dashboard']);
         }
         this.storingValuesInLS(res.data);
@@ -46,8 +46,8 @@ export class LoginComponent {
   }
   storingValuesInLS(response: any) {
     console.log(response);
-    localStorage.setItem("name", response.Role);
-    localStorage.setItem("roleId", response.RoleId);
-    localStorage.setItem("token", response.Token);
+    localStorage.setItem("name", response.role);
+    localStorage.setItem("roleId", response.roleId);
+    localStorage.setItem("token", response.token);
   }
 }

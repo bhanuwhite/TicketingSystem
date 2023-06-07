@@ -82,8 +82,7 @@ div .contacts p {
 }
 /* ===================================== */
 .leadgen-logo-wrapper{
-    padding-top: 30px;
-    padding-bottom: 30px;
+   padding: 10px;
 
 }
 .leadgen-logo-wrapper .line{
@@ -134,3 +133,4 @@ div .contacts p {
     padding: 0px;
     margin: 0px;
 }
+

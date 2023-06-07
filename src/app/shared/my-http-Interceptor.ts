@@ -28,7 +28,10 @@ export class MyInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((error: any) => {
         console.error('An error occurred:', error);
-        this.router.navigateByUrl('/login');
+        if (error.status === 401) {
+          localStorage.clear();
+          this.router.navigateByUrl('/login');
+        }
 
         return throwError(() => error);
       })

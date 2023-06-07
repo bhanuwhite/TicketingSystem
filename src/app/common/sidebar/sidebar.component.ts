@@ -6,9 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent {
-  dropdownOpen = false;
+  isSidebarCollapsed: boolean = false;
 
-  toggleDropdown() {
-    this.dropdownOpen = !this.dropdownOpen;
+  toggleSidebar() {
+    this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
 }

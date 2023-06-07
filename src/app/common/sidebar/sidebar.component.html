@@ -16,17 +16,50 @@
        </ul>
     </div> -->
 
-<div class="main-container">
+
   <div class="sidenav">
-    <button><i class="pi pi-home" ></i> Home</button>
+    <div class="sidebar-content">
+      <div class="list-wrapper">
+        <ul class="listbox-list" >
+          <li class="listbox-item">
+            <i class="pi pi-home  me-2" style="font-size: 20px"></i> <span> Home </span>
+          </li>
+          <li class="listbox-item d-block">
+            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"> 
+              <i class="pi pi-bars  me-2" style="font-size: 20px"></i> Category</a>
+            <ul class="collapse list-unstyled" id="homeSubmenu">
+              <li class="mt-2">
+                <a  routerLink="me">All Products</a>
+              </li>
+              <!-- <li>
+                <a href="/"></a>Submenu 2</a>
+              </li> -->
+              <!-- <li>
+                <a href="#">Submenu 3</a>
+              </li>  -->
+            </ul>
+          </li>
+          <li class="listbox-item">
+            <a routerLink="support">Support</a>
+          </li>
+    
+
+          <hr class="mt-4 mb-2">
+
+        </ul>
+      </div>
+    </div>
+    <!-- <button><i class="pi pi-home" ></i> Home</button>
     <button class="category-button" (click)="toggleDropdown()">
       <i class="pi pi-bars" ></i> category
     </button>
     <ul [ngClass]="{ dropdown: dropdownOpen }" class="dropdown-block">
-      <li><a href="#">category 1</a></li>
+      <li><a routerLink="me">category 1</a></li>
       <li><a href="#">category 2</a></li>
       <li><a href="#">category 3</a></li>
       <li><a href="#">category 4</a></li>
-    </ul>
+    </ul> -->
+     
   </div>
-</div>
+ 
+

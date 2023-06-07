@@ -16,15 +16,13 @@
       aria-haspopup="true"
       aria-expanded="false"
     >
-      <i class="pi pi-user" style="color: black"></i> User name
+      <i class="pi pi-user" style="color: black"></i> {{ user }}
     </button>
     <div
       class="dropdown-menu dropdown-menu-first"
       aria-labelledby="dropdownMenuButton"
     >
-      <a class="dropdown-item" href="#">Action</a>
-      <a class="dropdown-item" href="#">Another action</a>
-      <a class="dropdown-item" href="#">Something else here</a>
+      <a class="dropdown-item" (click)="logout()">Logout</a>
     </div>
   </div>
 </div>
