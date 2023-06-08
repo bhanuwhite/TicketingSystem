@@ -7,22 +7,39 @@ import { AllProductsComponent } from './components/all-products/all-products.com
 import { SupportComponent } from './components/admin-panel/support/support.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { RaiseTicketComponent } from './components/admin-panel/raise-ticket/raise-ticket.component';
+import { AddCategoryComponent } from './components/add-category/add-category.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'raise-ticket', component: RaiseTicketComponent,canActivate: [AuthGuard] }
-,
+  {
+    path: 'raise-ticket',
+    component: RaiseTicketComponent,
+    canActivate: [AuthGuard],
+  },
   {
     path: 'admin-dashboard',
     component: AdminDashboardComponent,
     canActivate: [AuthGuard],
-    children: [{ path: 'me', component: AllProductsComponent },
-    { path: 'support', component: SupportComponent},
-
-  ],
+    children: [
+      {
+        path: 'allproducts',
+        component: AllProductsComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'support',
+        component: SupportComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'addcategory',
+        component: AddCategoryComponent,
+        canActivate: [AuthGuard],
+      },
+    ],
   },
-  {path: '**', component: PageNotFoundComponent},
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({

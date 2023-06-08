@@ -22,14 +22,14 @@
       </ng-template>
 
       <ng-template pTemplate="right">
-        <p-fileUpload
+        <!-- <p-fileUpload
           mode="basic"
           accept="image/*"
           [maxFileSize]="1000000"
           label="Import"
           chooseLabel="Import"
           class="mr-2 inline-block"
-        ></p-fileUpload>
+        ></p-fileUpload> -->
         <button
           pButton
           pRipple
@@ -88,13 +88,13 @@
           <th pSortableColumn="category" style="min-width: 10rem">
             Category <p-sortIcon field="category"></p-sortIcon>
           </th>
-          <th pSortableColumn="rating">
-            Reviews <p-sortIcon field="rating"></p-sortIcon>
+          <th pSortableColumn="quantity">
+            Quantity <p-sortIcon field="quantity"></p-sortIcon>
           </th>
           <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
             Status <p-sortIcon field="inventoryStatus"></p-sortIcon>
           </th>
-          <th></th>
+          <th>Actions</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-product>
@@ -116,12 +116,15 @@
           </td>
           <td>{{ product.price | currency : "USD" }}</td>
           <td>{{ product.category }}</td>
-          <td>
+          <!-- <td>
             <p-rating
               [ngModel]="product.rating"
               [readonly]="true"
               [cancel]="false"
             ></p-rating>
+          </td> -->
+          <td>
+            {{ product.quantity }}
           </td>
           <td>
             <p-tag
@@ -129,10 +132,22 @@
               [severity]="getSeverity(product.inventoryStatus)"
             ></p-tag>
           </td>
-          <!-- <td>
-                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editProduct(product)"></button>
-                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(product)"></button>
-                    </td> -->
+          <td>
+            <button
+              pButton
+              pRipple
+              icon="pi pi-pencil"
+              class="p-button-rounded p-button-success mr-2"
+              (click)="editProduct(product)"
+            ></button>
+            <button
+              pButton
+              pRipple
+              icon="pi pi-trash"
+              class="p-button-rounded p-button-warning"
+              (click)="deleteProduct(product)"
+            ></button>
+          </td>
         </tr>
       </ng-template>
       <ng-template pTemplate="summary">

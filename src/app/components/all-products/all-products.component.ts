@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { productconst } from 'src/app/shared/constant';
 
@@ -21,12 +22,15 @@ export class AllProductsComponent {
 
   statuses!: any[];
   productConst: any = productconst;
+  productForm!: FormGroup;
 
   constructor(
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private fb: FormBuilder
   ) {}
   ngOnInit() {
+    this.productsInit();
     this.products = this.productConst;
     console.log(this.products);
     this.statuses = [
@@ -34,6 +38,17 @@ export class AllProductsComponent {
       { label: 'LOWSTOCK', value: 'lowstock' },
       { label: 'OUTOFSTOCK', value: 'outofstock' },
     ];
+  }
+  productsInit(){
+    this.productForm=this.fb.group({
+      name:[''],
+      desc:[''],
+      status:[''],
+      category:[''],
+      price:[''],
+      quantity:[''],
+    });
+    console.log(this.productForm.value.name);
   }
 
   openNew() {
