@@ -1,7 +1,7 @@
 <div class="content-inner">
   <div class="card card-content">
     <p-toast></p-toast>
-    <p-toolbar styleClass="mb-4 gap-2">
+    <p-toolbar styleClass=" gap-2">
       <ng-template pTemplate="left">
         <button
           pButton
@@ -46,10 +46,8 @@
       [rows]="10"
       [paginator]="true"
       [globalFilterFields]="[
-        'name',
-        'country.name',
-        'representative.name',
-        'status'
+        'productName',
+        
       ]"
       [tableStyle]="{ 'min-width': '75rem' }"
       [(selection)]="selectedProducts"
@@ -60,7 +58,7 @@
     >
       <ng-template pTemplate="caption">
         <div class="flex align-items-center justify-content-between">
-          <h5 class="m-0">Manage Products</h5>
+          <h5 class="m-0">Products</h5>
           <span class="p-input-icon-left mt-3">
             <i class="pi pi-search"></i>
             <input
@@ -78,8 +76,8 @@
           <th style="width: 4rem">
             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
           </th>
-          <th pSortableColumn="name" style="min-width: 15rem">
-            Name <p-sortIcon field="name"></p-sortIcon>
+          <th pSortableColumn="productName" style="min-width: 15rem">
+            Name <p-sortIcon field="productName"></p-sortIcon>
           </th>
           <th>Image</th>
           <th pSortableColumn="price">
@@ -102,12 +100,11 @@
           <td>
             <p-tableCheckbox [value]="product"></p-tableCheckbox>
           </td>
-          <td>{{ product.name }}</td>
+          <td>{{ product.productName }}</td>
           <td>
             <img
               [src]="
-                'https://primefaces.org/cdn/primeng/images/demo/product/' +
-                product.image
+                product.images
               "
               [alt]="product.name"
               width="50"
@@ -159,134 +156,196 @@
   </div>
 </div>
 
-<p-dialog
-  [(visible)]="productDialog"
-  [style]="{ width: '50vw' }"
-  header="Product Details"
-  [modal]="true"
-  styleClass="p-fluid"
->
-  <ng-template pTemplate="content">
-    <img
-      [src]="
-        'https://primefaces.org/cdn/primeng/images/demo/product/' +
-        product.image
-      "
-      [alt]="product.image"
-      class="block m-auto pb-3"
-      *ngIf="product.image"
-    />
-    <div class="field">
-      <label for="name">Name</label>
-      <input
-        type="text"
-        pInputText
-        id="name"
-        [(ngModel)]="product.name"
-        required
-        autofocus
-      />
-      <small class="p-error" *ngIf="submitted && !product.name"
-        >Name is required.</small
-      >
-    </div>
-    <div class="field">
-      <label for="description">Description</label>
-      <textarea
-        id="description"
-        pInputTextarea
-        [(ngModel)]="product.description"
-        required
-        rows="3"
-        cols="20"
-      ></textarea>
-    </div>
+<p-dialog [(visible)]="visible" [style]="{ width: '50vw' }">
+  <h3 class="form-heading">Add Product</h3>
+  <div class="formbold-main-wrapper">
+    <div class="formbold-form-wrapper">
+      <form [formGroup]="addProductForm">
+        <div class="formbold-input-flex">
+          <div>
+            <label for="productname" class="formbold-form-label">
+              Product Name
+            </label>
+            <input
+              type="text"
+              id="productname"
+              placeholder="product name"
+              class="formbold-form-input"
+              formControlName="productName"
+            />
+            <p
+              class="invalid-error"
+              *ngIf="
+                addProductForm.get('productName')?.invalid &&
+                addProductForm.get('productName')?.touched
+              "
+            >
+              product name is required
+            </p>
+          </div>
 
-    <div class="field">
-      <label for="inventoryStatus">Inventory Status</label>
-      <p-dropdown
-        [(ngModel)]="product.inventoryStatus"
-        inputId="inventoryStatus"
-        [options]="statuses"
-      >
-        <ng-template pTemplate="selectedItem">
-          <p-tag
-            [value]="product.inventoryStatus.toUpperCase()"
-            [severity]="getSeverity(product.inventoryStatus.toUpperCase())"
-          ></p-tag>
-        </ng-template>
-        <ng-template let-option pTemplate="item">
-          <p-tag
-            [value]="option.label"
-            [severity]="getSeverity(option.label)"
-          ></p-tag>
-        </ng-template>
-      </p-dropdown>
-    </div>
+          <div>
+            <label for="productcode" class="formbold-form-label">
+              Product Code
+            </label>
+            <input
+              type="text"
+              name="productcode"
+              id="productcode"
+              placeholder="product code"
+              class="formbold-form-input"
+              formControlName="productCode"
+            />
+            <p
+              class="invalid-error"
+              *ngIf="
+                addProductForm.get('productCode')?.invalid &&
+                addProductForm.get('productCode')?.touched
+              "
+            >
+              product code is required
+            </p>
+          </div>
+        </div>
 
-    <div class="field">
-      <label class="mb-3">Category</label>
-      <div class="formgrid grid">
-        <div class="field-radiobutton col-6">
-          <p-radioButton
-            id="category1"
-            name="category"
-            value="Accessories"
-            [(ngModel)]="product.category"
-          ></p-radioButton>
-          <label for="category1">Accessories</label>
-        </div>
-        <div class="field-radiobutton col-6">
-          <p-radioButton
-            id="category2"
-            name="category"
-            value="Clothing"
-            [(ngModel)]="product.category"
-          ></p-radioButton>
-          <label for="category2">Clothing</label>
-        </div>
-        <div class="field-radiobutton col-6">
-          <p-radioButton
-            id="category3"
-            name="category"
-            value="Electronics"
-            [(ngModel)]="product.category"
-          ></p-radioButton>
-          <label for="category3">Electronics</label>
-        </div>
-        <div class="field-radiobutton col-6">
-          <p-radioButton
-            id="category4"
-            name="category"
-            value="Fitness"
-            [(ngModel)]="product.category"
-          ></p-radioButton>
-          <label for="category4">Fitness</label>
-        </div>
-      </div>
-    </div>
+        <div class="formbold-input-flex">
+          <div>
+            <label for="price" class="formbold-form-label"> Price </label>
+            <input
+              type="text"
+              name="price"
+              id="price"
+              placeholder="price"
+              class="formbold-form-input"
+              formControlName="price"
+            />
+            <p
+              class="invalid-error"
+              *ngIf="
+                addProductForm.get('price')?.invalid &&
+                addProductForm.get('price')?.touched
+              "
+            >
+              price is required
+            </p>
+          </div>
 
-    <div class="formgrid grid">
-      <div class="field col">
-        <label for="price">Price</label>
-        <p-inputNumber
-          id="price"
-          [(ngModel)]="product.price"
-          mode="currency"
-          currency="USD"
-          locale="en-US"
-        ></p-inputNumber>
-      </div>
-      <div class="field col">
-        <label for="quantity">Quantity</label>
-        <p-inputNumber
-          id="quantity"
-          [(ngModel)]="product.quantity"
-        ></p-inputNumber>
-      </div>
-    </div>
-  </ng-template>
+          <div>
+            <label class="formbold-form-label">Quantity</label>
 
+            <select
+              class="formbold-form-input"
+              formControlName="quantity"
+              id="quantity"
+            >
+            <option value="">Select your option</option>
+
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+            </select>
+            <p
+              class="invalid-error"
+              *ngIf="
+                addProductForm.get('quantity')?.invalid &&
+                addProductForm.get('quantity')?.touched
+              "
+            >
+              quantity is required
+            </p>
+          </div>
+        </div>
+        <div class="formbold-input-flex">
+      
+          <div>
+            <label class="formbold-form-label">Category</label>
+
+            <select
+              class="formbold-form-input"
+              formControlName="category"
+              id="category"
+            >
+            <option >Select your option</option>
+
+              <option *ngFor="let item of categoryList">{{item?.name}}</option>
+              
+            </select>
+            <p
+              class="invalid-error"
+              *ngIf="
+                addProductForm.get('category')?.invalid &&
+                addProductForm.get('category')?.touched
+              "
+            >
+            category is required
+            </p>
+          </div>
+
+          <div>
+            <label class="formbold-form-label">Inventory Status</label>
+
+            <select
+              class="formbold-form-input"
+              formControlName="inventoryStatus"
+              id="inventoryStatus" 
+            >
+            <option value="">Select your option</option>
+
+              <option *ngFor="let item of statusList ">{{item}}</option>
+             
+
+            </select>
+            <p
+              class="invalid-error"
+              *ngIf="
+                addProductForm.get('inventoryStatus')?.invalid &&
+                addProductForm.get('inventoryStatus')?.touched
+              "
+            >
+            inventoryStatus is required
+            </p>
+          </div>
+        </div>
+        <div class="formbold-mb-3">
+          <label for="message" class="formbold-form-label">
+            Description
+          </label>
+          <textarea
+            rows="2"
+            name="message"
+            id="message"
+            class="formbold-form-input"
+            placeholder="write description here"
+            formControlName="productDescription"
+          ></textarea>
+          <p
+            class="invalid-error"
+            *ngIf="
+              addProductForm.get('productDescription')?.invalid &&
+              addProductForm.get('productDescription')?.touched
+            "
+          >
+            description is required
+          </p>
+        </div>
+
+        <div class="formbold-form-file-flex">
+          <label for="upload" class="formbold-form-label">
+            Upload Image
+          </label>
+          <input
+            type="file"
+            name="upload"
+            id="upload"
+            class="formbold-form-file"
+            (change)="onFileChange($event)" multiple
+          />
+        </div>
+
+        <!-- <button class="formbold-btn" [disabled]="addProductForm.invalid" (click)="submitAddProductForm()">submit</button> -->
+      </form>
+    </div>
+  </div>
   <ng-template pTemplate="footer">
     <button
       pButton
