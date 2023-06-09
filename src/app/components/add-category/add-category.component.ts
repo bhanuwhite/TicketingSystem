@@ -45,7 +45,7 @@ export class AddCategoryComponent {
 
   categoryInit() {
     this.categoryForm = this.fb.group({
-      name: ['', [Validators.required, Validators.pattern(/^[A-Za-z]+$/)]],
+      name: ['', [Validators.required, Validators.pattern(/^[A-Za-z\s]+$/)]],
     });
   }
   openNew() {
