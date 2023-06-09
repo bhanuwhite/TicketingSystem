@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { productconst } from 'src/app/shared/constant';
 import { DataFetchService } from 'src/app/shared/services/common.service';
@@ -21,7 +21,6 @@ export class AllProductsComponent {
 
   submitted!: boolean;
   visible!: boolean;
-  statuses!: any[];
   productConst: any = productconst;
   addProductForm!: FormGroup;
   categoryList!: any[];
@@ -29,6 +28,13 @@ export class AllProductsComponent {
   initalStatus: string = 'Select Inventory Status';
   files: File[] = [];
   statusList: any;
+  statuses = [
+    { label: 'INSTOCK', value: 'instock' },
+    { label: 'LOWSTOCK', value: 'lowstock' },
+    { label: 'OUTOFSTOCK', value: 'outofstock' },
+  ];
+  placeholderOption: any = { label: 'Select an option', value: '' };
+
 
   constructor(
     private messageService: MessageService,
@@ -41,16 +47,13 @@ export class AllProductsComponent {
     this.getcategory();
     this.getstatus();
     this.getProducts();
-    this.statuses = [
-      { label: 'INSTOCK', value: 'instock' },
-      { label: 'LOWSTOCK', value: 'lowstock' },
-      { label: 'OUTOFSTOCK', value: 'outofstock' },
-    ];
+   
   }
   getcategory(): void {
     this.service.getData('listCategory').subscribe((res) => {
       this.categoryList = res.categoryList;
-      console.log(res);
+      console.log(this.categoryList);
+    
     });
   }
   getstatus(): void {
@@ -61,15 +64,23 @@ export class AllProductsComponent {
   }
   productsInit(): void {
     this.addProductForm = this.fb.group({
-      productName: ['', Validators.required],
-      productCode: ['', Validators.required],
-      price: ['', Validators.required],
-      quantity: ['', Validators.required],
+      productName: ['',[ Validators.required,Validators.pattern('^[a-zA-Z]+$')]],
+      productCode: ['',[Validators.required,Validators.pattern('^[0-9]+$')]],
+      price: ['', [Validators.required,Validators.pattern('^[0-9]+$')]],
+      quantity: ['', [Validators.required,,Validators.pattern('^[0-9]+$')]],
       category: ['', Validators.required],
       inventoryStatus: ['', Validators.required],
-      productDescription: ['', Validators.required],
+      productDescription: ['', Validators.required]
+
     });
+    
   }
+
+  // validateProductName(control: FormControl): { [key: string]: any } | null {
+  //   const regex = /^[a-zA-Z]+$/; // Only alphabets allowed
+  //   return regex.test(control.value) ? null : { invalidProductName: true };
+  // }
+
   getProducts() {
     this.service.getData('displayProduct').subscribe((res) => {
       this.products = res.allProducts;
