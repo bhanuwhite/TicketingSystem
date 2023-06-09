@@ -90,10 +90,10 @@ export class AllProductsComponent {
     this.addProductForm = this.fb.group({
       productName: [
         '',
-        [Validators.required, Validators.pattern('^[a-zA-Z]+$')],
+        [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)],
       ],
-      productCode: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      price: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      productCode: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9]+$/)]],
+      price: ['', [Validators.required, Validators.pattern(/^\d+(\.\d+)?$/)]],
       quantity: ['', [Validators.required, , Validators.pattern('^[0-9]+$')]],
       category: ['', Validators.required],
       inventoryStatus: ['', Validators.required],

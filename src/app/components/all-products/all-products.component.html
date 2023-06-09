@@ -180,10 +180,20 @@
               class="invalid-error"
               *ngIf="
                 addProductForm.get('productName')?.invalid &&
-                addProductForm.get('productName')?.touched
+                addProductForm.get('productName')?.touched &&
+                addProductForm.get('productName')?.pristine
               "
             >
-              product name is required
+              Product name is required
+            </p>
+            <p
+              class="invalid-error"
+              *ngIf="
+                addProductForm.get('productName')?.invalid &&
+                addProductForm.get('productName')?.dirty
+              "
+            >
+              This field only allows alphabets
             </p>
           </div>
 
@@ -206,7 +216,7 @@
                 addProductForm.get('productCode')?.touched
               "
             >
-              product code is required
+              This field only allows numbers and alphabets
             </p>
           </div>
         </div>
@@ -228,10 +238,21 @@
               class="invalid-error"
               *ngIf="
                 addProductForm.get('price')?.invalid &&
+                addProductForm.get('price')?.pristine &&
                 addProductForm.get('price')?.touched
               "
             >
-              price is required
+              Price is required
+            </p>
+
+            <p
+              class="invalid-error"
+              *ngIf="
+                addProductForm.get('price')?.invalid &&
+                addProductForm.get('price')?.dirty
+              "
+            >
+              This field only allows numbers and decimal
             </p>
           </div>
 
@@ -251,10 +272,20 @@
               class="invalid-error"
               *ngIf="
                 addProductForm.get('quantity')?.invalid &&
-                addProductForm.get('quantity')?.touched
+                addProductForm.get('quantity')?.touched &&
+                addProductForm.get('quantity')?.pristine
               "
             >
               Quantity is required
+            </p>
+            <p
+              class="invalid-error"
+              *ngIf="
+                addProductForm.get('quantity')?.invalid &&
+                addProductForm.get('quantity')?.dirty
+              "
+            >
+              This field only allows numbers
             </p>
           </div>
         </div>
@@ -363,6 +394,7 @@
       icon="pi pi-check"
       class="p-button-text"
       (click)="saveProduct()"
+      [disabled]="addProductForm.invalid"
     ></button>
   </ng-template>
 </p-dialog>

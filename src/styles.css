@@ -3,7 +3,10 @@
 @import "primeng/resources/primeng.css";
 
 .p-dialog-draggable .p-dialog-header {
-  padding: 0px;
+  padding:   0px  ;
+}
+p-dialog .p-dialog-content{
+  padding: 0 1rem 0rem 1rem
 }
 
 .p-dropdown.p-component {
@@ -36,3 +39,10 @@
 .dropdown-menu-first .dropdown-item {
   padding: 0.25rem 0.5rem !important;
 }
+p-dialog .p-dialog-footer{
+  padding: 0px 0px 0.5rem 0px!important;
+}
+.p-dialog-footer .p-button{
+  padding: 0.3rem 1rem;
+}
+
