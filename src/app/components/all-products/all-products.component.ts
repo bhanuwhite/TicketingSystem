@@ -65,8 +65,8 @@ export class AllProductsComponent {
   productsInit(): void {
     this.addProductForm = this.fb.group({
       productName: ['',[ Validators.required,Validators.pattern('^[a-zA-Z]+$')]],
-      productCode: ['',[Validators.required,Validators.pattern('^[0-9]+$')]],
-      price: ['', [Validators.required,Validators.pattern('^[0-9]+$')]],
+      productCode: ['',[Validators.required,Validators.pattern('^[a-zA-Z0-9]+$')]],
+      price: ['', [Validators.required,Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$')]],
       quantity: ['', [Validators.required,,Validators.pattern('^[0-9]+$')]],
       category: ['', Validators.required],
       inventoryStatus: ['', Validators.required],
@@ -183,6 +183,7 @@ export class AllProductsComponent {
               });
               this.visible = false;
               this.getProducts();
+              this.addProductForm.reset();
             }
           });
       }
@@ -194,6 +195,7 @@ export class AllProductsComponent {
         life: 3000,
       });
     }
+    
   }
   // if (this.product.name.trim()) {
 
