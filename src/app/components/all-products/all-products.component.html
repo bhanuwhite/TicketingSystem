@@ -36,19 +36,17 @@
           label="Export"
           icon="pi pi-upload"
           class="p-button-help"
+          (click)="exportToCSV()"
         ></button>
       </ng-template>
     </p-toolbar>
 
     <p-table
-      #dt
+      #dataTable
       [value]="products"
       [rows]="10"
       [paginator]="true"
-      [globalFilterFields]="[
-        'productName',
-        
-      ]"
+      [globalFilterFields]="['productName']"
       [tableStyle]="{ 'min-width': '75rem' }"
       [(selection)]="selectedProducts"
       [rowHover]="true"
@@ -65,7 +63,7 @@
               pInputText
               #textInput
               type="text"
-              (input)="dt.filterGlobal(textInput.value, 'contains')"
+              (input)="dataTable.filterGlobal(textInput.value, 'contains')"
               placeholder="Search..."
             />
           </span>
@@ -103,9 +101,7 @@
           <td>{{ product.productName }}</td>
           <td>
             <img
-              [src]="
-                product.images
-              "
+              [src]="product.images"
               [alt]="product.name"
               width="50"
               class="shadow-4"
@@ -135,7 +131,7 @@
               pRipple
               icon="pi pi-pencil"
               class="p-button-rounded p-button-success mr-2 edit"
-              (click)="editProduct(product)"
+              (click)="editProduct(product, 'edit')"
             ></button>
             <button
               pButton
@@ -156,9 +152,15 @@
   </div>
 </div>
 
-<p-dialog class="p-dialog-header" [closable]="false" [(visible)]="visible" [style]="{ width: '50vw',height:'100vh' }" showCloseIcon="false">
-  
-  <h3 class="form-heading">Add Product</h3>
+<p-dialog
+  class="p-dialog-header"
+  [closable]="false"
+  [(visible)]="visible"
+  [style]="{ width: '50vw', height: '100vh' }"
+  showCloseIcon="false"
+>
+  <h3 *ngIf="checknew" class="form-heading mt-1">Add Product</h3>
+  <h3 *ngIf="checkEdit" class="form-heading mt-1">Edit Product</h3>
   <div class="formbold-main-wrapper">
     <div class="formbold-form-wrapper">
       <form [formGroup]="addProductForm">
@@ -173,7 +175,6 @@
               placeholder="Product name"
               class="formbold-form-input"
               formControlName="productName"
-
             />
             <p
               class="invalid-error"
@@ -202,8 +203,7 @@
               class="invalid-error"
               *ngIf="
                 addProductForm.get('productCode')?.invalid &&
-                addProductForm.get('productCode')?.touched 
-
+                addProductForm.get('productCode')?.touched
               "
             >
               product code is required
@@ -213,7 +213,9 @@
 
         <div class="formbold-input-flex">
           <div>
-            <label for="price" class="formbold-form-label">Price<span class="required">*</span></label>
+            <label for="price" class="formbold-form-label"
+              >Price<span class="required">*</span></label
+            >
             <input
               type="text"
               name="price"
@@ -234,7 +236,9 @@
           </div>
 
           <div>
-            <label class="formbold-form-label">Quantity<span class="required">*</span></label>
+            <label class="formbold-form-label"
+              >Quantity<span class="required">*</span></label
+            >
 
             <input
               class="formbold-form-input"
@@ -242,7 +246,7 @@
               id="quantity"
               placeholder="Quantity"
             />
-            
+
             <p
               class="invalid-error"
               *ngIf="
@@ -255,19 +259,20 @@
           </div>
         </div>
         <div class="formbold-input-flex">
-      
           <div>
-            <label class="formbold-form-label">Category<span class="required">*</span></label>
+            <label class="formbold-form-label"
+              >Category<span class="required">*</span></label
+            >
 
-
-            <select 
+            <select
               class="formbold-form-input"
               formControlName="category"
               id="category"
             >
-            <option value=""   disabled selected>Select an option</option>
-            <option   *ngFor="let item of categoryList" >{{item?.name}}</option>
-              
+              <option value="" disabled selected>Select an option</option>
+              <option *ngFor="let item of categoryList">
+                {{ item?.name }}
+              </option>
             </select>
             <p
               class="invalid-error"
@@ -276,23 +281,23 @@
                 addProductForm.get('category')?.touched
               "
             >
-            Category is required
+              Category is required
             </p>
           </div>
 
           <div>
-            <label class="formbold-form-label">Inventory Status<span class="required">*</span></label>
+            <label class="formbold-form-label"
+              >Inventory Status<span class="required">*</span></label
+            >
             <select
               class="formbold-form-input"
               formControlName="inventoryStatus"
-              id="inventoryStatus" 
+              id="inventoryStatus"
               placeholder="Inventort styatuy"
             >
-            <option value="" disabled selected>Select an option</option>
+              <option value="" disabled selected>Select an option</option>
 
-              <option *ngFor="let item of statusList ">{{item}}</option>
-             
-
+              <option *ngFor="let item of statusList">{{ item }}</option>
             </select>
             <p
               class="invalid-error"
@@ -301,13 +306,13 @@
                 addProductForm.get('inventoryStatus')?.touched
               "
             >
-            Inventory status is required
+              Inventory status is required
             </p>
           </div>
         </div>
         <div class="formbold-mb-3">
           <label for="message" class="formbold-form-label">
-            Description<span class="required">*</span> 
+            Description<span class="required">*</span>
           </label>
           <textarea
             rows="2"
@@ -329,23 +334,21 @@
         </div>
 
         <div class="formbold-form-file-flex">
-          <label for="upload" class="formbold-form-label">
-            Upload Image
-          </label>
+          <label for="upload" class="formbold-form-label"> Upload Image </label>
           <input
             type="file"
             name="upload"
             id="upload"
             class="formbold-form-file"
-            (change)="onFileChange($event)" multiple
+            (change)="onFileChange($event)"
+            multiple
           />
         </div>
-
       </form>
     </div>
   </div>
   <ng-template pTemplate="footer">
-    <button 
+    <button
       pButton
       pRipple
       label="Cancel"
@@ -362,7 +365,6 @@
       (click)="saveProduct()"
     ></button>
   </ng-template>
-
 </p-dialog>
 
 <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

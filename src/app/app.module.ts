@@ -37,7 +37,6 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { AddCategoryComponent } from './components/add-category/add-category.component';
 
 
-
 @NgModule({
   declarations: [AppComponent, HeaderComponent, SidebarComponent, FooterComponent, AdminDashboardComponent, LoginComponent, AllProductsComponent, PageNotFoundComponent, AddCategoryComponent],
   imports: [
@@ -65,7 +64,8 @@ CommonModule,
     InputTextareaModule,
     DropdownModule,
     RadioButtonModule,
-    InputNumberModule
+    InputNumberModule,
+    
 
 
 
