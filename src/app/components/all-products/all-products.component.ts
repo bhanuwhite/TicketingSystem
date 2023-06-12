@@ -29,7 +29,7 @@ export class AllProductsComponent {
   submitted!: boolean;
   visible!: boolean;
   productConst: any = productconst;
-  addProductForm!: FormGroup;
+  addProductForm!: FormGroup  ;
   categoryList!: any[];
   categoryName: string = 'Select Category';
   initalStatus: string = 'Select Inventory Status';
@@ -100,6 +100,7 @@ export class AllProductsComponent {
       productDescription: ['', Validators.required],
     });
   }
+  
 
   getProducts() {
     this.service.getData('displayProduct').subscribe((res) => {
