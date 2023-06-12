@@ -35,10 +35,12 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { AddCategoryComponent } from './components/add-category/add-category.component';
+import { TaxPageComponent } from './components/tax-page/tax-page.component';
+import { PlaceOrderComponent } from './components/place-order/place-order.component';
 
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, SidebarComponent, FooterComponent, AdminDashboardComponent, LoginComponent, AllProductsComponent, PageNotFoundComponent, AddCategoryComponent],
+  declarations: [AppComponent, HeaderComponent, SidebarComponent, FooterComponent, AdminDashboardComponent, LoginComponent, AllProductsComponent, PageNotFoundComponent, AddCategoryComponent, TaxPageComponent, PlaceOrderComponent],
   imports: [
 CommonModule,
     BrowserModule,
