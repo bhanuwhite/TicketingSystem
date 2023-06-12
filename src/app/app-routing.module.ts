@@ -12,11 +12,7 @@ import { AddCategoryComponent } from './components/add-category/add-category.com
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  {
-    path: 'raise-ticket',
-    component: RaiseTicketComponent,
-    canActivate: [AuthGuard],
-  },
+ 
   {
     path: 'admin-dashboard',
     component: AdminDashboardComponent,
@@ -31,6 +27,7 @@ const routes: Routes = [
         path: 'support',
         component: SupportComponent,
         canActivate: [AuthGuard],
+        children:[{path:'raise-ticket', component:RaiseTicketComponent}]
       },
       {
         path: 'addcategory',
