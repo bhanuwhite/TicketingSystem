@@ -6,7 +6,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { productconst } from 'src/app/shared/constant';
 import { DataFetchService } from 'src/app/shared/services/common.service';
 import * as Papa from 'papaparse';
 import { Table } from 'primeng/table';
@@ -28,7 +27,6 @@ export class AllProductsComponent {
 
   submitted!: boolean;
   visible!: boolean;
-  productConst: any = productconst;
   addProductForm!: FormGroup  ;
   categoryList!: any[];
   categoryName: string = 'Select Category';

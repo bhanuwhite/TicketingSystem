@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { productconst } from 'src/app/shared/constant';
 import { DataFetchService } from 'src/app/shared/services/common.service';
 @Component({
   selector: 'app-add-category',
@@ -21,7 +20,6 @@ export class AddCategoryComponent {
   submitted!: boolean;
 
   statuses!: any[];
-  productConst: any = productconst;
   categoryForm!: FormGroup;
   editsave!: string;
   editId: any;

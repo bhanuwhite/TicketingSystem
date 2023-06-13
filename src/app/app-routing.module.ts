@@ -8,10 +8,12 @@ import { SupportComponent } from './components/admin-panel/support/support.compo
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { RaiseTicketComponent } from './components/admin-panel/raise-ticket/raise-ticket.component';
 import { AddCategoryComponent } from './components/add-category/add-category.component';
+import { PlaceOrderComponent } from './components/place-order/place-order.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+  { path: 'order', component: PlaceOrderComponent },
  
   {
     path: 'admin-dashboard',

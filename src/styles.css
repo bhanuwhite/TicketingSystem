@@ -8,11 +8,13 @@
 p-dialog .p-dialog-content{
   padding: 0 1rem 0rem 1rem
 }
-
+span.ng-tns-c41-0.p-autocomplete.p-component.p-autocomplete-dd {
+  width: 100%;
+}
 .p-dropdown.p-component {
   width: 100%;
-  height: 45px;
-  border-radius: 10px;
+  /* height: 45px;
+  border-radius: 10px; */
 }
 /* span.p-tag.p-component {
     background: #eee;
