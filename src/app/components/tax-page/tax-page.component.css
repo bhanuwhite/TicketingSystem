@@ -1,0 +1,101 @@
+.content-inner {
+    width: 100% !important;
+    overflow-y: auto;
+    height: 100vh !important;
+  }
+  .edit {
+    border-radius: 50% !important;
+    height: 2rem !important;
+}
+.edit{
+  width: 2rem !important;
+  padding: 0.75rem 0 !important;}
+p-dialog{
+height: 300px;
+}
+.date-input{
+    display: flex;
+    flex-direction: row;
+}
+input{
+    margin: 12px;
+}
+.input-form{
+    display: flex;
+    align-items: center;
+    gap: 7%;
+}
+.input-form-2{
+    display: flex;
+    align-items: center;
+    gap: 2.5%;
+}
+.input-imprt{
+    display: flex;
+    gap: 61px;
+}
+.input-form-1{
+    display: flex;
+    align-items: center;
+    gap: 8%;
+}
+.p-button-success{
+    background-color: #22C55E;
+}
+.form-button-container{
+    float: right;
+    gap: 20px;
+}
+.form-button-container button{
+    background-color: #559192;
+    color: #fff;
+}
+.form-button-container button :hover{
+    background-color: #2c8688;
+  color: #ffffff;
+}
+.invalid-error{
+    margin-left: 117px;
+    color: red;
+    transform: translateY(-13px);
+}
+.invalid-error-date{
+    margin-left: 117px;
+    color: red;
+    transform: translateY(-4px);
+}
+.add-buttons{
+    margin: 17px;
+}
+.delete-icon{
+margin-left: 8px;
+}
+.required{
+    color: red;
+}
+.to{
+    margin-top: 12px;
+}
+.p-dialog-content{
+    height: 55vh !important;
+  }
+  .p-dialog-title{
+    margin-left: 310px !important;
+    font-size: 30px !important;
+    margin-top: 20px;
+  }
+select .select-tax{
+    height: 30px;
+    width: 90px ;
+}
+.tax-heading-wrapper{
+    padding: 1rem 1rem;
+   
+    .p-input-icon-left > i:first-of-type {
+        left: 1.75rem;
+    }
+}
+
+.tax-heading{
+    padding-left: 12px;
+}

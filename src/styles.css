@@ -46,3 +46,34 @@ p-dialog .p-dialog-footer{
   padding: 0.3rem 1rem;
 }
 
+.form-button-container{
+  padding-top: 20px;
+  display: flex;
+  gap: 6px;
+}
+.p-datepicker table th{
+  padding-top: 20px;
+}
+.p-datepicker table th,
+.p-datepicker table td{
+  padding: 0px !important;
+}
+.p-datepicker table td > span {
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+}
+.p-datepicker table {
+  margin-top: 15px !important;
+margin-bottom: 0px !important;
+}
+.date-input{
+  gap: 5px;
+}
+.p-dialog-title{
+  margin-left: 310px !important;
+  font-size: 30px !important;
+  margin-top: 20px;
+}
+app-tax-page{
+  width: 100%;
+}

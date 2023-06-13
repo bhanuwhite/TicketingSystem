@@ -29,7 +29,7 @@ export class AllProductsComponent {
   submitted!: boolean;
   visible!: boolean;
   productConst: any = productconst;
-  addProductForm!: FormGroup  ;
+  addProductForm!: FormGroup;
   categoryList!: any[];
   categoryName: string = 'Select Category';
   initalStatus: string = 'Select Inventory Status';
@@ -92,7 +92,10 @@ export class AllProductsComponent {
         '',
         [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)],
       ],
-      productCode: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9]+$/)]],
+      productCode: [
+        '',
+        [Validators.required, Validators.pattern(/^[a-zA-Z0-9]+$/)],
+      ],
       price: ['', [Validators.required, Validators.pattern(/^\d+(\.\d+)?$/)]],
       quantity: ['', [Validators.required, , Validators.pattern('^[0-9]+$')]],
       category: ['', Validators.required],
@@ -100,7 +103,6 @@ export class AllProductsComponent {
       productDescription: ['', Validators.required],
     });
   }
-  
 
   getProducts() {
     this.service.getData('displayProduct').subscribe((res) => {
@@ -311,8 +313,8 @@ export class AllProductsComponent {
         });
       }
     }
-  };
-  
+  }
+
   getSeverity(status: string): any {
     switch (status) {
       case 'INSTOCK':

@@ -37,7 +37,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { AddCategoryComponent } from './components/add-category/add-category.component';
 import { TaxPageComponent } from './components/tax-page/tax-page.component';
 import { PlaceOrderComponent } from './components/place-order/place-order.component';
-
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, SidebarComponent, FooterComponent, AdminDashboardComponent, LoginComponent, AllProductsComponent, PageNotFoundComponent, AddCategoryComponent, TaxPageComponent, PlaceOrderComponent],
@@ -67,6 +67,7 @@ CommonModule,
     DropdownModule,
     RadioButtonModule,
     InputNumberModule,
+    CalendarModule,
     
 
 

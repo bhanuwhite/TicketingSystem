@@ -8,6 +8,7 @@ import { SupportComponent } from './components/admin-panel/support/support.compo
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { RaiseTicketComponent } from './components/admin-panel/raise-ticket/raise-ticket.component';
 import { AddCategoryComponent } from './components/add-category/add-category.component';
+import { TaxPageComponent } from './components/tax-page/tax-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -34,6 +35,9 @@ const routes: Routes = [
         component: AddCategoryComponent,
         canActivate: [AuthGuard],
       },
+      {
+        path:'tax-page',component:TaxPageComponent
+      }
     ],
   },
   { path: '**', component: PageNotFoundComponent },

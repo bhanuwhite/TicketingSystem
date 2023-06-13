@@ -4,7 +4,7 @@ export const fliters: { name: string }[] = [
   { name: 'Fliters 3' },
 ];
 
-export const baseUrl = 'http://192.168.0.236:3000/api/';
+export const baseUrl = 'http://192.168.0.240:3000/api/';
 export const selectedButtons: {
   selectAll: boolean;
   selectunassigned: boolean;
