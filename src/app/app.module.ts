@@ -38,6 +38,7 @@ import { AddCategoryComponent } from './components/add-category/add-category.com
 import { TaxPageComponent } from './components/tax-page/tax-page.component';
 import { PlaceOrderComponent } from './components/place-order/place-order.component';
 import { CalendarModule } from 'primeng/calendar';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, SidebarComponent, FooterComponent, AdminDashboardComponent, LoginComponent, AllProductsComponent, PageNotFoundComponent, AddCategoryComponent, TaxPageComponent, PlaceOrderComponent],
@@ -68,7 +69,7 @@ CommonModule,
     RadioButtonModule,
     InputNumberModule,
     CalendarModule,
-    
+    MultiSelectModule,
 
 
 

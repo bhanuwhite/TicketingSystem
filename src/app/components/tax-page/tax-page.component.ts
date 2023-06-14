@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -50,11 +51,12 @@ export class TaxPageComponent {
   taxFormValidation(): void {
     this.taxForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
-      startDate: ['', [Validators.required, Validators.pattern('')]],
+      startDate: ['', [Validators.required]],
       endDate: [''],
       percentage: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
     });
   }
+
   openNew() {
     this.submitted = false;
     this.checknew = true;
@@ -80,13 +82,12 @@ export class TaxPageComponent {
     const jsonstringObj = JSON.stringify(obj);
 
     const data = {
-      name:formVaules.name,
-      period:obj,
-      percentage:formVaules.percentage
+      name: formVaules.name,
+      period: obj,
+      percentage: formVaules.percentage,
+    };
 
-    }
- 
-console.log(data);
+    console.log(data);
     this.service.postData('tax', data).subscribe((response) => {
       console.log(response);
 
@@ -97,7 +98,4 @@ console.log(data);
       }
     });
   }
-
-  
 }
-
