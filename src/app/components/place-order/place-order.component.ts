@@ -15,14 +15,17 @@ export class PlaceOrderComponent {
   filteredCountries!: any[];
   addProduct!: FormGroup;
   idcount: any;
-  productsDemo=[];
+  productsDemo = [];
   // @ViewChild('autoComplete', { static: false }) autoComplete!: AutoComplete;
-  selectedPrice: any;
+  selectedPrice_quantity: any;
+  selectedPrice_product: any;
+  taxlist: any;
 
   constructor(private services: DataFetchService, private fb: FormBuilder) {}
   ngOnInit(): void {
     this.getProducts();
     this.productinit();
+    this.getTax();
   }
 
   productinit(): void {
@@ -31,28 +34,39 @@ export class PlaceOrderComponent {
       quantity: ['1', [Validators.required, Validators.pattern('^[0-9]+$')]],
       price: [''],
       tax: ['', [Validators.required]],
+      amount: [''],
     });
   }
 
   getProducts(): void {
-    this.services.getData('select').subscribe((data: any) => {
-      console.log(data.lists);
-      this.countries = data.lists;
+    this.services.getData('select').subscribe((res: any) => {
+      console.log(res.data.lists);
+      this.countries = res.data.lists;
     });
+  }
+  getTax(){
+    this.services.getData('taxLists').subscribe((res: any) => {
+      console.log(res.taxList);
+      this.taxlist=res.taxList;
+    })
   }
   onQuantityChange(event: any): void {
     console.log(event.target.value);
+    this.selectedPrice_quantity = event.target.value * this.selectedPrice_product;
+    console.log(this.selectedPrice_quantity);
+    this.addProduct.patchValue({ price: this.selectedPrice_quantity });
   }
   selectProduct(event: any): void {
-    this.selectedPrice = event?.price;
+    this.selectedPrice_product = event?.price;
+    this.selectedPrice_quantity = event?.price;
     console.log(event?.price);
-    this.addProduct.patchValue({'price': this.selectedPrice});
+    this.addProduct.patchValue({ price: this.selectedPrice_quantity });
   }
 
   filterCountry(event: any) {
     console.log(event.query);
     let filtered: any[] = [];
-    let query = event.query;
+    let query = event?.query;
     if (event.query.length > 1) {
       for (let i = 0; i < this.countries.length; i++) {
         let country = this.countries[i];
@@ -63,5 +77,6 @@ export class PlaceOrderComponent {
     }
 
     this.filteredCountries = filtered;
+    console.log(this.filteredCountries);
   }
 }

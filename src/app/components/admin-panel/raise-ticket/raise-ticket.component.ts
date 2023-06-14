@@ -117,7 +117,7 @@ export class RaiseTicketComponent {
         formData.append('image', this.file);
         this.service.postData('users', formData).subscribe((response) => {
           if (response.data.statusCode === '201') {
-            this.router.navigate(['/support']);
+            this.router.navigate(['/admin-dashboard/support']);
           } else {
             alert('Something went wrong');
           }

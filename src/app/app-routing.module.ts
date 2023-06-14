@@ -29,11 +29,16 @@ const routes: Routes = [
         path: 'support',
         component: SupportComponent,
         canActivate: [AuthGuard],
-        children:[{path:'raise-ticket', component:RaiseTicketComponent}]
+        
       },
       {
         path: 'addcategory',
         component: AddCategoryComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'support/raise-ticket',
+        component: RaiseTicketComponent,
         canActivate: [AuthGuard],
       },
     ],

@@ -9,7 +9,7 @@
           [disabled]="!selectedProducts || !selectedProducts.length"></button>
       </ng-template>
 
-      <ng-template pTemplate="right">
+      <ng-template pTemplate="right" class="custom-dropdown">
         <!-- <p-fileUpload
           mode="basic"
           accept="image/*"
@@ -18,8 +18,10 @@
           chooseLabel="Import"
           class="mr-2 inline-block"
         ></p-fileUpload> -->
-        <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"
-          (click)="exportToCSV()"></button>
+        <!-- <button pButton pRipple label="Export" icon="pi pi-upload" 
+          (click)="exportToCSV()"></button> -->
+          
+<p-dropdown [options]="export" placeholder="Export" optionLabel="name" (onChange)="onOptionClick($event)" ></p-dropdown>
       </ng-template>
     </p-toolbar>
 
@@ -41,8 +43,11 @@
           <th style="width: 4rem">
             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
           </th>
-          <th pSortableColumn="productName" style="min-width: 15rem">
+          <th pSortableColumn="productName" style="min-width: 10rem">
             Name <p-sortIcon field="productName"></p-sortIcon>
+          </th>
+          <th pSortableColumn="productCode" style="min-width: 5rem">
+            SKU <p-sortIcon field="productCode"></p-sortIcon>
           </th>
           <th>Image</th>
           <th pSortableColumn="price">
@@ -66,6 +71,7 @@
             <p-tableCheckbox [value]="product"></p-tableCheckbox>
           </td>
           <td>{{ product.productName }}</td>
+          <td>{{ product.productCode }}</td>
           <td>
             <img [src]="product.images" [alt]="product.name" width="50" class="shadow-4" />
           </td>
@@ -94,7 +100,7 @@
       </ng-template>
       <ng-template pTemplate="summary">
         <div class="flex align-items-center justify-content-between">
-          {{ products ? products.length : 0 }} roducts.
+          {{ products ? products.length : 0 }} Products.
         </div>
       </ng-template>
     </p-table>
@@ -133,7 +139,7 @@
 
           <div>
             <label for="productcode" class="formbold-form-label">
-              Product Code<span class="required">*</span>
+              SKU<span class="required">*</span>
             </label>
             <input type="text" name="productcode" id="productcode" placeholder="Product code"
               class="formbold-form-input" formControlName="productCode" />

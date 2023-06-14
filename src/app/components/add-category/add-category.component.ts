@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -65,7 +66,7 @@ export class AddCategoryComponent {
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
-          detail: 'Products Deleted',
+          detail: 'Category Deleted',
           life: 3000,
         });
       },
@@ -93,7 +94,7 @@ export class AddCategoryComponent {
                 this.messageService.add({
                   severity: 'success',
                   summary: 'Successful',
-                  detail: 'Product Deleted',
+                  detail: 'Category Deleted',
                   life: 3000,
                 });
                 this.getCategory();
@@ -152,31 +153,54 @@ export class AddCategoryComponent {
         const data = {
           name: this.categoryForm.value.name,
         };
-        this.service.postData('addCategory', data).subscribe((res) => {
-          if (res.data.status === '200') {
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Successful',
-              detail: 'Category Created',
-              life: 3000,
-            });
-            this.productDialog = false;
-            this.getCategory();
-          }
+        // this.service.postData('addCategory', data).subscribe((res) => {
+        //   if (res.data.status === '200') {
+        //     this.messageService.add({
+        //       severity: 'success',
+        //       summary: 'Successful',
+        //       detail: 'Category Created',
+        //       life: 3000,
+        //     });
+        //     this.productDialog = false;
+        //     this.getCategory();
+        //   }
+        // });
+        this.service.postData('addCategory', data).subscribe({
+          next: (res: any) => {
+            if (res.data.status === '200') {
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Successful',
+                detail: 'Category Created',
+                life: 3000,
+              });
+              this.productDialog = false;
+              this.getCategory();
+            }
+          },
+          error: (err: HttpErrorResponse) => {
+            if (err.status == 400) {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'error',
+                detail: 'Category already exists',
+                life: 3000,
+              });
+            } else {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'error',
+                detail: 'Something went wrong',
+                life: 3000,
+              });
+            }
+          },
         });
       }
     } catch (error) {
-      if (error) {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'error',
-          detail: 'Something went wrong',
-          life: 3000,
-        });
-        this.productDialog = false;
-      }
+      console.log(error);
     }
-  };
+  }
   getSeverity(status: string): any {
     switch (status) {
       case 'INSTOCK':

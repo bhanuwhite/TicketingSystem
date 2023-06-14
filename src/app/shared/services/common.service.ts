@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { baseUrl } from '../constant';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,7 +12,7 @@ baseUrl = baseUrl;
   getData(url:string){
     return this.http.get<any>(this.baseUrl+url);
   }
-  postData(url:string,body:any){
+  postData(url:string,body:any):Observable<any>{
     return this.http.post<any>(this.baseUrl+url,body);
   }
   putData(url:string,body:any){

@@ -2,18 +2,20 @@
   <p-table [value]="productsDemo" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
       <tr>
-        <th>Code</th>
-        <th>Name</th>
-        <th>Category</th>
+        <th>Product</th>
         <th>Quantity</th>
+        <th>Price</th>
+        <th>Tax</th>
+        <th>Amount</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-product>
       <tr>
-        <td>{{ product?.code }}</td>
         <td>{{ product?.name }}</td>
-        <td>{{ product?.category }}</td>
         <td>{{ product?.quantity }}</td>
+        <td>{{ product?.price }}</td>
+        <td>{{ product?.tax }}</td>
+        <td>{{ product?.amount }}</td>
       </tr>
     </ng-template>
   </p-table>
@@ -29,6 +31,7 @@
 
         <p-autoComplete
           #autoComplete
+          placeholder="Select Product"
           (ngModelChange)="selectProduct($event)"
           formControlName="name"
           [(ngModel)]="selectedCountry"
@@ -59,7 +62,7 @@
           >Quantity</label
         >
         <input
-          (change)="onQuantityChange($event)"
+          (keyup)="onQuantityChange($event)"
           pInputText
           type="text"
           class="w-100"
@@ -111,6 +114,9 @@
         >
 
         <p-dropdown
+        [options]="taxlist" 
+        optionLabel="name"
+        placeholder="Select Tax"
           class="w-100"
           formControlName="tax"
           [ngClass]="{
@@ -135,14 +141,14 @@
         <label for="alphanumeric" class="font-weight-bold block mb-2"
           >Total</label
         >
-        <input pInputText type="text" class="w-100" />
+        <input pInputText type="text" class="w-100" placeholder="Total Amount" formControlName="amount" readonly />
       </div>
     </div>
 
     <hr class="mt-4 mb-4" />
 
     <div class="col-lg-12 d-flex justify-content-end">
-      <button type="submit" class="btn btn-danger">Add Product</button>
+      <button type="submit" class="btn btn-danger" [disabled]="addProduct.invalid">Add Product</button>
     </div>
   </form>
 </div>

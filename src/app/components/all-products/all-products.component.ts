@@ -9,6 +9,8 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { DataFetchService } from 'src/app/shared/services/common.service';
 import * as Papa from 'papaparse';
 import { Table } from 'primeng/table';
+import * as XLSX from 'xlsx';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-all-products',
@@ -27,12 +29,16 @@ export class AllProductsComponent {
 
   submitted!: boolean;
   visible!: boolean;
-  addProductForm!: FormGroup  ;
+  addProductForm!: FormGroup;
   categoryList!: any[];
   categoryName: string = 'Select Category';
   initalStatus: string = 'Select Inventory Status';
   files: File[] = [];
   statusList: any;
+  export: [{ name: string }, { name: string }] = [
+    { name: 'Csv' },
+    { name: 'Excel' },
+  ];
   statuses = [
     { label: 'INSTOCK', value: 'instock' },
     { label: 'LOWSTOCK', value: 'lowstock' },
@@ -56,6 +62,57 @@ export class AllProductsComponent {
     this.getcategory();
     this.getstatus();
     this.getProducts();
+  }
+  //   exportToExcel(): void {
+  //     let data1 = [...this.dataTable.value];
+
+  //     data1=data1.map((x)=>{
+  //   return{
+  //     images:x.images
+  //   }
+  // })
+  // console.log(this.dataTable.value)
+  //     const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.dataTable.el.nativeElement);
+  //     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+  //     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+
+  //     const data: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
+
+  //     const link: HTMLAnchorElement = document.createElement('a');
+  //     link.href = window.URL.createObjectURL(data);
+  //     link.download = 'table-data.xlsx';
+  //     link.click();
+  //     window.URL.revokeObjectURL(link.href);
+  //   }
+  exportToExcel(): void {
+    const data = [...this.dataTable.value]; // Make a copy of the table data
+
+    // Remove the desired column from each row
+    const modifiedData = data.map((row) => {
+      const { images, __v, _id, ratings, ...rest } = row;
+      return rest;
+    });
+
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(modifiedData);
+    const workbook: XLSX.WorkBook = {
+      Sheets: { data: worksheet },
+      SheetNames: ['data'],
+    };
+    const excelBuffer: any = XLSX.write(workbook, {
+      bookType: 'xlsx',
+      type: 'array',
+    });
+
+    const excelData: Blob = new Blob([excelBuffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8',
+    });
+    const fileName = 'table-data.xlsx';
+
+    const link: HTMLAnchorElement = document.createElement('a');
+    link.href = window.URL.createObjectURL(excelData);
+    link.download = fileName;
+    link.click();
+    window.URL.revokeObjectURL(link.href);
   }
 
   exportToCSV() {
@@ -90,7 +147,10 @@ export class AllProductsComponent {
         '',
         [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)],
       ],
-      productCode: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9]+$/)]],
+      productCode: [
+        '',
+        [Validators.required, Validators.pattern(/^[a-zA-Z0-9]+$/)],
+      ],
       price: ['', [Validators.required, Validators.pattern(/^\d+(\.\d+)?$/)]],
       quantity: ['', [Validators.required, , Validators.pattern('^[0-9]+$')]],
       category: ['', Validators.required],
@@ -98,7 +158,6 @@ export class AllProductsComponent {
       productDescription: ['', Validators.required],
     });
   }
-  
 
   getProducts() {
     this.service.getData('displayProduct').subscribe((res) => {
@@ -112,11 +171,20 @@ export class AllProductsComponent {
       this.files.push(files[i]);
     }
   }
+  onOptionClick(event: any) {
+    console.log(event.value.name);
+    if (event.value.name === 'Csv') {
+      this.exportToCSV();
+    } else if (event.value.name === 'Excel') {
+      this.exportToExcel();
+    }
+  }
   openNew() {
     this.submitted = false;
     this.checknew = true;
     this.checkEdit = false;
     this.visible = true;
+    this.editSubmitCheck = 'new';
     this.addProductForm.reset();
   }
 
@@ -142,6 +210,7 @@ export class AllProductsComponent {
 
   editProduct(product: any, editForm: any) {
     this.editSubmitCheck = editForm;
+    console.log(this.editSubmitCheck);
     this.product_id = product._id;
     this.setFormValues(product);
     this.visible = true;
@@ -209,7 +278,7 @@ export class AllProductsComponent {
 
   saveProduct() {
     this.submitted = true;
-
+    console.log(this.editSubmitCheck);
     if (this.editSubmitCheck === 'edit') {
       try {
         if (this.addProductForm.valid) {
@@ -273,15 +342,11 @@ export class AllProductsComponent {
           for (let i = 0; i < this.files.length; i++) {
             formData.append('image', this.files[i]);
           }
-
           console.log('checkin POST body', formData);
-
-          this.service
-            .postData('addProduct', formData)
-            .subscribe((response: any) => {
-              console.log(response);
-
-              if (response.data.status === '201') {
+          this.service.postData('addProduct', formData).subscribe({
+            next: (res: any) => {
+              console.log(res);
+              if (res.data.status === '201') {
                 this.messageService.add({
                   severity: 'success',
                   summary: 'Successful',
@@ -290,6 +355,16 @@ export class AllProductsComponent {
                 });
                 this.visible = false;
                 this.getProducts();
+              }
+            },
+            error: (err: HttpErrorResponse) => {
+              if (err.error.data.status == 400) {
+                this.messageService.add({
+                  severity: 'error',
+                  summary: 'error',
+                  detail: 'Product code already exists',
+                  life: 3000,
+                });
               } else {
                 this.messageService.add({
                   severity: 'error',
@@ -298,19 +373,15 @@ export class AllProductsComponent {
                   life: 3000,
                 });
               }
-            });
+            },
+          });
         }
       } catch (err) {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'error',
-          detail: 'Something went wrong',
-          life: 3000,
-        });
+        console.log(err);
       }
     }
-  };
-  
+  }
+
   getSeverity(status: string): any {
     switch (status) {
       case 'INSTOCK':
