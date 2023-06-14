@@ -1,16 +1,26 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = function checkToken(req, res, next) {
+  const token = req.header('auth');
+  if (!token) return res.status(401).json({ message: "Access Denied" });
+
   try {
-    let token = req.header('auth');
-    return !token
-      ? res.status(401).send({ message: 'Access denied' })
-      : jwt.verify(token, process.env.SECRET_TOKEN, (err, decoded) => {
-          return (err && err.name === 'TokenExpiredError')
-            ? res.status(401).send('Unauthorized User')
-            : (req.user = decoded, next());
-        });
+    jwt.verify(token, process.env.SECRET_TOKEN, (err, decoded) => {
+      if (err) {
+        if (err.name === 'TokenExpiredError') {
+          return res.status(400).json({ message: "Token expired" });
+        }
+        return res.status(401).json({ message: "Unauthorized user" });
+      }
+      req.user = decoded;
+      //  console.log(decoded);
+      //  console.log(`req.user:  ${req.user}`);
+      // console.log(req.user);
+
+      next();
+    });
   } catch (err) {
-    return res.status(400).send(err);
+    // res.status(400).json({ message: "Invalid Token" });
+    res.status(401).json(err);
   }
-}
+};
