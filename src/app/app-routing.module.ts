@@ -9,6 +9,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { RaiseTicketComponent } from './components/admin-panel/raise-ticket/raise-ticket.component';
 import { AddCategoryComponent } from './components/add-category/add-category.component';
 import { PlaceOrderComponent } from './components/place-order/place-order.component';
+import { TaxPageComponent } from './components/tax-page/tax-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -41,6 +42,8 @@ const routes: Routes = [
         component: RaiseTicketComponent,
         canActivate: [AuthGuard],
       },
+       { path:'tax-page',component:TaxPageComponent
+      }
     ],
   },
   { path: '**', component: PageNotFoundComponent },

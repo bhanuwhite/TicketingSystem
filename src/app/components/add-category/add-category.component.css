@@ -17,3 +17,9 @@
 .required{
   color: red;
 }
+.form-name{
+  display: flex;
+  justify-content:center;
+  color: #2c8688
+  /* align-items: center; */
+}

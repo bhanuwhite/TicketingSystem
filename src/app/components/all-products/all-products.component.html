@@ -107,7 +107,7 @@
   </div>
 </div>
 
-<p-dialog class="p-dialog-header" [closable]="false" [(visible)]="visible" [style]="{ width: '50vw', height: '100vh' }"
+<p-dialog class="p-dialog-header p-dailog-content-info" [closable]="false" [(visible)]="visible" [style]="{ width: '50vw', height: '100vh' }"
   showCloseIcon="false">
   <h3 *ngIf="checknew" class="form-heading mt-1">Add Product</h3>
   <h3 *ngIf="checkEdit" class="form-heading mt-1">Edit Product</h3>
@@ -119,7 +119,7 @@
             <label for="productname" class="formbold-form-label">
               Product Name<span class="required">*</span>
             </label>
-            <input type="text" id="productname" placeholder="Product name" class="formbold-form-input"
+            <input type="text" id="productname" pInputText placeholder="Product name" class="formbold-form-input"
               formControlName="productName" />
 
             <div *ngIf="addProductForm?.get('productName') as productnameControl">
@@ -141,7 +141,7 @@
             <label for="productcode" class="formbold-form-label">
               SKU<span class="required">*</span>
             </label>
-            <input type="text" name="productcode" id="productcode" placeholder="Product code"
+            <input type="text" name="productcode" id="productcode" placeholder="Product code" pInputText
               class="formbold-form-input" formControlName="productCode" />
 
             <div *ngIf="addProductForm?.get('productCode') as productnameControl">
@@ -163,7 +163,7 @@
         <div class="formbold-input-flex">
           <div>
             <label for="price" class="formbold-form-label">Price<span class="required">*</span></label>
-            <input type="text" name="price" id="price" placeholder="Price" class="formbold-form-input"
+            <input type="text" name="price" id="price" pInputText placeholder="Price" class="formbold-form-input"
               formControlName="price" />
 
             <div *ngIf="addProductForm?.get('price') as productnameControl">
@@ -184,7 +184,7 @@
           <div>
             <label class="formbold-form-label">Quantity<span class="required">*</span></label>
 
-            <input class="formbold-form-input" formControlName="quantity" id="quantity" placeholder="Quantity" />
+            <input class="formbold-form-input" pInputText formControlName="quantity" id="quantity" placeholder="Quantity" />
 
             <div *ngIf="addProductForm?.get('quantity') as productnameControl">
               <div *ngIf="
@@ -204,13 +204,14 @@
         <div class="formbold-input-flex">
           <div>
             <label class="formbold-form-label">Category<span class="required">*</span></label>
+            <p-multiSelect class="formbold-form-input testing" formControlName="category" id="category" [options]="categoryList"  optionLabel="name" optionValue="name"></p-multiSelect>
 
-            <select class="formbold-form-input" formControlName="category" id="category">
+            <!-- <select class="formbold-form-input" formControlName="category" id="category" multiple>
               <option value="" disabled selected>Select an option</option>
-              <option *ngFor="let item of categoryList">
+              <option *ngFor="let item of categoryList" [value]="item.name">
                 {{ item?.name }}
               </option>
-            </select>
+            </select> -->
             <p class="invalid-error" *ngIf="
                 addProductForm.get('category')?.invalid &&
                 addProductForm.get('category')?.touched
@@ -239,7 +240,7 @@
           <label for="message" class="formbold-form-label">
             Description<span class="required">*</span>
           </label>
-          <textarea rows="2" name="message" id="message" class="formbold-form-input" placeholder="Write here"
+          <textarea rows="2" name="message" pInputTextarea id="message" class="formbold-form-input" placeholder="Write here"
             formControlName="productDescription"></textarea>
 
           <div *ngIf="

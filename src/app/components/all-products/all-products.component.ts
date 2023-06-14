@@ -283,6 +283,7 @@ export class AllProductsComponent {
       try {
         if (this.addProductForm.valid) {
           const formVaules = this.addProductForm.value;
+          const selectedCategories = formVaules.category;
           const formData = new FormData();
           formData.append('productName', formVaules.productName);
           formData.append('productCode', formVaules.productCode);
@@ -293,6 +294,9 @@ export class AllProductsComponent {
           formData.append('productDescription', formVaules.productDescription);
           for (let i = 0; i < this.files.length; i++) {
             formData.append('image', this.files[i]);
+          }
+          for (let i = 0; i < selectedCategories.length; i++) {
+            formData.append('category', selectedCategories[i]);
           }
 
           console.log('checkin POST body', formData);

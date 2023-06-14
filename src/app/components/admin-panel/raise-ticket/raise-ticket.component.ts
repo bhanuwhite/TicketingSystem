@@ -89,7 +89,7 @@ export class RaiseTicketComponent {
         const formVaules = this.clientForm.value;
         const formData = new FormData();
         formData.append('type', 'client'),
-          formData.append('company', formVaules.company);
+        formData.append('company', formVaules.company);
         formData.append('employee', formVaules.employee);
         formData.append('topic', formVaules.topic);
         formData.append('title', formVaules.title);
