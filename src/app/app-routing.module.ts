@@ -14,8 +14,7 @@ import { TaxPageComponent } from './components/tax-page/tax-page.component';
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'order', component: PlaceOrderComponent },
- 
+
   {
     path: 'admin-dashboard',
     component: AdminDashboardComponent,
@@ -30,7 +29,6 @@ const routes: Routes = [
         path: 'support',
         component: SupportComponent,
         canActivate: [AuthGuard],
-        
       },
       {
         path: 'addcategory',
@@ -42,8 +40,8 @@ const routes: Routes = [
         component: RaiseTicketComponent,
         canActivate: [AuthGuard],
       },
-       { path:'tax-page',component:TaxPageComponent
-      }
+      { path: 'tax-page', component: TaxPageComponent },
+      { path: 'order', component: PlaceOrderComponent }
     ],
   },
   { path: '**', component: PageNotFoundComponent },

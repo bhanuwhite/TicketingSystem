@@ -2,7 +2,6 @@
     background: var(--surface-card);
     padding: 2rem;
     border-radius: 1px;
-    margin-bottom: 1rem;
     font-family: var(--font-family);
     font-weight: normal;
     background: var(--surface-ground);
@@ -13,3 +12,4 @@
     font-size: 14px;
 
 }
+
