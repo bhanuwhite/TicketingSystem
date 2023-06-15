@@ -30,9 +30,10 @@ const DateDetails = require('../controllers/createPeriod');
 const TaxDetails = require('../controllers/createTaxForm');
 const DisplayTax = require('../controllers/listAllTaxes');
 const EditTaxDetails = require('../controllers/editTax');
-const DeleteTax = require('../controllers/deleteTax');
+const DeleteTax = require('../controllers/deleteMutlipleTax');
 const SelectProduct = require('../controllers/selectProduct');
 const TaxList = require('../controllers/dropdownTax');
+const DeleteMultipleProducts = require('../controllers/deleteMultipleProducts')
 const AddFields = require('../controllers/addFields');
 const NamesById = require('../controllers/getEmployeeNamesById');
 
@@ -65,10 +66,10 @@ router.post('/date', DateDetails.getDateDetails);
 router.post('/tax', TaxDetails.getTaxDetails);
 router.get('/tax', DisplayTax.getAllTaxDisplay);
 router.put('/tax/:_id', EditTaxDetails.taxEdit);
-router.get('/deleteTax/:id', DeleteTax.deleteTheTaxes);
+router.patch('/deleteTax', DeleteTax.deleteTheTaxes);
 router.get('/select', SelectProduct.selectProductField);
 router.get('/taxLists', TaxList.getTaxList);
-
+router.patch('/deleteMultiple', DeleteMultipleProducts.deleteMultipleProducts)
 
 // router.get('/employee/:id', NamesById.getAllTheNamesById);
 // router.post('/role/addFields', AddFields.addFields);

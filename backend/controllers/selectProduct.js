@@ -2,22 +2,21 @@ const Product = require('../models/productSchema');
 
 exports.selectProductField = async (req, res) => {
     try {
-        let arr=[];
-       let productList= await Product.find();
-       for(let i=0;i<productList.length;i++)
-       {
-        arr.push({
-            id: productList[i].id,
-            name: productList[i].productName,
-            price: productList[i].price
-        });
-       }
-       let data= {
-        message: 'success',
-        status: '200',
-        lists: arr
-       }
-       return res.status(200).send(data);
+        let arr = [];
+        let productList = await Product.find();
+        for (let i = 0; i < productList.length; i++) {
+            arr.push({
+                id: productList[i].id,
+                name: productList[i].productName,
+                price: productList[i].price
+            });
+        }
+        let data = {
+            message: 'success',
+            status: '200',
+            lists: arr
+        }
+        return res.status(200).send({ data });
     }
 
     catch (err) {

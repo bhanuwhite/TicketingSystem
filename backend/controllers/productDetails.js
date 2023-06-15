@@ -10,7 +10,7 @@ exports.addProductsList = async (req, res) => {
             productDescription: req.body.productDescription,
             productCode: req.body.productCode,
             price: req.body.price,
-            category: req.body.category,
+            category: req.body.category.split(","),
             inventoryStatus: req.body.inventoryStatus,
             quantity: req.body.quantity,
         });
@@ -18,7 +18,7 @@ exports.addProductsList = async (req, res) => {
         let details = await Product.find();
 
         if (req.files) {
-            const url = 'http://192.168.0.240:3000/';
+            const url = 'http://192.168.0.236:3000/';
             const paths = req.files.map((file) => url + file.path);
             const concat = paths.join(', ');
 
@@ -32,7 +32,7 @@ exports.addProductsList = async (req, res) => {
                 status: '400'
             }
             if (code === req.body.productCode) {
-                return res.status(400).send({data})
+                return res.status(400).send({ data })
             }
         }
         await productList.save();

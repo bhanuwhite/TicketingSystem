@@ -5,10 +5,13 @@ const taxListSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    percentage: {
+        type: String,
+    },
     id: {
         type: String,
     }
 },
-    { timestamps: true ,versionKey: false });
+    { timestamps: false ,versionKey: false });
 const TaxList = mongoose.model('TaxList', taxListSchema);
 module.exports = TaxList;

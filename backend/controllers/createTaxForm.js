@@ -12,6 +12,15 @@ exports.getTaxDetails = async (req, res) => {
             percentage: req.body.percentage,
         });
         k++;
+        let checkName = await Tax.find({ name: req.body.name });
+        console.log(checkName);
+        if (checkName && checkName.length!=0) {
+            let data = {
+                message: `${req.body.name} already exists`,
+                status: '400'
+            }
+            return res.status(400).send({ data })
+        }
         const taxResponse = await tax.save();
 
         // let formData = await Tax.find().populate('period');
