@@ -34,6 +34,7 @@ const DeleteTax = require('../controllers/deleteMutlipleTax');
 const SelectProduct = require('../controllers/selectProduct');
 const TaxList = require('../controllers/dropdownTax');
 const DeleteMultipleProducts = require('../controllers/deleteMultipleProducts')
+const PlaceOrder = require('../controllers/placeOrder');
 const AddFields = require('../controllers/addFields');
 const NamesById = require('../controllers/getEmployeeNamesById');
 
@@ -70,7 +71,7 @@ router.patch('/deleteTax', DeleteTax.deleteTheTaxes);
 router.get('/select', SelectProduct.selectProductField);
 router.get('/taxLists', TaxList.getTaxList);
 router.patch('/deleteMultiple', DeleteMultipleProducts.deleteMultipleProducts)
-
+router.post('/tax/order', PlaceOrder.getOrderPlaced);
 // router.get('/employee/:id', NamesById.getAllTheNamesById);
 // router.post('/role/addFields', AddFields.addFields);
 
