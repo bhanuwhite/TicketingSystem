@@ -56,7 +56,7 @@ export class PlaceOrderComponent {
     const deotax = event.value?.value;
     let total_amount = this.total_amount + this.total_amount * (deotax / 100);
     this.addProduct.patchValue({ amount: total_amount });
-  }
+  };
 
   onQuantityChange(event: any): void {
     this.quantity = event.target.value;

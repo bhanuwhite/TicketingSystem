@@ -12,4 +12,21 @@
     font-size: 14px;
 
 }
+.amount-content-tax-block{
+    display: flex;
+    flex-direction: column;
+
+}
+.amount-content-tax-block-input-info{
+    width: 56%;
+}
+.price-content-tax-block{
+    display: flex;
+    flex-direction: column;
+}
+.price-content-tax-block input{
+    width: 56%;
+
+}
+
 

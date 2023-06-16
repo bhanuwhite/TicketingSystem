@@ -115,3 +115,10 @@ app-tax-page{
 .p-dailog-content-info .p-dialog-content{
   padding: 0px !important;
 }
+.product-dropdown-block  .p-autocomplete-input{
+  width: 360px;
+}
+
+.select-tax-block .p-dropdown.p-component {
+  width: 56%;
+}
