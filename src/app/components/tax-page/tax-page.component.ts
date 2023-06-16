@@ -8,11 +8,13 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataFetchService } from 'src/app/shared/services/common.service';
+import { MessageService, ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-tax-page',
   templateUrl: './tax-page.component.html',
   styleUrls: ['./tax-page.component.css'],
+  providers: [MessageService, ConfirmationService],
 })
 export class TaxPageComponent {
   productDialog!: boolean;
@@ -27,13 +29,21 @@ export class TaxPageComponent {
   checknew!: boolean;
   checkEdit!: boolean;
   taxes!: any[];
-  taxesList!: any[];
-  selectedTax!: string;
-
+  taxFormData: any[] = [];
+  searchText: string = '';
+  tax:any;
+  // taxesList!: any[];
+  // selectedTax!: string;
+  // formDataValues:any[]=[];
+  // taxesData:any;
+  // submittedFormData: any;
+  // taxData!: any[];
   constructor(
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService,
     private formBuilder: FormBuilder,
     private service: DataFetchService,
-    private router: Router
+    
   ) {}
 
   showDialog() {
@@ -46,8 +56,9 @@ export class TaxPageComponent {
   saveProduct() {}
   ngOnInit() {
     this.taxFormValidation();
-    this.getTaxList();
+    this.getTaxFormData();
   }
+
   taxFormValidation(): void {
     this.taxForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
@@ -64,14 +75,45 @@ export class TaxPageComponent {
     this.visible = true;
     this.taxForm.reset();
   }
-  getTaxList() {
-    this.service.getData('tax').subscribe((res) => {
-      console.log(res.data);
 
-      this.taxesList = res.data.data;
-      console.log(this.taxesList);
+  setFormValues(tax: any) {
+    this.taxForm.patchValue({
+      name: tax.productName,
+      startDate: tax.period.startDate,
+      endDate: tax.period.endDate,
+      percentage: tax.percentage,
+      
     });
   }
+
+  getTaxFormData() {
+    this.service.getData('tax').subscribe((response: any) => {
+      this.taxFormData = response.data.data;
+      console.log(this.taxFormData);
+      // this.applySearchFilter();
+    });
+    console.log(this.taxFormData);
+  }
+  // applySearchFilter() {
+  //   if (this.searchText.trim() !== '') {
+  //     const searchValue = this.searchText.toLowerCase();
+  //     this.taxFormData = this.taxFormData.filter((item: any) =>
+  //       item.name.toLowerCase().includes(searchValue)
+  //     );
+  //   } else {
+  //     this.taxFormData = this.taxFormData; 
+  //   }
+  // }
+
+
+  // searchTable() {
+  //   if (this.searchText.trim() === '') {
+  //     this.getTaxFormData(); 
+  //   } else {
+  //     this.applySearchFilter();
+  //   }
+  // }
+
   submitTaxForm(): void {
     const formVaules = this.taxForm.value;
 
@@ -90,12 +132,10 @@ export class TaxPageComponent {
     console.log(data);
     this.service.postData('tax', data).subscribe((response) => {
       console.log(response);
-
-      if (response.data.status === '201') {
-        alert('successful');
-      } else {
-        alert('Something went wrong');
-      }
+      this.getTaxFormData();
     });
   }
+  
+  
+  
 }

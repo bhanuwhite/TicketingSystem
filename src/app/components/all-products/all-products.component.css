@@ -182,9 +182,9 @@ padding: 0.75rem 0 !important;
   background-color: #2c8688;
   color: #ffffff;
 }
-::ng-deep .ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-icon {
+/* ::ng-deep .ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-icon {
   display: none;
-}
+} */
 .formbold-input-flex{
   margin-bottom: 5px !important;
 }

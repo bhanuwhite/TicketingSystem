@@ -1,7 +1,7 @@
 .content-inner {
     width: 100% !important;
     overflow-y: auto;
-    height: 100vh !important;
+    height: 100%;
   }
   .edit {
     border-radius: 50% !important;
@@ -97,9 +97,9 @@ select .select-tax{
 .tax-heading-wrapper{
     padding: 1rem 1rem;
    
-    .p-input-icon-left > i:first-of-type {
+    /* .p-input-icon-left > i:first-of-type {
         left: 1.75rem;
-    }
+    } */
 }
 
 .tax-heading{
@@ -109,5 +109,11 @@ select .select-tax{
     height: 65vh !important;
   }
   
+  .tax-heading-wrapper .pi-search{
+
+    left: 0.75rem;
+  }
   
- 
+ /* .app-tax-component{
+    height: 100vh;
+ } */

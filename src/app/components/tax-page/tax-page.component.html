@@ -3,9 +3,9 @@
     <div class="card card-content">
       <p-toolbar styleClass="gap-2">
         <ng-template pTemplate="left">
-          <button (click)="showDialog()" (click)="openNew()" label="New" icon="pi pi-plus" pButton pRipple
+          <button (click)="showDialog();openNew()" label="New" icon="pi pi-plus" pButton pRipple
             class="p-button-success"></button>
-          <button pButton pRipple icon="pi pi-trash" class="p-button-danger delete-icon"></button>
+          <button pButton pRipple icon="pi pi-trash" class="p-button-danger delete-icon" ></button>
         </ng-template>
 
       </p-toolbar>
@@ -14,31 +14,40 @@
           <h5 class="m-0 tax-heading">Tax</h5>
           <span class="p-input-icon-left mt-3">
             <i class="pi pi-search search-icon"></i>
-            <input pInputText #textInput type="text" 
+            <input pInputText #textInput type="text" [(ngModel)]="searchText"  
               placeholder="Search..." />
           </span>
         </div>
       </ng-templete>
       <div class="card">
-        <p-table [value]="taxes" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+        <p-table [value]="taxFormData" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
           [tableStyle]="{ 'min-width': '50rem' }"
           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
           [rowsPerPageOptions]="[10, 25, 50]">
           <ng-template pTemplate="header">
             <tr>
-              <th style="width:25%"></th>
-              <th style="width:25%">Name</th>
-              <th style="width:25%">Period</th>
-              <th style="width:25%">Percentage</th>
+              <!-- <th style="width:25%"></th> -->
+              <th style="width: 4rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+              </th>
+              <th pSortableColumn="name" style="width:25%">Name <p-sortIcon [field]="'name'"></p-sortIcon></th>
+              <th pSortableColumn="period" style="width:25%">Period <p-sortIcon [field]="'period'"></p-sortIcon></th>
+              <th pSortableColumn="percentage" style="width:25%">Percentage <p-sortIcon [field]="'period'"></p-sortIcon></th>
               <th style="width:25%">Action</th>
             </tr>
           </ng-template>
-          <ng-template pTemplate="body" let-customer>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td><button label="New" icon="pi pi-plus" pButton pRipple class="p-button-success"></button></td>
+          <ng-template pTemplate="body" let-item>
+            <tr >
+              <td>
+                <p-tableCheckbox [value]="item"></p-tableCheckbox>
+              </td>
+              <td>{{item.name}}</td>
+              <td>{{item.period.startDate | date:'shortDate'}} - {{item.period.endDate | date:'shortDate'}}</td>
+              <td>{{item.percentage}}</td>
+              <td><button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2 edit"
+                ></button>
+              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger edit" 
+                ></button></td>
             </tr>
           </ng-template>
           <ng-template pTemplate="paginatorleft">

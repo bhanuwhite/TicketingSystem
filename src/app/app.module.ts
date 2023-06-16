@@ -41,6 +41,7 @@ import { KeyFilterModule } from 'primeng/keyfilter';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CalendarModule } from 'primeng/calendar';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, SidebarComponent, FooterComponent, AdminDashboardComponent, LoginComponent, AllProductsComponent, PageNotFoundComponent, AddCategoryComponent, TaxPageComponent, PlaceOrderComponent],
@@ -75,11 +76,9 @@ CommonModule,
     
     CalendarModule,
     MultiSelectModule,
+    DatePipe,
 
-
-
-   
-  ],
+],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: MyInterceptor,
