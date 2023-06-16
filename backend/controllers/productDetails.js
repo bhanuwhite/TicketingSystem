@@ -18,7 +18,7 @@ exports.addProductsList = async (req, res) => {
         let details = await Product.find();
 
         if (req.files) {
-            const url = 'http://192.168.0.236:3000/';
+            const url = 'http://192.168.0.237:3000/';
             const paths = req.files.map((file) => url + file.path);
             const concat = paths.join(', ');
 
