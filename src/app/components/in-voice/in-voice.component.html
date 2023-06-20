@@ -1,1 +1,160 @@
-<p>in-voice works!</p>
+<div class="content-inner">
+    <div class="card card-content">
+      <p-toast></p-toast>
+      <p-toolbar styleClass=" gap-2">
+        <ng-template pTemplate="left">
+            <div>
+                <h5>#Invoice</h5>
+            </div>
+          <!-- <button
+            pButton
+            pRipple
+            label="New"
+            icon="pi pi-plus"
+            class="p-button-success mr-2"
+            (click)="openNew()"
+          ></button> -->
+          <!-- <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-danger"
+            (click)="deleteSelectedProducts()"
+            [disabled]="!selectedProducts || !selectedProducts.length"
+          ></button> -->
+        </ng-template>
+  
+        <ng-template pTemplate="right" class="custom-dropdown">
+          <!-- <p-fileUpload
+            mode="basic"
+            accept="image/*"
+            [maxFileSize]="1000000"
+            label="Import"
+            chooseLabel="Import"
+            class="mr-2 inline-block"
+          ></p-fileUpload> -->
+          <!-- <button pButton pRipple label="Export" icon="pi pi-upload" 
+            (click)="exportToCSV()"></button> -->
+  
+          <p-dropdown class="dropdown-color"
+            placeholder="Export"
+            optionLabel="name"
+          ></p-dropdown>
+        </ng-template>
+      </p-toolbar>
+  
+      <p-table
+        #dataTable
+        [value]="tableData"
+        [rows]="10"
+        [paginator]="true"
+        [globalFilterFields]="['productName']"
+        [tableStyle]="{ 'min-width': '75rem' }"
+        [(selection)]="selectedProducts"
+        [rowHover]="true"
+        dataKey="id"
+       
+      >
+        <ng-template pTemplate="caption">
+          <div class="flex align-items-center justify-content-between">
+            <h5 class="m-0">Invoice List :</h5>
+            <span class="p-input-icon-left mt-3">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                #textInput
+                type="text"
+                (input)="dataTable.filterGlobal(textInput.value, 'contains')"
+                placeholder="Search..."
+              />
+            </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <!-- <th style="width: 4rem">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th> -->
+            <th pSortableColumn="productName" style="min-width: 10rem">
+              Invoice no. <p-sortIcon field="productName"></p-sortIcon>
+            </th>
+            <th pSortableColumn="productCode" style="min-width: 5rem">
+              Total Tax <p-sortIcon field="productCode"></p-sortIcon>
+            </th>
+            <th>Image</th>
+            <th pSortableColumn="price">
+              Price <p-sortIcon field="price"></p-sortIcon>
+            </th>
+            <th pSortableColumn="category" style="min-width: 10rem">
+              Category <p-sortIcon field="category"></p-sortIcon>
+            </th>
+            <th pSortableColumn="quantity">
+              Quantity <p-sortIcon field="quantity"></p-sortIcon>
+            </th>
+            <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
+              Status <p-sortIcon field="inventoryStatus"></p-sortIcon>
+            </th>
+            <th>Actions</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+          <tr>
+            <!-- <td>
+              <p-tableCheckbox [value]="product"></p-tableCheckbox>
+            </td> -->
+            <td>{{ product.productName }}</td>
+            <td>{{ product.productCode }}</td>
+            <td>
+              <img
+                [src]="product.images"
+                [alt]="product.name"
+                width="50"
+                class="shadow-4"
+              />
+            </td>
+            <td>{{ product.price | currency : "USD" }}</td>
+            <td>{{ product.category }}</td>
+  
+            <td>
+              {{ product.quantity }}
+            </td>
+            <td>
+              <!-- <p-tag
+                [value]="product.inventoryStatus"
+                [severity]="getSeverity(product.inventoryStatus)"
+
+              ></p-tag> -->
+            </td>
+            <td>
+              <button
+                pButton
+                pRipple
+                icon="pi pi-pencil"
+                class="p-button-rounded p-button-success mr-2 edit"
+                (click)="editProduct(product, 'edit')"
+              ></button>
+              <button
+                pButton
+                pRipple
+                icon="pi pi-trash"
+                class="p-button-rounded p-button-warning edit"
+                (click)="deleteProduct(product)"
+              ></button>
+            </td>
+          </tr>
+        </ng-template>
+        <!-- <ng-container *ngIf="!products || products.length === 0">
+          <ng-template pTemplate="emptymessage">
+            <tr class="no-data-found-block">
+              <td class="text-center no-data-found-block-info" [attr.colspan]="3">No data found</td>
+            </tr>
+          </ng-template>
+        </ng-container> -->
+        <!-- <ng-template pTemplate="summary">
+          <div class="flex align-items-center justify-content-between">
+            {{ products ? products.length : 0 }} Products.
+          </div>
+        </ng-template> -->
+      </p-table>
+    </div>
+  </div>

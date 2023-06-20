@@ -59,7 +59,9 @@
   text-decoration: none;
 }
  
-
+.invoice-icon {
+  font-size: 20px;
+}
 .sidenav ul.dropdown {
   display: block;
 }
