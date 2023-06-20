@@ -1,26 +1,17 @@
 const Order = require('../models/orderSchema');
-let k=1;
+let k = 1;
 exports.getOrderPlaced = async (req, res) => {
     try {
-        // let result= req.body.orders.forEach(element => {
-        //     let order = new Order(element)
-        //     order.save();
-        // });
-        let order = new Order({
-            id: k,
-            name: req.body.name,
-            quantity: req.body.quantity,
-            price: req.body.price,
-            tax: req.body.tax,
-            totalAmount: req.body.totalAmount
+        let promise = req.body.map(element => {
+            let order = new Order(element)
+            return order.save();
         });
-        k++;
-        await order.save();
+        let result = await Promise.all(promise);
 
         let data = {
-            message: "Order added successfully",
+            message: "Orders added successfully",
             status: '201',
-            orderDetails: order
+            orderDetails: result
         }
         return res.status(201).send({ data });
     }

@@ -18,7 +18,7 @@
 // }
 
 const Tax = require('../models/taxSchema');
-exports.deleteTheTaxes = async (req, res) => {
+exports.deleteMultipleTaxes = async (req, res) => {
     const { itemIds } = req.body; // Array of item IDs to delete
     try {
 
