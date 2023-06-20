@@ -24,7 +24,7 @@ export class PlaceOrderComponent {
   quantity: any;
   taxvalue: any;
   data: any;
-  tax_amount!:number;
+  tax_amount!: number;
 
   constructor(private services: DataFetchService, private fb: FormBuilder) {}
   ngOnInit(): void {
@@ -57,7 +57,7 @@ export class PlaceOrderComponent {
     const deotax = event.value?.value;
     let total_amount = this.total_amount + this.total_amount * (deotax / 100);
     this.addProduct.patchValue({ amount: total_amount });
-  };
+  }
 
   onQuantityChange(event: any): void {
     this.quantity = event.target.value;
@@ -95,7 +95,7 @@ export class PlaceOrderComponent {
     this.filteredCountries = filtered;
   }
 
-  add_Product() {
+  add_Product() :void{
     let name = this.addProduct.controls['name'].value.name;
     let quantity = this.addProduct.controls['quantity'].value;
     let tax_percentage = this.addProduct.controls['tax']?.value?.value
@@ -104,8 +104,7 @@ export class PlaceOrderComponent {
 
     let price = this.addProduct.controls['price'].value;
     let totalamount = this.addProduct.controls['amount'].value;
-    let tax = price*(tax_percentage/100)
-
+    let tax = price * (tax_percentage / 100);
 
     this.data = {
       name: name,
@@ -119,17 +118,16 @@ export class PlaceOrderComponent {
     this.tableData.push(this.data);
     console.log(this.tableData);
     this.addProduct.reset();
-    
-  };
-  removeProduct(index:number):void {
+  }
+  removeProduct(index: number): void {
     this.tableData.splice(index, 1);
-
   }
 
-  placeOrder():void {
-
-const data :[]=this.tableData;
-console.log(data);
-    this.services.postData('tax/order ',data).subscribe(data => {})
+  placeOrder(): void {
+    const data: [] = this.tableData;
+    console.log(data);
+    this.services.postData('tax/order ', data).subscribe((data) => {
+      console.log(data);
+    });
   }
 }

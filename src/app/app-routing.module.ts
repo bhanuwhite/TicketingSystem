@@ -10,6 +10,7 @@ import { RaiseTicketComponent } from './components/admin-panel/raise-ticket/rais
 import { AddCategoryComponent } from './components/add-category/add-category.component';
 import { PlaceOrderComponent } from './components/place-order/place-order.component';
 import { TaxPageComponent } from './components/tax-page/tax-page.component';
+import { InVoiceComponent } from './components/in-voice/in-voice.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -20,6 +21,11 @@ const routes: Routes = [
     component: AdminDashboardComponent,
     canActivate: [AuthGuard],
     children: [
+      {
+        path:'invoice',
+        component: InVoiceComponent,
+        canActivate:[AuthGuard],
+      },
       {
         path: 'products',
         component: AllProductsComponent,
