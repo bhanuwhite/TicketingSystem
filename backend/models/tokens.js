@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 let tokenSchema = new mongoose.Schema({
   token: {
     type: String,

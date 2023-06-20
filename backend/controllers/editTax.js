@@ -10,10 +10,12 @@ exports.taxEdit = async (req, res) => {
                 return res.status(400).send(err);
             }
             try {
+                    console.log(typeof(req.body.period));
                 const updatedRecord = await Tax.findByIdAndUpdate({ _id: _id }, { new: true });
                 updatedRecord.id = req.body.id || updatedRecord.id;
                 updatedRecord.name = req.body.name || updatedRecord.name;
-                updatedRecord.period = req.body.period || updatedRecord.period;
+                // updatedRecord.period = req.body.period || updatedRecord.period;
+                updatedRecord.period = req.body.period ? JSON.parse(req.body.period) : updatedRecord.period;
                 updatedRecord.percentage = req.body.percentage || updatedRecord.percentage;
 
                 await updatedRecord.save();

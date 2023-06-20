@@ -33,8 +33,10 @@ const EditTaxDetails = require('../controllers/editTax');
 const DeleteTax = require('../controllers/deleteMutlipleTax');
 const SelectProduct = require('../controllers/selectProduct');
 const TaxList = require('../controllers/dropdownTax');
-const DeleteMultipleProducts = require('../controllers/deleteMultipleProducts')
+const DeleteMultipleProducts = require('../controllers/deleteMultipleProducts');
 const PlaceOrder = require('../controllers/placeOrder');
+const DisplayOrders = require('../controllers/displayOrders');
+const InvoiceDetails = require('../controllers/invoiceDetails');
 const AddFields = require('../controllers/addFields');
 const NamesById = require('../controllers/getEmployeeNamesById');
 
@@ -58,7 +60,7 @@ router.get("/getCategory", GetCategory.gettingCategories);
 router.post("/addCategory", AddCategory.addingCategories);
 router.get("/listCategory", ListCategory.listingCategories);
 router.put('/listCategory/:id', UpdateCategory.editCategory);
-router.get('/deleteCategory/:id', DeleteCategory.deleteCategory);
+router.patch('/deleteCategory', DeleteCategory.deleteCategories);
 router.get("/status", InventoryStatus.inventoryStatus);
 router.put('/display/:_id', UpdateProducts.editProducts);
 router.get('/deleteProduct/:id', DeleteProduct.deleteProduct)
@@ -67,11 +69,14 @@ router.post('/date', DateDetails.getDateDetails);
 router.post('/tax', TaxDetails.getTaxDetails);
 router.get('/tax', DisplayTax.getAllTaxDisplay);
 router.put('/tax/:_id', EditTaxDetails.taxEdit);
-router.patch('/deleteTax', DeleteTax.deleteTheTaxes);
+router.patch('/deleteTax', DeleteTax.deleteMultipleTaxes);
 router.get('/select', SelectProduct.selectProductField);
 router.get('/taxLists', TaxList.getTaxList);
 router.patch('/deleteMultiple', DeleteMultipleProducts.deleteMultipleProducts)
 router.post('/tax/order', PlaceOrder.getOrderPlaced);
+router.get('/tax/order', DisplayOrders.displayAllOrders);
+router.get('/tax/order/invoice', InvoiceDetails.detailsOfInvoice);
+
 // router.get('/employee/:id', NamesById.getAllTheNamesById);
 // router.post('/role/addFields', AddFields.addFields);
 
