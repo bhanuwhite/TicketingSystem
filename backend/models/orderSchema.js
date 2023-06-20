@@ -18,10 +18,6 @@ const orderSchema = new mongoose.Schema({
     },
     tax: {
         type: String,
-<<<<<<< HEAD
-=======
-        required: true
->>>>>>> ce615f3ba361df9c4500e8fce349fd333e6a2c59
     },
     totalAmount: {
         type: Number,

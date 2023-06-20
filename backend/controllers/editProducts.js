@@ -20,7 +20,7 @@ exports.editProducts = async (req, res) => {
       }
 
       if (req.files && req.files.length > 0) {
-        const url = 'http://192.168.0.237:3000/';
+        const url = 'http://localhost:3000/';
         const imageUrls = req.files.map((file) => url + file.path);
         body.image = imageUrls.join(',');
       }
