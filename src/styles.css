@@ -3,10 +3,10 @@
 @import "primeng/resources/primeng.css";
 
 .p-dialog-draggable .p-dialog-header {
-  padding:   0px  ;
+  padding: 0px;
 }
-p-dialog .p-dialog-content{
-  padding: 0 1rem 0rem 1rem
+p-dialog .p-dialog-content {
+  padding: 0 1rem 0rem 1rem;
 }
 span.ng-tns-c41-0.p-autocomplete.p-component.p-autocomplete-dd {
   width: 100%;
@@ -41,18 +41,18 @@ span.ng-tns-c41-0.p-autocomplete.p-component.p-autocomplete-dd {
 .dropdown-menu-first .dropdown-item {
   padding: 0.25rem 0.5rem !important;
 }
-p-dialog .p-dialog-footer{
-  padding: 0px 0px 0.5rem 0px!important;
+p-dialog .p-dialog-footer {
+  padding: 0px 0px 0.5rem 0px !important;
 }
-.p-dialog-footer .p-button{
+.p-dialog-footer .p-button {
   padding: 0.3rem 1rem;
 }
 
-.form-button-container{
+.form-button-container {
   padding-top: 20px;
   display: flex;
   gap: 6px;
- }
+}
 
 /* .p-datepicker table th{
   padding-top: 20px;
@@ -72,53 +72,68 @@ margin-bottom: 0px !important;
 .date-input{
   gap: 5px;
 }  */
-.p-calendar .p-datepicker{
-position: absolute;
-width: 300px !important;
-height: 260px !important;
-overflow: auto ;
-left: -50% !important;
-top: 0 !important;
+.p-calendar .p-datepicker {
+  position: absolute;
+  width: 300px !important;
+  height: 260px !important;
+  overflow: auto;
+  left: -50% !important;
+  top: 0 !important;
 }
-.dialog-box .p-dialog
-{
+.dialog-box .p-dialog {
   max-height: 100%;
   height: 65% !important;
 }
- 
-  .p-datepicker table td  {
-    padding: 0px !important;
+
+.p-datepicker table td {
+  padding: 0px !important;
 }
-.p-dialog-title{
+.p-dialog-title {
   margin-left: 320px !important;
   font-size: 30px !important;
   margin-top: 20px;
   color: #559192;
 }
-app-tax-page{
+app-tax-page {
   width: 100%;
 }
 
 /* .p-dialog-mask .p-dialog-content{
   height: 65vh !important;
 } */
-.testing{
+.testing {
   visibility: hidden;
   padding: 5px 0px !important;
- 
 }
-.testing .p-multiselect{
+.testing .p-multiselect {
   visibility: visible;
   width: 275px;
   height: 36px;
 }
-.p-dailog-content-info .p-dialog-content{
+.p-dailog-content-info .p-dialog-content {
   padding: 0px !important;
 }
-.product-dropdown-block  .p-autocomplete-input{
+.product-dropdown-block .p-autocomplete-input {
   width: 360px;
 }
 
-.select-tax-block .p-dropdown.p-component {
-  width: 56%;
+/* .dropdown-color .p-dropdown .p-dropdown-label.p-placeholder {
+  color: white;
+  background-color: red !important;
+}
+.dropdown-color .p-dropdown {
+  background-color: red !important;
+}
+
+.dropdown-color .p-dropdown-trigger {
+  color: white;
+  background-color: red !important;
+} */
+.select-tax-block.p-inputwrapper-focus .p-dropdown-open{
+  width: 142px !important;
+
+}
+.select_tax_dropdown .p-dropdown.p-component
+ {
+  width: 142px !important;
 }

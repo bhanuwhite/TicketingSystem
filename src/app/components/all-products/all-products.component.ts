@@ -283,21 +283,24 @@ export class AllProductsComponent {
       try {
         if (this.addProductForm.valid) {
           const formVaules = this.addProductForm.value;
-          const selectedCategories = formVaules.category;
+          const catergoryArray: any = [];
+          catergoryArray.push(formVaules.category);
+          console.log(catergoryArray)
+          // const selectedCategories = formVaules.category;
           const formData = new FormData();
           formData.append('productName', formVaules.productName);
           formData.append('productCode', formVaules.productCode);
           formData.append('price', formVaules.price);
           formData.append('quantity', formVaules.quantity);
-          formData.append('category', formVaules.category);
+          formData.append('category', catergoryArray);
           formData.append('inventoryStatus', formVaules.inventoryStatus);
           formData.append('productDescription', formVaules.productDescription);
           for (let i = 0; i < this.files.length; i++) {
             formData.append('image', this.files[i]);
           }
-          for (let i = 0; i < selectedCategories.length; i++) {
-            formData.append('category', selectedCategories[i]);
-          }
+          // for (let i = 0; i < selectedCategories.length; i++) {
+          //   formData.append('category', selectedCategories[i]);
+          // }
 
           console.log('checkin POST body', formData);
 
@@ -335,12 +338,15 @@ export class AllProductsComponent {
       try {
         if (this.addProductForm.valid) {
           const formVaules = this.addProductForm.value;
+          const catergoryArray: any = [];
+          catergoryArray.push(formVaules.category);
+          console.log(catergoryArray)
           const formData = new FormData();
           formData.append('productName', formVaules.productName);
           formData.append('productCode', formVaules.productCode);
           formData.append('price', formVaules.price);
           formData.append('quantity', formVaules.quantity);
-          formData.append('category', formVaules.category);
+          formData.append('category', catergoryArray);
           formData.append('inventoryStatus', formVaules.inventoryStatus);
           formData.append('productDescription', formVaules.productDescription);
           for (let i = 0; i < this.files.length; i++) {

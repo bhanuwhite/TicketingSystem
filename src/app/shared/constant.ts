@@ -32,6 +32,26 @@ export const selectedButtons: {
               "price": 65
           },
           {
+            "id": 1000,
+            "name": "Jacket1",
+            "price": 65
+        },
+        {
+            "id": 1000,
+            "name": "Jacket2",
+            "price": 65
+        },
+        {
+            "id": 1000,
+            "name": "Jacket3",
+            "price": 65
+        },
+        {
+            "id": 1000,
+            "name": "Jacket5",
+            "price": 65
+        },
+          {
               "id": 1001,
               "name": "Black Watch",
               "price": 72

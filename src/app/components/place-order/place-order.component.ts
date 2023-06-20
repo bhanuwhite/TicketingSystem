@@ -24,6 +24,7 @@ export class PlaceOrderComponent {
   quantity: any;
   taxvalue: any;
   data: any;
+  tax_amount!:number;
 
   constructor(private services: DataFetchService, private fb: FormBuilder) {}
   ngOnInit(): void {
@@ -97,11 +98,15 @@ export class PlaceOrderComponent {
   add_Product() {
     let name = this.addProduct.controls['name'].value.name;
     let quantity = this.addProduct.controls['quantity'].value;
-    let tax = this.addProduct.controls['tax']?.value?.value
+    let tax_percentage = this.addProduct.controls['tax']?.value?.value
       ? this.addProduct.controls['tax']?.value?.value
       : '';
+
     let price = this.addProduct.controls['price'].value;
     let totalamount = this.addProduct.controls['amount'].value;
+    let tax = price*(tax_percentage/100)
+
+
     this.data = {
       name: name,
       quantity: quantity,
@@ -119,5 +124,12 @@ export class PlaceOrderComponent {
   removeProduct(index:number):void {
     this.tableData.splice(index, 1);
 
+  }
+
+  placeOrder():void {
+
+const data :[]=this.tableData;
+console.log(data);
+    this.services.postData('tax/order ',data).subscribe(data => {})
   }
 }

@@ -62,6 +62,10 @@
     >
       Internal
     </button>
+   
+  </div>
+  <div *ngIf="!fliteredData || fliteredData.length === 0" class="no-data-found-error-info">
+    No data found
   </div>
   <div
     class="button-content mt-2"
@@ -71,6 +75,7 @@
     "
   >
     <div class="row mx-2 align-items-center">
+     
       <div class="col-md-6">
         <div class="d-flex" style="gap: 40px">
           <h6

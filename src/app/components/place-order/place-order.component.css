@@ -24,9 +24,47 @@
     display: flex;
     flex-direction: column;
 }
-.price-content-tax-block input{
-    width: 56%;
+
+.search-block-content{
+    display: flex;
+gap: 22px;
+justify-content: center;
+
+
+    margin-bottom: 1rem;
+}
+.tax-total-content-block{
+    display: flex;
+gap: 22px;
+justify-content: center;
+}
+.tax-total-content-block-empty{
+    width: 31%;
+    /* margin-left: 40px; */
+
+}
+
+.quantity-information-content{
+    width: 142px;
+}
+.amount-content-tax-block-input-info
+{
+    width: 142px;
 
 }
 
 
+
+.buttons-order-block{
+    gap: 8px;
+    position: relative;
+    right: -67%;
+
+}
+.price-content-tax-block input{
+    width: 142px;
+
+}
+.pi-times:before {
+    color: red !important;
+}

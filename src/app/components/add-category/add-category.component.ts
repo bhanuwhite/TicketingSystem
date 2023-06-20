@@ -12,7 +12,7 @@ import { DataFetchService } from 'src/app/shared/services/common.service';
 export class AddCategoryComponent {
   productDialog!: boolean;
 
-  products: any;
+  products: any[]=[];
 
   product: any;
 
@@ -32,6 +32,8 @@ export class AddCategoryComponent {
     private service: DataFetchService
   ) {}
   ngOnInit() {
+    console.log(this.products);
+
     this.categoryInit();
     // this.products = this.productConst;
     this.getCategory();
@@ -123,6 +125,7 @@ export class AddCategoryComponent {
     try {
       this.service.getData('listCategory').subscribe((data) => {
         this.products = data.categoryList;
+        console.log(this.products);
       });
     } catch (error) {
       console.error('An error occurred while fetching data:', error);

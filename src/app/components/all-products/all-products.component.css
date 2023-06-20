@@ -195,3 +195,12 @@ select:required:invalid {
 p-dialog .p-dialog-footer{
   padding: 0px;
 }
+.text-center{
+  color: red !important;
+}
+
+
+.no-data-found-block-info{
+  border: none !important;
+ transform: translateX(420px);
+}

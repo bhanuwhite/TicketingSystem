@@ -3,10 +3,22 @@
     <p-toast></p-toast>
     <p-toolbar styleClass=" gap-2">
       <ng-template pTemplate="left">
-        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
-          (click)="openNew()"></button>
-        <button pButton pRipple icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()"
-          [disabled]="!selectedProducts || !selectedProducts.length"></button>
+        <button
+          pButton
+          pRipple
+          label="New"
+          icon="pi pi-plus"
+          class="p-button-success mr-2"
+          (click)="openNew()"
+        ></button>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-trash"
+          class="p-button-danger"
+          (click)="deleteSelectedProducts()"
+          [disabled]="!selectedProducts || !selectedProducts.length"
+        ></button>
       </ng-template>
 
       <ng-template pTemplate="right" class="custom-dropdown">
@@ -20,21 +32,40 @@
         ></p-fileUpload> -->
         <!-- <button pButton pRipple label="Export" icon="pi pi-upload" 
           (click)="exportToCSV()"></button> -->
-          
-<p-dropdown [options]="export" placeholder="Export" optionLabel="name" (onChange)="onOptionClick($event)" ></p-dropdown>
+
+        <p-dropdown class="dropdown-color"
+          [options]="export"
+          placeholder="Export"
+          optionLabel="name"
+          (onChange)="onOptionClick($event)"
+        ></p-dropdown>
       </ng-template>
     </p-toolbar>
 
-    <p-table #dataTable [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['productName']"
-      [tableStyle]="{ 'min-width': '75rem' }" [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
-      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+    <p-table
+      #dataTable
+      [value]="products"
+      [rows]="10"
+      [paginator]="true"
+      [globalFilterFields]="['productName']"
+      [tableStyle]="{ 'min-width': '75rem' }"
+      [(selection)]="selectedProducts"
+      [rowHover]="true"
+      dataKey="id"
+     
+    >
       <ng-template pTemplate="caption">
         <div class="flex align-items-center justify-content-between">
           <h5 class="m-0">Products</h5>
           <span class="p-input-icon-left mt-3">
             <i class="pi pi-search"></i>
-            <input pInputText #textInput type="text" (input)="dataTable.filterGlobal(textInput.value, 'contains')"
-              placeholder="Search..." />
+            <input
+              pInputText
+              #textInput
+              type="text"
+              (input)="dataTable.filterGlobal(textInput.value, 'contains')"
+              placeholder="Search..."
+            />
           </span>
         </div>
       </ng-template>
@@ -73,31 +104,50 @@
           <td>{{ product.productName }}</td>
           <td>{{ product.productCode }}</td>
           <td>
-            <img [src]="product.images" [alt]="product.name" width="50" class="shadow-4" />
+            <img
+              [src]="product.images"
+              [alt]="product.name"
+              width="50"
+              class="shadow-4"
+            />
           </td>
           <td>{{ product.price | currency : "USD" }}</td>
           <td>{{ product.category }}</td>
-          <!-- <td>
-            <p-rating
-              [ngModel]="product.rating"
-              [readonly]="true"
-              [cancel]="false"
-            ></p-rating>
-          </td> -->
+
           <td>
             {{ product.quantity }}
           </td>
           <td>
-            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
+            <p-tag
+              [value]="product.inventoryStatus"
+              [severity]="getSeverity(product.inventoryStatus)"
+            ></p-tag>
           </td>
           <td>
-            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2 edit"
-              (click)="editProduct(product, 'edit')"></button>
-            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning edit"
-              (click)="deleteProduct(product)"></button>
+            <button
+              pButton
+              pRipple
+              icon="pi pi-pencil"
+              class="p-button-rounded p-button-success mr-2 edit"
+              (click)="editProduct(product, 'edit')"
+            ></button>
+            <button
+              pButton
+              pRipple
+              icon="pi pi-trash"
+              class="p-button-rounded p-button-warning edit"
+              (click)="deleteProduct(product)"
+            ></button>
           </td>
         </tr>
       </ng-template>
+      <ng-container *ngIf="!products || products.length === 0">
+        <ng-template pTemplate="emptymessage">
+          <tr class="no-data-found-block">
+            <td class="text-center no-data-found-block-info" [attr.colspan]="3">No data found</td>
+          </tr>
+        </ng-template>
+      </ng-container>
       <ng-template pTemplate="summary">
         <div class="flex align-items-center justify-content-between">
           {{ products ? products.length : 0 }} Products.
@@ -107,8 +157,13 @@
   </div>
 </div>
 
-<p-dialog class="p-dialog-header p-dailog-content-info" [closable]="false" [(visible)]="visible" [style]="{ width: '50vw', height: '100vh' }"
-  showCloseIcon="false">
+<p-dialog
+  class="p-dialog-header p-dailog-content-info"
+  [closable]="false"
+  [(visible)]="visible"
+  [style]="{ width: '50vw', height: '100vh' }"
+  showCloseIcon="false"
+>
   <h3 *ngIf="checknew" class="form-heading mt-1">Add Product</h3>
   <h3 *ngIf="checkEdit" class="form-heading mt-1">Edit Product</h3>
   <div class="formbold-main-wrapper">
@@ -119,18 +174,34 @@
             <label for="productname" class="formbold-form-label">
               Product Name<span class="required">*</span>
             </label>
-            <input type="text" id="productname" pInputText placeholder="Product name" class="formbold-form-input"
-              formControlName="productName" />
+            <input
+              type="text"
+              id="productname"
+              pInputText
+              placeholder="Product name"
+              class="formbold-form-input"
+              formControlName="productName"
+            />
 
-            <div *ngIf="addProductForm?.get('productName') as productnameControl">
-              <div *ngIf="
+            <div
+              *ngIf="addProductForm?.get('productName') as productnameControl"
+            >
+              <div
+                *ngIf="
                   productnameControl.errors &&
                   (productnameControl.dirty || productnameControl.touched)
-                ">
-                <div class="invalid-error" *ngIf="productnameControl.errors['required']">
+                "
+              >
+                <div
+                  class="invalid-error"
+                  *ngIf="productnameControl.errors['required']"
+                >
                   Product name is required.
                 </div>
-                <div class="invalid-error" *ngIf="productnameControl.errors['pattern']">
+                <div
+                  class="invalid-error"
+                  *ngIf="productnameControl.errors['pattern']"
+                >
                   This field only allows alphabets
                 </div>
               </div>
@@ -141,18 +212,35 @@
             <label for="productcode" class="formbold-form-label">
               SKU<span class="required">*</span>
             </label>
-            <input type="text" name="productcode" id="productcode" placeholder="Product code" pInputText
-              class="formbold-form-input" formControlName="productCode" />
+            <input
+              type="text"
+              name="productcode"
+              id="productcode"
+              placeholder="Product code"
+              pInputText
+              class="formbold-form-input"
+              formControlName="productCode"
+            />
 
-            <div *ngIf="addProductForm?.get('productCode') as productnameControl">
-              <div *ngIf="
+            <div
+              *ngIf="addProductForm?.get('productCode') as productnameControl"
+            >
+              <div
+                *ngIf="
                   productnameControl.errors &&
                   (productnameControl.dirty || productnameControl.touched)
-                ">
-                <div class="invalid-error" *ngIf="productnameControl.errors['required']">
+                "
+              >
+                <div
+                  class="invalid-error"
+                  *ngIf="productnameControl.errors['required']"
+                >
                   Product code is required.
                 </div>
-                <div class="invalid-error" *ngIf="productnameControl.errors['pattern']">
+                <div
+                  class="invalid-error"
+                  *ngIf="productnameControl.errors['pattern']"
+                >
                   This field only allows numbers and alphabets
                 </div>
               </div>
@@ -162,19 +250,36 @@
 
         <div class="formbold-input-flex">
           <div>
-            <label for="price" class="formbold-form-label">Price<span class="required">*</span></label>
-            <input type="text" name="price" id="price" pInputText placeholder="Price" class="formbold-form-input"
-              formControlName="price" />
+            <label for="price" class="formbold-form-label"
+              >Price<span class="required">*</span></label
+            >
+            <input
+              type="text"
+              name="price"
+              id="price"
+              pInputText
+              placeholder="Price"
+              class="formbold-form-input"
+              formControlName="price"
+            />
 
             <div *ngIf="addProductForm?.get('price') as productnameControl">
-              <div *ngIf="
+              <div
+                *ngIf="
                   productnameControl.errors &&
                   (productnameControl.dirty || productnameControl.touched)
-                ">
-                <div class="invalid-error" *ngIf="productnameControl.errors['required']">
+                "
+              >
+                <div
+                  class="invalid-error"
+                  *ngIf="productnameControl.errors['required']"
+                >
                   Price is required.
                 </div>
-                <div class="invalid-error" *ngIf="productnameControl.errors['pattern']">
+                <div
+                  class="invalid-error"
+                  *ngIf="productnameControl.errors['pattern']"
+                >
                   This field only allows numbers and decimal
                 </div>
               </div>
@@ -182,19 +287,35 @@
           </div>
 
           <div>
-            <label class="formbold-form-label">Quantity<span class="required">*</span></label>
+            <label class="formbold-form-label"
+              >Quantity<span class="required">*</span></label
+            >
 
-            <input class="formbold-form-input" pInputText formControlName="quantity" id="quantity" placeholder="Quantity" />
+            <input
+              class="formbold-form-input"
+              pInputText
+              formControlName="quantity"
+              id="quantity"
+              placeholder="Quantity"
+            />
 
             <div *ngIf="addProductForm?.get('quantity') as productnameControl">
-              <div *ngIf="
+              <div
+                *ngIf="
                   productnameControl.errors &&
                   (productnameControl.dirty || productnameControl.touched)
-                ">
-                <div class="invalid-error" *ngIf="productnameControl.errors['required']">
+                "
+              >
+                <div
+                  class="invalid-error"
+                  *ngIf="productnameControl.errors['required']"
+                >
                   Quantity is required.
                 </div>
-                <div class="invalid-error" *ngIf="productnameControl.errors['pattern']">
+                <div
+                  class="invalid-error"
+                  *ngIf="productnameControl.errors['pattern']"
+                >
                   This field only allows numbers
                 </div>
               </div>
@@ -203,8 +324,17 @@
         </div>
         <div class="formbold-input-flex">
           <div>
-            <label class="formbold-form-label">Category<span class="required">*</span></label>
-            <p-multiSelect class="formbold-form-input testing" formControlName="category" id="category" [options]="categoryList"  optionLabel="name" optionValue="name"></p-multiSelect>
+            <label class="formbold-form-label"
+              >Category<span class="required">*</span></label
+            >
+            <p-multiSelect
+              class="formbold-form-input testing"
+              formControlName="category"
+              id="category"
+              [options]="categoryList"
+              optionLabel="name"
+              optionValue="name"
+            ></p-multiSelect>
 
             <!-- <select class="formbold-form-input" formControlName="category" id="category" multiple>
               <option value="" disabled selected>Select an option</option>
@@ -212,26 +342,38 @@
                 {{ item?.name }}
               </option>
             </select> -->
-            <p class="invalid-error" *ngIf="
+            <p
+              class="invalid-error"
+              *ngIf="
                 addProductForm.get('category')?.invalid &&
                 addProductForm.get('category')?.touched
-              ">
+              "
+            >
               Category is required
             </p>
           </div>
 
           <div>
-            <label class="formbold-form-label">Inventory Status<span class="required">*</span></label>
-            <select class="formbold-form-input" formControlName="inventoryStatus" id="inventoryStatus"
-              placeholder="Inventort styatuy">
+            <label class="formbold-form-label"
+              >Inventory Status<span class="required">*</span></label
+            >
+            <select
+              class="formbold-form-input"
+              formControlName="inventoryStatus"
+              id="inventoryStatus"
+              placeholder="Inventort styatuy"
+            >
               <option value="" disabled selected>Select an option</option>
 
               <option *ngFor="let item of statusList">{{ item }}</option>
             </select>
-            <p class="invalid-error" *ngIf="
+            <p
+              class="invalid-error"
+              *ngIf="
                 addProductForm.get('inventoryStatus')?.invalid &&
                 addProductForm.get('inventoryStatus')?.touched
-              ">
+              "
+            >
               Inventory status is required
             </p>
           </div>
@@ -240,17 +382,31 @@
           <label for="message" class="formbold-form-label">
             Description<span class="required">*</span>
           </label>
-          <textarea rows="2" name="message" pInputTextarea id="message" class="formbold-form-input" placeholder="Write here"
-            formControlName="productDescription"></textarea>
+          <textarea
+            rows="2"
+            name="message"
+            pInputTextarea
+            id="message"
+            class="formbold-form-input"
+            placeholder="Write here"
+            formControlName="productDescription"
+          ></textarea>
 
-          <div *ngIf="
+          <div
+            *ngIf="
               addProductForm?.get('productDescription') as productnameControl
-            ">
-            <div *ngIf="
+            "
+          >
+            <div
+              *ngIf="
                 productnameControl.errors &&
                 (productnameControl.dirty || productnameControl.touched)
-              ">
-              <div class="invalid-error" *ngIf="productnameControl.errors['required']">
+              "
+            >
+              <div
+                class="invalid-error"
+                *ngIf="productnameControl.errors['required']"
+              >
                 Description is required.
               </div>
             </div>
@@ -259,16 +415,36 @@
 
         <div class="formbold-form-file-flex">
           <label for="upload" class="formbold-form-label"> Upload Image </label>
-          <input type="file" name="upload" id="upload" class="formbold-form-file" (change)="onFileChange($event)"
-            multiple />
+          <input
+            type="file"
+            name="upload"
+            id="upload"
+            class="formbold-form-file"
+            (change)="onFileChange($event)"
+            multiple
+          />
         </div>
       </form>
     </div>
   </div>
   <ng-template pTemplate="footer">
-    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"
-      [disabled]="addProductForm.invalid"></button>
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="hideDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Save"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="saveProduct()"
+      [disabled]="addProductForm.invalid"
+    ></button>
   </ng-template>
 </p-dialog>
 

@@ -1,5 +1,7 @@
 <div class="container-fulid" style="width: 75rem">
   <div class="card" *ngIf="tableData.length > 0">
+    <h5 class="m-0 category-heading mb-4">Items Added</h5>
+
     <p-table [value]="tableData">
       <ng-template pTemplate="header">
         <tr>
@@ -15,9 +17,9 @@
         <tr>
           <td>{{ product?.name }}</td>
           <td>{{ product?.quantity }}</td>
-          <td>{{ product?.price }}</td>
-          <td>{{ product?.tax ? product?.tax : "-" }} %</td>
-          <td>{{ product?.totalamount }}</td>
+          <td>${{ product?.price }}</td>
+          <td>${{ product?.tax ? product?.tax : "-" }}</td>
+          <td>${{ product?.totalamount }}</td>
           <td>
             <i
               class="pi pi-times"
@@ -31,10 +33,12 @@
   </div>
 
   <div class="card mb-4 mt-0 p-3">
+    <h5 class="m-0 category-heading mb-4">Add Products</h5>
+
     <div class="maintax-wrapper-content container">
-      <form [formGroup]="addProduct">
-        <div class="row mb-4">
-          <div class="col-lg-4">
+      <form [formGroup]="addProduct" style="width: 55%; margin: 0 auto">
+        <div class="add-product-input mb-4 justify-content-end d-flex" style="gap: 20px;">
+          <div>
             <label for="integer" class="font-weight-bold d-block mb-2"
               >Select Product</label
             >
@@ -69,7 +73,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-4">
+          <div>
             <label for="number" class="font-weight-bold d-block mb-2"
               >Quantity</label
             >
@@ -105,7 +109,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-4">
+          <div>
             <div class="price-content-tax-block">
               <label for="money" class="font-weight-bold block mb-2"
                 >Price</label
@@ -121,15 +125,13 @@
             </div>
           </div>
         </div>
-
-        <div class="row">
-          <div class="col-lg-4"></div>
-          <div class="col-lg-4">
+        <div class="d-flex justify-content-end" style="gap: 20px;">
+          <div>
             <label for="alphabetic" class="font-weight-bold d-block mb-2"
               >Select Tax</label
             >
-
-            <p-dropdown
+            <div class="select_tax_dropdown">
+              <p-dropdown
               (onChange)="ontaxChange($event)"
               [options]="taxlistdemo"
               optionLabel="name"
@@ -137,37 +139,36 @@
               class="select-tax-block"
               formControlName="tax"
             ></p-dropdown>
-          </div>
-          <div class="col-lg-4">
-            <div class="amount-content-tax-block">
-              <label for="alphanumeric" class="font-weight-bold block mb-2"
-                >Total</label
-              >
-              <input
-                pInputText
-                type="text"
-                class="amount-content-tax-block-input-info"
-                placeholder="Total Amount"
-                formControlName="amount"
-                readonly
-              />
             </div>
+     
+          </div>
+          <div class="amount-content-tax-block">
+            <label for="alphanumeric" class="font-weight-bold block mb-2"
+              >Total</label
+            >
+            <input
+              pInputText
+              type="text"
+              class="amount-content-tax-block-input-info"
+              placeholder="Total Amount"
+              formControlName="amount"
+              readonly
+            />
           </div>
         </div>
-
         <hr class="mt-4 mb-4" />
-
-        <div class="col-lg-12 d-flex justify-content-end">
+        <div class="col-lg-12 d-flex justify-content-center" style="gap: 10px;">
+          <button pButton pRipple label="Order" class="p-button-success" (click)="placeOrder()"></button>
           <button
-            type="button"
-            class="btn btn-danger"
+          pButton pRipple label="Add" styleClass="p-button-help"
             [disabled]="addProduct.invalid"
             (click)="add_Product()"
           >
-            Add
+            
           </button>
         </div>
       </form>
     </div>
   </div>
+  
 </div>

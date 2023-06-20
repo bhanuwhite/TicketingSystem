@@ -177,3 +177,8 @@ span.estimate {
 .selectedButton{
     background-color:grey;
 }
+.no-data-found-error-info{
+    text-align: center;
+    margin: 10px 0px;
+    color: red;
+}
