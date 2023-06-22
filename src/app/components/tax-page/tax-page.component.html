@@ -1,78 +1,85 @@
 <div class="app-tax-component">
   <div class="content-inner">
     <div class="card card-content">
+      <p-toast></p-toast>
       <p-toolbar styleClass="gap-2">
         <ng-template pTemplate="left">
-          <button (click)="showDialog()" (click)="openNew()" label="New" icon="pi pi-plus" pButton pRipple
-            class="p-button-success"></button>
-          <button pButton pRipple icon="pi pi-trash" class="p-button-danger delete-icon"></button>
+          <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
+            (click)="showDialog()"></button>
+          <button pButton pRipple icon="pi pi-trash" class="p-button-danger"
+            [disabled]="!selectedProducts || !selectedProducts.length" (click)="deleteSelectedProducts()"></button>
         </ng-template>
-
       </p-toolbar>
-      <ng-templete >
-        <div class="flex align-items-center tax-heading-wrapper justify-content-between">
-          <h5 class="m-0 tax-heading">Tax</h5>
-          <span class="p-input-icon-left mt-3">
-            <i class="pi pi-search search-icon"></i>
-            <input pInputText #textInput type="text" 
-              placeholder="Search..." />
-          </span>
-        </div>
-      </ng-templete>
       <div class="card">
-        <p-table [value]="taxes" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
-          [tableStyle]="{ 'min-width': '50rem' }"
+        <p-table #dt [value]="taxFormData" [rows]="10" [paginator]="true"
+          [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+          [tableStyle]="{ 'min-width': '68rem' }" [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-          [rowsPerPageOptions]="[10, 25, 50]">
+          [showCurrentPageReport]="true">
+          <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+              <h5 class=" tax-heading">Tax</h5>
+              <span class="p-input-icon-left mt-3">
+                <i class="pi pi-search "></i>
+                <input #textInput pInputText type="text" (input)="dt.filterGlobal(textInput.value, 'contains')"
+                  placeholder="Search..." />
+              </span>
+            </div>
+          </ng-template>
           <ng-template pTemplate="header">
             <tr>
-              <th style="width:25%"></th>
-              <th style="width:25%">Name</th>
-              <th style="width:25%">Period</th>
-              <th style="width:25%">Percentage</th>
-              <th style="width:25%">Action</th>
+              <th style="width: 4rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+              </th>
+              <th pSortableColumn="name" style="min-width:15rem">Name<p-sortIcon field="name"></p-sortIcon></th>
+              <th pSortableColumn="period">Period<p-sortIcon field="period"></p-sortIcon></th>
+              <th pSortableColumn="percentage" style="min-width:10rem">percentage<p-sortIcon
+                  field="percentage"></p-sortIcon></th>
+              <th style="min-width:10rem">Action</th>
             </tr>
           </ng-template>
-          <ng-template pTemplate="body" let-customer>
+          <ng-template pTemplate="body" let-item>
             <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td><button label="New" icon="pi pi-plus" pButton pRipple class="p-button-success"></button></td>
+              <td>
+                <p-tableCheckbox [value]="item"></p-tableCheckbox>
+              </td>
+              <td>{{item.name}}</td>
+              <td>{{item.period.startDate | date:'shortDate'}} - {{item.period.endDate | date:'shortDate'}}</td>
+              <td>{{ item.percentage }}</td>
+              <td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2 edit"
+                  (click)="onEdit(item,'edit')"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning edit"
+                  (click)="deleteTax(item)"></button>
+              </td>
             </tr>
           </ng-template>
-          <ng-template pTemplate="paginatorleft">
-            <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
-          </ng-template>
-          <ng-template pTemplate="paginatorright">
-            <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+          <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">In total there are {{ taxFormData ?
+              taxFormData.length : 0 }} taxes.</div>
           </ng-template>
         </p-table>
       </div>
     </div>
   </div>
   <div class="dialog-box">
-    <p-dialog class="tax-dialog " header="Tax" [(visible)]="visible">
+
+    <!-- dialog starts here -->
+
+    <p-dialog class="tax-dialog " [(visible)]="visible">
+      <h3 class="form-heading">Tax</h3>
       <ng-template pTemplate="content">
         <div class="formbold-main-wrapper">
           <div class="formbold-form-wrapper">
             <form [formGroup]="taxForm">
               <div class="row mb-1">
                 <div class="col-md-4">
-                  
-                    <label for="productname" class="formbold-form-label d-block">
-                      Name<span class="required">*</span>
-                    </label>
-                    <input pInputText id="productname" placeholder="Tax name" class="formbold-form-input w-100"
-                      formControlName="name" />
-      
-                      <!-- <p-dropdown formControlName="name" [(ngModel)]="selectedTax" 
-                    [options]="taxesList" optionLabel="name" placeholder="Select a tax">
-        </p-dropdown> -->
-                      <!-- <select class="select-tax"   formControlName="name" class="formbold-form-input">
-                        <option *ngFor="let item of taxesList">{{item.name}}</option>
-                      </select> -->
-                  
+
+                  <label for="productname" class="formbold-form-label d-block">
+                    Name<span class="required">*</span>
+                  </label>
+                  <input pInputText id="productname" placeholder="Tax name" class="formbold-form-input w-100"
+                    formControlName="name" />
                   <div *ngIf="
                           taxForm?.get('name') as productnameControl
                         ">
@@ -93,78 +100,82 @@
                   <div class="d-flex align-items-center">
                     <div>
                       <label for="startDate" class="d-block">Period<span class="required">*</span></label>
-                      <p-calendar [(ngModel)]="date1"  placeholder="dd/mm/yyyy" formControlName="startDate"
-                        name="startDate"[style]="{ 'position': 'relative', 'z-index': '1000' }" ></p-calendar>
+                      <p-calendar [(ngModel)]="selectedDateRange[0]" placeholder="mm/dd/yyyy"
+                        formControlName="startDate"
+                        [style]="{ 'position': 'relative', 'z-index': '1000' }"></p-calendar>
                     </div>
-                  <div class="d-flex align-items-center" style="margin-top: 31px;">
-                    <label for="endDate" class="to mx-1">To</label>
-                    <p-calendar [(ngModel)]="date2" placeholder="dd/mm/yyyy" formControlName="endDate" name="endDate">
-                    </p-calendar>
+                    <div class="d-flex align-items-center" style="margin-top: 31px;">
+                      <label for="endDate" class="to mx-1">To</label>
+                      <p-calendar [(ngModel)]="selectedDateRange[1]" placeholder="mm/dd/yyyy" formControlName="endDate"
+                        name="endDate">
+                      </p-calendar>
+                    </div>
+
                   </div>
-               
-                  </div>
-                     
-             
-                    <div *ngIf="
+
+
+                  <div *ngIf="
                               taxForm?.get('startDate') as productnameControl
                             ">
-                      <div *ngIf="
+                    <div *ngIf="
                                 productnameControl.errors &&
                                 (productnameControl.dirty || productnameControl.touched)
                               ">
-                        <div class="invalid-error-date" *ngIf="productnameControl.errors['required']">
-                          Start date is is required.
-                        </div>
+                      <div class="invalid-error-date" *ngIf="productnameControl.errors['required']">
+                        Start date is is required.
                       </div>
                     </div>
-                 
-              
+                  </div>
+
+
                 </div>
                 <!-- <div class="col-md-4">
               
                 </div> -->
               </div>
-          
-          <div class="col-md-4 pl-0">
-            <label for="productname" class="formbold-form-label d-block">
-              Percentage<span class="required">*</span>
-            </label>
-            <input type="text" pInputText id="productname" placeholder="Percentage" class="formbold-form-input w-100"
-              formControlName="percentage" />
-              <div *ngIf="
+
+              <div class="col-md-4 pl-0">
+                <label for="productname" class="formbold-form-label d-block">
+                  Percentage<span class="required">*</span>
+                </label>
+                <input type="text" pInputText id="productname" placeholder="Percentage"
+                  class="formbold-form-input w-100" formControlName="percentage" />
+                <div *ngIf="
               taxForm?.get('percentage') as productnameControl
             ">
-          <div *ngIf="
+                  <div *ngIf="
                 productnameControl.errors &&
                 (productnameControl.dirty || productnameControl.touched)
               ">
-            <div class="invalid-error" *ngIf="productnameControl.errors['required']">
-              percentage is is required.
-            </div>
-            <div class="invalid-error" *ngIf="productnameControl.errors['pattern']">
-              This field only allows percentage
-            </div>
-          </div>
-        </div>
-          </div>
-           
-           <div class="col-md-12 d-flex justify-content-end mb-2">
-            <div class="bottom-0 d-flex footer-button">
-              <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text mr-2"
-              (click)="hideDialog()"></button>
-            <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="submitTaxForm()"
-              [disabled]="taxForm.invalid"></button>
-            </div>
-        
-           </div>
-           
+                    <div class="invalid-error" *ngIf="productnameControl.errors['required']">
+                      percentage is is required.
+                    </div>
+                    <div class="invalid-error" *ngIf="productnameControl.errors['pattern']">
+                      This field only allows percentage
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12 d-flex justify-content-end mb-2">
+                <div class="bottom-0 d-flex footer-button">
+                  <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text mr-2" type="button"
+                    (click)="hideDialog()"></button>
+                  <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"
+                    (click)="submitTaxForm()" [disabled]="taxForm.invalid"></button>
+                </div>
+
+              </div>
+
             </form>
           </div>
         </div>
-  
+
       </ng-template>
-  
+
     </p-dialog>
   </div>
- 
+
+  <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+
 </div>

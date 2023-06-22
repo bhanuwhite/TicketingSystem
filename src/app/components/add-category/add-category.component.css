@@ -1,7 +1,7 @@
 .content-inner {
     width: 100% !important;
     overflow-y: auto;
-    height: 100vh !important;
+    height: 100% !important;
   }
   .edit {
     border-radius: 50% !important;
@@ -23,6 +23,7 @@
   color: #2c8688
   /* align-items: center; */
 }
-.text-center{
-  color: red !important;
+.p-button-text{
+  background-color: #2c8688;
+  color: #fff;
 }

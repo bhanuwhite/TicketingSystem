@@ -9,7 +9,7 @@ export class DataFetchService {
 baseUrl = baseUrl;
   constructor(private http:HttpClient) { }
 
-  getData(url:string){
+  getData(url:string):Observable<any>{
     return this.http.get<any>(this.baseUrl+url);
   }
   postData(url:string,body:any):Observable<any>{
@@ -18,7 +18,6 @@ baseUrl = baseUrl;
   putData(url:string,body:any){
     return this.http.put<any>(this.baseUrl+url,body);
   }
-
   patchData(url:string,body:any){
     return this.http.patch<any>(this.baseUrl+url,body);
   }

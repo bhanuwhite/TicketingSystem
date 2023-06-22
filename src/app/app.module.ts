@@ -43,6 +43,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InVoiceComponent } from './components/in-voice/in-voice.component';
 import { DashboardComponent } from './components/dashboards/dashboard/dashboard.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, SidebarComponent, FooterComponent, AdminDashboardComponent, LoginComponent, AllProductsComponent, PageNotFoundComponent, AddCategoryComponent, TaxPageComponent, PlaceOrderComponent, InVoiceComponent, DashboardComponent],
@@ -77,11 +78,9 @@ CommonModule,
     
     CalendarModule,
     MultiSelectModule,
+    DatePipe,
 
-
-
-   
-  ],
+],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: MyInterceptor,
