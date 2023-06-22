@@ -89,8 +89,13 @@ export class AddCategoryComponent {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         try {
+          const delete_id :any=[]
+          delete_id.push(product._id)
+          const data = {
+            itemIds:delete_id
+          }
           this.service
-            .getData('deleteCategory/' + product.id)
+            .patchData('deleteCategory' , data)
             .subscribe((res) => {
               if (res.data.status === '200') {
                 this.messageService.add({

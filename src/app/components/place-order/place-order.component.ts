@@ -10,7 +10,7 @@ import { DataFetchService } from 'src/app/shared/services/common.service';
 })
 export class PlaceOrderComponent {
   tableData: any = [];
-  countries: any = Select_product.data.lists;
+  products_lists: any ;
   selectedCountry: any;
   filteredCountries!: any[];
   addProduct!: FormGroup;
@@ -28,7 +28,7 @@ export class PlaceOrderComponent {
 
   constructor(private services: DataFetchService, private fb: FormBuilder) {}
   ngOnInit(): void {
-    // this.getProducts();
+    this.getProducts();
     this.productinit();
     this.getTax();
   }
@@ -45,7 +45,7 @@ export class PlaceOrderComponent {
 
   getProducts(): void {
     this.services.getData('select').subscribe((res: any) => {
-      this.countries = res.data.lists;
+      this.products_lists = res.data.lists;
     });
   }
   getTax() {
@@ -84,8 +84,8 @@ export class PlaceOrderComponent {
     let filtered: any[] = [];
     let query = event?.query;
     if (event.query.length > 1) {
-      for (let i = 0; i < this.countries.length; i++) {
-        let country = this.countries[i];
+      for (let i = 0; i < this.products_lists.length; i++) {
+        let country = this.products_lists[i];
         if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
           filtered.push(country);
         }
@@ -126,8 +126,14 @@ export class PlaceOrderComponent {
   placeOrder(): void {
     const data: [] = this.tableData;
     console.log(data);
-    this.services.postData('tax/order ', data).subscribe((data) => {
-      console.log(data);
-    });
+    try{
+      this.services.postData('tax/order ', data).subscribe((data) => {
+        console.log(data);
+      });
+    }
+    catch{
+
+    }
+  
   }
 }

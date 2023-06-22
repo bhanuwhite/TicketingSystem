@@ -305,7 +305,7 @@ export class AllProductsComponent {
           console.log('checkin POST body', formData);
 
           this.service
-            .postData('display/' + this.product_id, formData)
+            .putData('display/' + this.product_id, formData)
             .subscribe((response: any) => {
               if (response.data.status === '201') {
                 this.messageService.add({
