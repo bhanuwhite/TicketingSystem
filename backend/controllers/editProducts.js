@@ -20,9 +20,12 @@ exports.editProducts = async (req, res) => {
       }
 
       if (req.files && req.files.length > 0) {
-        const url = 'http://localhost:3000/';
+        const url = 'http://206.189.140.51:4300/';
+        // const url = 'http://192.168.0.242:4300/';
+
         const imageUrls = req.files.map((file) => url + file.path);
         body.image = imageUrls.join(',');
+        console.log(body.image)
       }
 
       try {
@@ -35,7 +38,7 @@ exports.editProducts = async (req, res) => {
         updatedRecord.category = req.body.category || updatedRecord.category;
         updatedRecord.quantity = req.body.quantity || updatedRecord.quantity;
         updatedRecord.inventoryStatus = req.body.inventoryStatus || updatedRecord.inventoryStatus;
-        updatedRecord.images = body.image || updatedRecord.images;
+        updatedRecord.image = body.image || updatedRecord.image;
         let checkCategory = await Category.find({ name: updatedRecord.category });
         let checkCode = await Product.find({ productCode: updatedRecord.productCode });
         let data = {

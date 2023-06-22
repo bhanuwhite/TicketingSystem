@@ -12,7 +12,7 @@ const loginValidations = (data) => {
 const registrationValidations = (data) => {
     const Schema = Joi.object({
         id: Joi.number().required(),
-        role: Joi.string().required().valid('Admin', 'Manager'),
+        role: Joi.string().required().valid('Admin', 'Manager','User'),
         email: Joi.string().required().email(),
         password: Joi.string().required().min(3)
     });

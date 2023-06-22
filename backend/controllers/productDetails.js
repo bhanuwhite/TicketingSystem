@@ -15,14 +15,15 @@ exports.addProductsList = async (req, res) => {
             quantity: req.body.quantity,
         });
         k++;
+        console.log(k)
         let details = await Product.find();
-
         if (req.files) {
-            const url = 'http://localhost:3000/';
+            const url = 'http://206.189.140.51:4300/';
+            // const url = 'http://192.168.0.242:4300/';
             const paths = req.files.map((file) => url + file.path);
+            console.log(paths)
             const concat = paths.join(', ');
-
-            productList.images = concat;
+            productList.image = concat;
         }
 
         for (let i = 0; i < details.length; i++) {

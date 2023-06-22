@@ -75,7 +75,7 @@ router.get('/taxLists', TaxList.getTaxList);
 router.patch('/deleteMultiple', DeleteMultipleProducts.deleteMultipleProducts)
 router.post('/tax/order', PlaceOrder.getOrderPlaced);
 router.get('/tax/order', DisplayOrders.displayAllOrders);
-router.get('/tax/order/invoice', InvoiceDetails.detailsOfInvoice);
+router.post('/tax/order/invoice', InvoiceDetails.detailsOfInvoice);
 
 // router.get('/employee/:id', NamesById.getAllTheNamesById);
 // router.post('/role/addFields', AddFields.addFields);

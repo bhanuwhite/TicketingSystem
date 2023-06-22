@@ -5,16 +5,18 @@ exports.addingCategories = async (req, res) => {
         let k;
         let list = await Category.find();
         k = list[list.length - 1].id;
+        let categoryName = req.body.name.toLowerCase();
         let category = new Category({
             name: req.body.name,
             id: ++k,
         })
         for (let i = 0; i < list.length; i++) {
-            if (list[i].name === req.body.name) {
-                return res.status(400).send(data = {
+            if (list[i].name.toLowerCase() === categoryName) {
+                let data = {
                     message: "Category already exists",
                     status: '400'
-                })
+                }
+                return res.status(400).send({ data })
             }
         }
         await category.save();
