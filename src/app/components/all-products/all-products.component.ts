@@ -62,28 +62,7 @@ export class AllProductsComponent {
     this.getcategory();
     this.getstatus();
     this.getProducts();
-  }
-  //   exportToExcel(): void {
-  //     let data1 = [...this.dataTable.value];
-
-  //     data1=data1.map((x)=>{
-  //   return{
-  //     images:x.images
-  //   }
-  // })
-  // console.log(this.dataTable.value)
-  //     const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.dataTable.el.nativeElement);
-  //     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-  //     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-
-  //     const data: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
-
-  //     const link: HTMLAnchorElement = document.createElement('a');
-  //     link.href = window.URL.createObjectURL(data);
-  //     link.download = 'table-data.xlsx';
-  //     link.click();
-  //     window.URL.revokeObjectURL(link.href);
-  //   }
+  };
   exportToExcel(): void {
     const data = [...this.dataTable.value]; // Make a copy of the table data
 
@@ -298,9 +277,6 @@ export class AllProductsComponent {
           for (let i = 0; i < this.files.length; i++) {
             formData.append('image', this.files[i]);
           }
-          // for (let i = 0; i < selectedCategories.length; i++) {
-          //   formData.append('category', selectedCategories[i]);
-          // }
 
           console.log('checkin POST body', formData);
 
