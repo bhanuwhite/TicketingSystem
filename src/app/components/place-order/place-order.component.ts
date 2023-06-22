@@ -46,6 +46,7 @@ export class PlaceOrderComponent {
   getProducts(): void {
     this.services.getData('select').subscribe((res: any) => {
       this.products_lists = res.data.lists;
+      console.log(this.products_lists)
     });
   }
   getTax() {

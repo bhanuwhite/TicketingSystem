@@ -1,10 +1,17 @@
+.content-inner{
+    width: 100%;
+     background: var(--surface-ground);
+}
+
+
 .card {
-    background: var(--surface-card);
+    /* background: var(--surface-card); */
     padding: 2rem;
     border-radius: 1px;
     font-family: var(--font-family);
     font-weight: normal;
-    background: var(--surface-ground);
+    display: flex;
+   background-color: #fff;
     color: var(--text-color);
     padding: 1rem;
     -webkit-font-smoothing: antialiased;

@@ -1,175 +1,205 @@
-<div class="container-fulid" style="width: 75rem">
-  <div class="card" *ngIf="tableData.length > 0">
-    <h5 class="m-0 category-heading mb-4">Items Added</h5>
-
-    <p-table [value]="tableData">
-      <ng-template pTemplate="header">
-        <tr>
-          <th>Product</th>
-          <th>Quantity</th>
-          <th>Price</th>
-          <th>Tax</th>
-          <th>Amount</th>
-          <th>Action</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-product let-i="index">
-        <tr>
-          <td>{{ product?.name }}</td>
-          <td>{{ product?.quantity }}</td>
-          <td>${{ product?.price }}</td>
-          <td>${{ product?.tax ? product?.tax : "-" }}</td>
-          <td>${{ product?.totalamount }}</td>
-          <td>
-            <i
-              class="pi pi-times"
-              style="font-size: 1.5rem"
-              (click)="removeProduct(i)"
-            ></i>
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </div>
-
-  <div class="card mb-4 mt-0 p-3">
-    <h5 class="m-0 category-heading mb-4">Add Products</h5>
-
-    <div class="maintax-wrapper-content container">
-      <form [formGroup]="addProduct" style="width: 55%; margin: 0 auto">
-        <div class="add-product-input mb-4 justify-content-end d-flex" style="gap: 20px;">
-          <div>
-            <label for="integer" class="font-weight-bold d-block mb-2"
-              >Select Product</label
-            >
-
-            <p-autoComplete
-              #autoComplete
-              placeholder="Select Product"
-              (ngModelChange)="selectProduct($event)"
-              formControlName="name"
-              [(ngModel)]="selectedCountry"
-              [suggestions]="filteredCountries"
-              (completeMethod)="filterCountry($event)"
-              field="name"
-              class="product-dropdown-block"
-              [ngClass]="{
-                'is-invalid':
+<div class="content-inner">
+  <div class="container-fulid">
+    <div class="p-4">
+      <h5 class="m-0 category-heading mb-4">Customer Details</h5>
+      <div class="d-flex bg-white w-75 mx-auto py-4 border-rounded justify-content-center mb-4" style="gap: 20px;">
+        <div class="">
+          <div class="gap-2">
+            <label class="d-block font-weight-bold" For="username">Customer Name</label>
+            <input pInputText id="username" aria-describedby="username-help" style="height: 40px;"/>    
+        </div>
+        </div>
+        <div class="">
+          <div class="gap-2">
+            <label class="d-block font-weight-bold" For="username">Customer number</label>
+            <input type="telephone" pInputText id="username" aria-describedby="username-help" style="height: 40px;"/>    
+        </div>
+        </div>
+        <div class="">
+          <div class="gap-2">
+            <label class="d-block font-weight-bold" For="username">Customer Status</label>
+            <input type="number" pInputText id="username" aria-describedby="username-help" style="height: 40px;"/>    
+        </div>
+        </div>
+      </div>
+  
+      <h5 class="m-0 category-heading mb-4">Items Added</h5>
+  
+      <p-table [value]="tableData">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Tax</th>
+            <th>Amount</th>
+            <th>Action</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body">
+          <tr>
+            <td>
+              123
+            </td>
+          </tr>
+          <!-- <tr>
+            <td>hi</td>
+            <td>{{ product?.quantity }}</td>
+            <td>${{ product?.price }}</td>
+            <td>${{ product?.tax ? product?.tax : "-" }}</td>
+            <td>${{ product?.totalamount }}</td>
+            <td>
+              <i
+                class="pi pi-times"
+                style="font-size: 1.5rem"
+                (click)="removeProduct(i)"
+              ></i>
+            </td>
+          </tr> -->
+        </ng-template>
+      </p-table>
+    </div>
+  
+    <div class="pb-2 mt-0 p-4">
+      <h5 class="m-0 category-heading mb-4">Add Products</h5>
+  
+      <div class="maintax-wrapper-content container">
+        <form [formGroup]="addProduct" style="width: 55%; margin: 0 auto">
+          <div class="add-product-input mb-4 justify-content-end d-flex" style="gap: 20px;">
+            <div>
+              <label for="integer" class="font-weight-bold d-block mb-2"
+                >Select Product</label
+              >
+  
+              <p-autoComplete
+                #autoComplete
+                placeholder="Select Product"
+                (ngModelChange)="selectProduct($event)"
+                formControlName="name"
+                [(ngModel)]="selectedCountry"
+                [suggestions]="filteredCountries"
+                (completeMethod)="filterCountry($event)"
+                field="name"
+                class="product-dropdown-block"
+                [ngClass]="{
+                  'is-invalid':
+                    addProduct.get('name')?.invalid &&
+                    addProduct.get('name')?.touched
+                }"
+              ></p-autoComplete>
+              <div
+                *ngIf="
                   addProduct.get('name')?.invalid &&
                   addProduct.get('name')?.touched
-              }"
-            ></p-autoComplete>
-            <div
-              *ngIf="
-                addProduct.get('name')?.invalid &&
-                addProduct.get('name')?.touched
-              "
-            >
-              <div
-                class="p-error"
-                *ngIf="addProduct.get('name')?.hasError('required')"
+                "
               >
-                Product name is required.
+                <div
+                  class="p-error"
+                  *ngIf="addProduct.get('name')?.hasError('required')"
+                >
+                  Product name is required.
+                </div>
               </div>
             </div>
-          </div>
-          <div>
-            <label for="number" class="font-weight-bold d-block mb-2"
-              >Quantity</label
-            >
-            <input
-              (keyup)="onQuantityChange($event)"
-              pInputText
-              type="text"
-              class="quantity-information-content"
-              formControlName="quantity"
-              [ngClass]="{
-                'is-invalid':
+            <div>
+              <label for="number" class="font-weight-bold d-block mb-2"
+                >Quantity</label
+              >
+              <input
+                (keyup)="onQuantityChange($event)"
+                pInputText
+                type="text"
+                class="quantity-information-content"
+                formControlName="quantity"
+                [ngClass]="{
+                  'is-invalid':
+                    addProduct.get('quantity')?.invalid &&
+                    addProduct.get('quantity')?.touched
+                }"
+              />
+              <div
+                *ngIf="
                   addProduct.get('quantity')?.invalid &&
                   addProduct.get('quantity')?.touched
-              }"
-            />
-            <div
-              *ngIf="
-                addProduct.get('quantity')?.invalid &&
-                addProduct.get('quantity')?.touched
-              "
-            >
-              <div
-                class="p-error"
-                *ngIf="addProduct.get('quantity')?.hasError('required')"
+                "
               >
-                Quantity name is required.
+                <div
+                  class="p-error"
+                  *ngIf="addProduct.get('quantity')?.hasError('required')"
+                >
+                  Quantity name is required.
+                </div>
+                <div
+                  class="p-error"
+                  *ngIf="addProduct.get('quantity')?.hasError('pattern')"
+                >
+                  This field only allows numbers.
+                </div>
               </div>
-              <div
-                class="p-error"
-                *ngIf="addProduct.get('quantity')?.hasError('pattern')"
-              >
-                This field only allows numbers.
+            </div>
+            <div>
+              <div class="price-content-tax-block">
+                <label for="money" class="font-weight-bold block mb-2"
+                  >Price</label
+                >
+                <input
+                  pInputText
+                  type="text"
+                  class="price-information-content"
+                  placeholder="Price"
+                  readonly
+                  formControlName="price"
+                />
               </div>
             </div>
           </div>
-          <div>
-            <div class="price-content-tax-block">
-              <label for="money" class="font-weight-bold block mb-2"
-                >Price</label
+          <div class="d-flex justify-content-end" style="gap: 20px;">
+            <div>
+              <label for="alphabetic" class="font-weight-bold d-block mb-2"
+                >Select Tax</label
+              >
+              <div class="select_tax_dropdown">
+                <p-dropdown
+                (onChange)="ontaxChange($event)"
+                [options]="taxlistdemo"
+                optionLabel="name"
+                placeholder="Select Tax"
+                class="select-tax-block"
+                formControlName="tax"
+              ></p-dropdown>
+              </div>
+       
+            </div>
+            <div class="amount-content-tax-block">
+              <label for="alphanumeric" class="font-weight-bold block mb-2"
+                >Total</label
               >
               <input
                 pInputText
                 type="text"
-                class="price-information-content"
-                placeholder="Price"
+                class="amount-content-tax-block-input-info"
+                placeholder="Total Amount"
+                formControlName="amount"
                 readonly
-                formControlName="price"
               />
             </div>
           </div>
-        </div>
-        <div class="d-flex justify-content-end" style="gap: 20px;">
-          <div>
-            <label for="alphabetic" class="font-weight-bold d-block mb-2"
-              >Select Tax</label
+          <hr class="mt-4 mb-4" />
+          <div class="col-lg-12 d-flex justify-content-center" style="gap: 10px;">
+            <button pButton pRipple label="Order" class="p-button-success" (click)="placeOrder()"
+            [disabled]="tableData.length === 0"></button>
+            <button
+            pButton pRipple label="Add" styleClass="p-button-help"
+              [disabled]="addProduct.invalid"
+              (click)="add_Product()"
             >
-            <div class="select_tax_dropdown">
-              <p-dropdown
-              (onChange)="ontaxChange($event)"
-              [options]="taxlistdemo"
-              optionLabel="name"
-              placeholder="Select Tax"
-              class="select-tax-block"
-              formControlName="tax"
-            ></p-dropdown>
-            </div>
-     
+              
+            </button>
           </div>
-          <div class="amount-content-tax-block">
-            <label for="alphanumeric" class="font-weight-bold block mb-2"
-              >Total</label
-            >
-            <input
-              pInputText
-              type="text"
-              class="amount-content-tax-block-input-info"
-              placeholder="Total Amount"
-              formControlName="amount"
-              readonly
-            />
-          </div>
-        </div>
-        <hr class="mt-4 mb-4" />
-        <div class="col-lg-12 d-flex justify-content-center" style="gap: 10px;">
-          <button pButton pRipple label="Order" class="p-button-success" (click)="placeOrder()"
-          [disabled]="tableData.length === 0"></button>
-          <button
-          pButton pRipple label="Add" styleClass="p-button-help"
-            [disabled]="addProduct.invalid"
-            (click)="add_Product()"
-          >
-            
-          </button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
+    
   </div>
-  
 </div>
+
