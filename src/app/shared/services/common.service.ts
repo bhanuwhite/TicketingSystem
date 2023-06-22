@@ -18,5 +18,8 @@ baseUrl = baseUrl;
   putData(url:string,body:any){
     return this.http.put<any>(this.baseUrl+url,body);
   }
+  patchData(url:string,body:any){
+    return this.http.patch<any>(this.baseUrl+url,body);
+  }
 }
 {}

@@ -1,3 +1,5 @@
+<div class="app-product-main">
+
 <div class="content-inner">
   <div class="card card-content">
     <p-toast></p-toast>
@@ -20,13 +22,14 @@
         ></p-fileUpload> -->
         <!-- <button pButton pRipple label="Export" icon="pi pi-upload" 
           (click)="exportToCSV()"></button> -->
-          
-<p-dropdown [options]="export" placeholder="Export" optionLabel="name" (onChange)="onOptionClick($event)"  class="product-export"></p-dropdown>
+
+        <p-dropdown [options]="export" placeholder="Export" optionLabel="name" (onChange)="onOptionClick($event)"
+          class="product-export"></p-dropdown>
       </ng-template>
     </p-toolbar>
 
     <p-table #dataTable [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['productName']"
-      [tableStyle]="{ 'min-width': '75rem' }" [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
+      [tableStyle]="{ 'min-width': '68rem' }" [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
       <ng-template pTemplate="caption">
         <div class="flex align-items-center justify-content-between">
@@ -90,7 +93,7 @@
           <td>
             <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
           </td>
-          <td>
+          <td class="button-container">
             <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2 edit"
               (click)="editProduct(product, 'edit')"></button>
             <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning edit"
@@ -107,8 +110,8 @@
   </div>
 </div>
 
-<p-dialog class="p-dialog-header p-dailog-content-info" [closable]="false" [(visible)]="visible" [style]="{ width: '50vw', height: '100vh' }"
-  showCloseIcon="false">
+<p-dialog class="p-dialog-header p-dailog-content-info" [closable]="true" [(visible)]="visible"
+  [style]="{ width: '50vw', height: '100vh' }" showCloseIcon="false">
   <h3 *ngIf="checknew" class="form-heading mt-1">Add Product</h3>
   <h3 *ngIf="checkEdit" class="form-heading mt-1">Edit Product</h3>
   <div class="formbold-main-wrapper">
@@ -184,7 +187,8 @@
           <div>
             <label class="formbold-form-label">Quantity<span class="required">*</span></label>
 
-            <input class="formbold-form-input" pInputText formControlName="quantity" id="quantity" placeholder="Quantity" />
+            <input class="formbold-form-input" pInputText formControlName="quantity" id="quantity"
+              placeholder="Quantity" />
 
             <div *ngIf="addProductForm?.get('quantity') as productnameControl">
               <div *ngIf="
@@ -204,7 +208,8 @@
         <div class="formbold-input-flex">
           <div>
             <label class="formbold-form-label">Category<span class="required">*</span></label>
-            <p-multiSelect class="formbold-form-input testing" formControlName="category" id="category" [options]="categoryList"  optionLabel="name" optionValue="name"></p-multiSelect>
+            <p-multiSelect class="formbold-form-input testing" formControlName="category" id="category"
+              [options]="categoryList" optionLabel="name" optionValue="name"></p-multiSelect>
 
             <!-- <select class="formbold-form-input" formControlName="category" id="category" multiple>
               <option value="" disabled selected>Select an option</option>
@@ -240,8 +245,8 @@
           <label for="message" class="formbold-form-label">
             Description<span class="required">*</span>
           </label>
-          <textarea rows="2" name="message" pInputTextarea id="message" class="formbold-form-input" placeholder="Write here"
-            formControlName="productDescription"></textarea>
+          <textarea rows="2" name="message" pInputTextarea id="message" class="formbold-form-input"
+            placeholder="Write here" formControlName="productDescription"></textarea>
 
           <div *ngIf="
               addProductForm?.get('productDescription') as productnameControl
@@ -273,3 +278,4 @@
 </p-dialog>
 
 <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+</div>

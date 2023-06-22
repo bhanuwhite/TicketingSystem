@@ -2,6 +2,13 @@
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 
+
+*{
+  padding: 0px;
+  margin: 0px;
+  list-style-type: none;
+  box-sizing: border-box;
+}
 .p-dialog-draggable .p-dialog-header {
   padding:   0px  ;
 }
@@ -90,9 +97,9 @@ top: 0 !important;
     padding: 0px !important;
 }
 .p-dialog-title{
-  margin-left: 320px !important;
+  /* margin-left: 320px !important; */
   font-size: 30px !important;
-  margin-top: 20px;
+  /* margin-top: 20px; */
   color: #559192;
 }
 app-tax-page{

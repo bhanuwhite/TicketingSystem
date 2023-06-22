@@ -6,7 +6,7 @@
 .content-inner {
   width: 100% !important;
   overflow-y: auto;
-  height: 100vh !important;
+  height: 100% !important;
 }
 
 p-dialog .p-dialog-header{
@@ -169,11 +169,11 @@ body {
 
 .edit {
   border-radius: 50% !important;
-  height: 2rem !important;
+  height: 1.7rem !important;
 }
 .edit {
-width: 2rem !important;
-padding: 0.75rem 0 !important;
+  width: 1.7rem !important;
+  padding: 0.75rem 0 !important;
 }.p-button-text{
   background-color: #559192;
   color: #ffffff;
@@ -195,3 +195,4 @@ select:required:invalid {
 p-dialog .p-dialog-footer{
   padding: 0px;
 }
+
