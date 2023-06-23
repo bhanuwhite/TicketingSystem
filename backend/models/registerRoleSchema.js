@@ -24,6 +24,7 @@ let registerSchema = new mongoose.Schema({
 },
   { timestamps: true }
 );
+registerSchema.index({ email: 1 });
 
 let Register = mongoose.model('Register', registerSchema);
 module.exports = Register;
