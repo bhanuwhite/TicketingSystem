@@ -13,7 +13,7 @@ exports.getTaxDetails = async (req, res) => {
         });
         k++;
         let checkName = await Tax.find({ name: req.body.name });
-        if (checkName && checkName.length!=0) {
+        if (checkName && checkName.length != 0) {
             let data = {
                 message: `${req.body.name} already exists`,
                 status: '400'

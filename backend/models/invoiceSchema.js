@@ -33,11 +33,11 @@ const invoiceSchema = new mongoose.Schema({
     },
     items: {
         type: [mongoose.Schema.Types.Mixed]
-    },  
+    },
     status: {
         type: String,
-        enum: ['paid','unpaid']
-    },  
+        enum: ['paid', 'unpaid']
+    },
 },
     { timestamps: true }
 );

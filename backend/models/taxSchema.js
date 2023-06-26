@@ -8,14 +8,14 @@ const taxSchema = new mongoose.Schema({
         type: String,
     },
     period: {
-       startDate:{type:Date, required: true},
-       endDate:{type:Date, required: true}
+        startDate: { type: Date, required: true },
+        endDate: { type: Date, required: true }
     },
     percentage: {
         type: String,
     },
 },
-    { timestamps: true , versionKey: false});
+    { timestamps: true, versionKey: false });
 
 const Tax = mongoose.model('Tax', taxSchema);
 module.exports = Tax;

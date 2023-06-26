@@ -12,6 +12,6 @@ const taxListSchema = new mongoose.Schema({
         type: String,
     }
 },
-    { timestamps: false ,versionKey: false });
+    { timestamps: false, versionKey: false });
 const TaxList = mongoose.model('TaxList', taxListSchema);
 module.exports = TaxList;

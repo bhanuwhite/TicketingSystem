@@ -37,6 +37,7 @@ const DeleteMultipleProducts = require('../controllers/deleteMultipleProducts');
 const PlaceOrder = require('../controllers/placeOrder');
 const DisplayOrders = require('../controllers/displayOrders');
 const InvoiceDetails = require('../controllers/invoiceDetails');
+const DisplayInvoice = require('../controllers/invoiceList');
 const AddFields = require('../controllers/addFields');
 const NamesById = require('../controllers/getEmployeeNamesById');
 
@@ -76,6 +77,7 @@ router.patch('/deleteMultiple', DeleteMultipleProducts.deleteMultipleProducts)
 router.post('/tax/order', PlaceOrder.getOrderPlaced);
 router.get('/tax/order', DisplayOrders.displayAllOrders);
 router.post('/tax/order/invoice', InvoiceDetails.detailsOfInvoice);
+router.get('/tax/order/invoice', DisplayInvoice.displayAllInvoices);
 
 // router.get('/employee/:id', NamesById.getAllTheNamesById);
 // router.post('/role/addFields', AddFields.addFields);
