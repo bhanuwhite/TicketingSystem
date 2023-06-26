@@ -33,11 +33,10 @@ exports.editProducts = async (req, res) => {
         updatedRecord.productDescription = req.body.productDescription || updatedRecord.productDescription;
         updatedRecord.productCode = req.body.productCode || updatedRecord.productCode;
         updatedRecord.price = req.body.price || updatedRecord.price;
-        updatedRecord.category = req.body.category || updatedRecord.category;
+        updatedRecord.category = req.body.category.split(",") || updatedRecord.category.split(",");
         updatedRecord.quantity = req.body.quantity || updatedRecord.quantity;
         updatedRecord.inventoryStatus = req.body.inventoryStatus || updatedRecord.inventoryStatus;
         updatedRecord.image = body.image || updatedRecord.image;
-
         await updatedRecord.save();
         data = {
           message: "Product edited successfully",
@@ -54,3 +53,4 @@ exports.editProducts = async (req, res) => {
     return res.status(400).send(err);
   }
 };
+
