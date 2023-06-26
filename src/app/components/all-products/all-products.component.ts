@@ -353,8 +353,7 @@ export class AllProductsComponent {
             formData.append('image', this.files[i]);
           }
           console.log('checkin POST body', formData);
-          this.service.postData('addProduct', formData).subscribe({
-            next: (res: any) => {
+          this.service.postData('addProduct', formData).subscribe({next: (res: any) => {
               console.log(res);
               if (res.data.status === '201') {
                 this.messageService.add({

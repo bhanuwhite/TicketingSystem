@@ -102,7 +102,7 @@ margin-bottom: 0px !important;
   color: #559192;
 }
 app-tax-page {
-  width: 100%;
+  width: 88%;
 }
 
 /* .p-dialog-mask .p-dialog-content{
@@ -143,4 +143,22 @@ app-tax-page {
 .select_tax_dropdown .p-dropdown.p-component
  {
   width: 142px !important;
+}
+app-sidebar{
+  width: 12%;
+}
+app-all-products,
+app-add-category,
+app-support,app-dashboard
+{
+  width: 88%;
+}
+.p-dialog {
+  overflow: hidden;
+}
+.p-dialog-mask .p-dialog .p-dialog-header .p-dialog-header-icon:last-child {
+  position: absolute;
+  right: 11px;
+  top: 5px;
+
 }

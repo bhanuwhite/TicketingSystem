@@ -22,6 +22,7 @@
     "bootstrap": "^4.6.2",
     "file-saver": "^2.0.5",
     "font-awesome": "^4.7.0",
+    "ng-circle-progress": "^1.7.1",
     "ngx-pagination": "^6.0.3",
     "papaparse": "^5.4.1",
     "primeicons": "^6.0.1",
