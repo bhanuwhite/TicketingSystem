@@ -37,8 +37,8 @@ export class LoginComponent {
     this.service.postData('role/login', data).subscribe((res:any) => {
       console.log(res.data.roleId);
       if (res.data.status === '200') {
-        if (res.data.roleId === 1) {
-          this.router.navigate(['/admin-dashboard']);
+        if (res.data.roleId === 3) {
+          this.router.navigate(['/dashboard']);
         }
         this.storingValuesInLS(res.data);
       }

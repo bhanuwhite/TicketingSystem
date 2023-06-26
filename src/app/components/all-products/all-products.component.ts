@@ -218,6 +218,8 @@ export class AllProductsComponent {
     this.checkEdit = true;
   }
   setFormValues(product: any) {
+    console.log(product);
+   
     this.addProductForm.patchValue({
       productName: product.productName,
       productCode: product.productCode,
@@ -227,6 +229,7 @@ export class AllProductsComponent {
       price: product.price,
       quantity: product.quantity,
     });
+    console.log(this.addProductForm.value)
   }
 
   deleteProduct(product: any) {
@@ -307,7 +310,7 @@ export class AllProductsComponent {
           this.service
             .putData('display/' + this.product_id, formData)
             .subscribe((response: any) => {
-              if (response.data.status === '201') {
+              if (response.data.status === '200') {
                 this.messageService.add({
                   severity: 'success',
                   summary: 'Successful',

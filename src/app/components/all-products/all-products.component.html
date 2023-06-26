@@ -98,7 +98,7 @@
           <th>Actions</th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-product>
+      <ng-template pTemplate="body" let-product  let-i="index">
         <tr>
           <td>
             <p-tableCheckbox [value]="product"></p-tableCheckbox>
@@ -107,7 +107,7 @@
           <td>{{ product.productCode }}</td>
           <td>
             <img
-              [src]="product.images"
+              [src]="product.image"
               [alt]="product.name"
               width="50"
               class="shadow-4"
