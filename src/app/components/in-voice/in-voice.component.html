@@ -79,21 +79,21 @@
               Invoice no. <p-sortIcon field="productName"></p-sortIcon>
             </th>
             <th pSortableColumn="productCode" style="min-width: 5rem">
-              Total Tax <p-sortIcon field="productCode"></p-sortIcon>
+              Customer <p-sortIcon field="productCode"></p-sortIcon>
             </th>
-            <th>Image</th>
+            <th>Date</th>
             <th pSortableColumn="price">
-              Price <p-sortIcon field="price"></p-sortIcon>
+              Status <p-sortIcon field="price"></p-sortIcon>
             </th>
-            <th pSortableColumn="category" style="min-width: 10rem">
-              Category <p-sortIcon field="category"></p-sortIcon>
+            <!-- <th pSortableColumn="category" style="min-width: 10rem">
+              Actions <p-sortIcon field="category"></p-sortIcon>
             </th>
             <th pSortableColumn="quantity">
               Quantity <p-sortIcon field="quantity"></p-sortIcon>
             </th>
             <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
               Status <p-sortIcon field="inventoryStatus"></p-sortIcon>
-            </th>
+            </th> -->
             <th>Actions</th>
           </tr>
         </ng-template>
@@ -104,27 +104,18 @@
             </td> -->
             <td>{{ product.productName }}</td>
             <td>{{ product.productCode }}</td>
-            <td>
-              <img
-                [src]="product.images"
-                [alt]="product.name"
-                width="50"
-                class="shadow-4"
-              />
-            </td>
+            
             <td>{{ product.price | currency : "USD" }}</td>
             <td>{{ product.category }}</td>
   
+<!--             
             <td>
-              {{ product.quantity }}
-            </td>
-            <td>
-              <!-- <p-tag
+              <p-tag
                 [value]="product.inventoryStatus"
                 [severity]="getSeverity(product.inventoryStatus)"
 
-              ></p-tag> -->
-            </td>
+              ></p-tag>
+            </td> -->
             <td>
               <button
                 pButton

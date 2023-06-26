@@ -19,17 +19,17 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: AdminDashboardComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     children: [
       {
         path:'invoice',
         component: InVoiceComponent,
-        // canActivate:[AuthGuard],
+        canActivate:[AuthGuard],
       },
       {
         path: 'products',
         component: AllProductsComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
       },
       {
         path: 'support',
@@ -39,7 +39,7 @@ const routes: Routes = [
       {
         path: 'addcategory',
         component: AddCategoryComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
       },
       {
         path: 'support/raise-ticket',
