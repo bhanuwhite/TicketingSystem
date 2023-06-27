@@ -63,27 +63,8 @@ export class AllProductsComponent {
     this.getstatus();
     this.getProducts();
   }
-  //   exportToExcel(): void {
-  //     let data1 = [...this.dataTable.value];
+ 
 
-  //     data1=data1.map((x)=>{
-  //   return{
-  //     images:x.images
-  //   }
-  // })
-  // console.log(this.dataTable.value)
-  //     const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.dataTable.el.nativeElement);
-  //     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-  //     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-
-  //     const data: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
-
-  //     const link: HTMLAnchorElement = document.createElement('a');
-  //     link.href = window.URL.createObjectURL(data);
-  //     link.download = 'table-data.xlsx';
-  //     link.click();
-  //     window.URL.revokeObjectURL(link.href);
-  //   }
   exportToExcel(): void {
     const data = [...this.dataTable.value]; // Make a copy of the table data
 
@@ -132,13 +113,11 @@ export class AllProductsComponent {
   getcategory(): void {
     this.service.getData('listCategory').subscribe((res) => {
       this.categoryList = res.categoryList;
-      console.log(this.categoryList);
     });
   }
   getstatus(): void {
     this.service.getData('status').subscribe((res) => {
       this.statusList = res.data.inventoryStatus;
-      console.log(this.statusList);
     });
   }
   productsInit(): void {
@@ -163,20 +142,25 @@ export class AllProductsComponent {
   getProducts() {
     this.service.getData('displayProduct').subscribe((res) => {
       this.products = res.allProducts;
-      console.log(this.products);
     });
   }
   onFileChange(event: any): void {
+    const target = event.target as HTMLInputElement;
+    if (target && target.files && target.files.length > 0) {
+      const file = target.files[0].name;
+      this.addProductForm.patchValue({
+        image: file
+      });
+      const avatarControl = this.addProductForm.get('image');
+      if (avatarControl) {
+        avatarControl.updateValueAndValidity();
+      }
 
-    const file = event.target.files[0];
-    this.addProductForm.patchValue({
-      image: file
-    });
-    console.log(file);
-    console.log(this.addProductForm.value);
+ 
+  }
+    
   }
   onOptionClick(event: any) {
-    console.log(event.value.name);
     if (event.value.name === 'Csv') {
       this.exportToCSV();
     } else if (event.value.name === 'Excel') {
@@ -214,7 +198,6 @@ export class AllProductsComponent {
 
   editProduct(product: any, editForm: any) {
     this.editSubmitCheck = editForm;
-    console.log(this.editSubmitCheck);
     this.product_id = product._id;
     this.setFormValues(product);
     this.visible = true;
@@ -222,7 +205,6 @@ export class AllProductsComponent {
     this.checkEdit = true;
   }
   setFormValues(product: any) {
-    console.log(product);
 
     this.addProductForm.patchValue({
       productName: product.productName,
@@ -236,7 +218,6 @@ export class AllProductsComponent {
       quantity: product.quantity,
       image: product.image
     });
-    console.log(this.addProductForm.value);
   }
 
   deleteProduct(product: any) {
@@ -275,7 +256,6 @@ export class AllProductsComponent {
               life: 3000,
             });
           }
-          console.log(err);
         }
       },
     });
@@ -288,15 +268,12 @@ export class AllProductsComponent {
 
   saveProduct() {
     this.submitted = true;
-    console.log(this.editSubmitCheck);
     if (this.editSubmitCheck === 'edit') {
       try {
         if (this.addProductForm.valid) {
           const formVaules = this.addProductForm.value;
           const catergoryArray: any = [];
           catergoryArray.push(formVaules.category);
-          console.log(catergoryArray);
-          // const selectedCategories = formVaules.category;
           const formData = new FormData();
           formData.append('productName', formVaules.productName);
           formData.append('productCode', formVaules.productCode);
@@ -308,20 +285,13 @@ export class AllProductsComponent {
           // formData.append('image', formVaules.image);
           formData.append('image', formVaules.image);
 
-          // for (let i = 0; i < this.files.length; i++) {
-          //   formData.append('image', this.files[i]);
-          // }
-          // for (let i = 0; i < selectedCategories.length; i++) {
-          //   formData.append('category', selectedCategories[i]);
-          // }
+        
 
-          console.log('checkin POST body', formData);
 
           this.service
             .putData('display/' + this.product_id, formData)
             .subscribe((response: any) => {
               if (response.data.status === '200') {
-                console.log(this.addProductForm.value);
                 this.messageService.add({
                   severity: 'success',
                   summary: 'Successful',
@@ -354,7 +324,6 @@ export class AllProductsComponent {
           const formVaules = this.addProductForm.value;
           const catergoryArray: any = [];
           catergoryArray.push(formVaules.category);
-          console.log(catergoryArray);
           const formData = new FormData();
           formData.append('productName', formVaules.productName);
           formData.append('productCode', formVaules.productCode);
@@ -368,10 +337,8 @@ export class AllProductsComponent {
           // for (let i = 0; i < this.files.length; i++) {
           //   formData.append('image', this.files[i]);
           // }
-          console.log('checkin POST body', formData);
           this.service.postData('addProduct', formData).subscribe({
             next: (res: any) => {
-              console.log(res);
               if (res.data.status === '201') {
                 this.messageService.add({
                   severity: 'success',
@@ -403,7 +370,6 @@ export class AllProductsComponent {
           });
         }
       } catch (err) {
-        console.log(err);
       }
     }
   }
