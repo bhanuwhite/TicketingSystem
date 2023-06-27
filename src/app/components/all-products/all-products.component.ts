@@ -156,6 +156,7 @@ export class AllProductsComponent {
       category: ['', Validators.required],
       inventoryStatus: ['', Validators.required],
       productDescription: ['', Validators.required],
+      image:[null]
     });
   }
 
@@ -166,10 +167,13 @@ export class AllProductsComponent {
     });
   }
   onFileChange(event: any): void {
-    const files = event.target.files;
-    for (let i = 0; i < files.length; i++) {
-      this.files.push(files[i]);
-    }
+
+    const file = event.target.files[0];
+    this.addProductForm.patchValue({
+      image: file
+    });
+    console.log(file);
+    console.log(this.addProductForm.value);
   }
   onOptionClick(event: any) {
     console.log(event.value.name);
@@ -219,17 +223,20 @@ export class AllProductsComponent {
   }
   setFormValues(product: any) {
     console.log(product);
-   
+
     this.addProductForm.patchValue({
       productName: product.productName,
       productCode: product.productCode,
       productDescription: product.productDescription,
       inventoryStatus: product.inventoryStatus,
-      category: product.category,
+      category: product.category.map((x: any) => {
+        return x;
+      }),
       price: product.price,
       quantity: product.quantity,
+      image: product.image
     });
-    console.log(this.addProductForm.value)
+    console.log(this.addProductForm.value);
   }
 
   deleteProduct(product: any) {
@@ -288,7 +295,7 @@ export class AllProductsComponent {
           const formVaules = this.addProductForm.value;
           const catergoryArray: any = [];
           catergoryArray.push(formVaules.category);
-          console.log(catergoryArray)
+          console.log(catergoryArray);
           // const selectedCategories = formVaules.category;
           const formData = new FormData();
           formData.append('productName', formVaules.productName);
@@ -298,9 +305,12 @@ export class AllProductsComponent {
           formData.append('category', catergoryArray);
           formData.append('inventoryStatus', formVaules.inventoryStatus);
           formData.append('productDescription', formVaules.productDescription);
-          for (let i = 0; i < this.files.length; i++) {
-            formData.append('image', this.files[i]);
-          }
+          // formData.append('image', formVaules.image);
+          formData.append('image', formVaules.image);
+
+          // for (let i = 0; i < this.files.length; i++) {
+          //   formData.append('image', this.files[i]);
+          // }
           // for (let i = 0; i < selectedCategories.length; i++) {
           //   formData.append('category', selectedCategories[i]);
           // }
@@ -311,6 +321,7 @@ export class AllProductsComponent {
             .putData('display/' + this.product_id, formData)
             .subscribe((response: any) => {
               if (response.data.status === '200') {
+                console.log(this.addProductForm.value);
                 this.messageService.add({
                   severity: 'success',
                   summary: 'Successful',
@@ -343,7 +354,7 @@ export class AllProductsComponent {
           const formVaules = this.addProductForm.value;
           const catergoryArray: any = [];
           catergoryArray.push(formVaules.category);
-          console.log(catergoryArray)
+          console.log(catergoryArray);
           const formData = new FormData();
           formData.append('productName', formVaules.productName);
           formData.append('productCode', formVaules.productCode);
@@ -352,9 +363,11 @@ export class AllProductsComponent {
           formData.append('category', catergoryArray);
           formData.append('inventoryStatus', formVaules.inventoryStatus);
           formData.append('productDescription', formVaules.productDescription);
-          for (let i = 0; i < this.files.length; i++) {
-            formData.append('image', this.files[i]);
-          }
+          formData.append('image', formVaules.image);
+
+          // for (let i = 0; i < this.files.length; i++) {
+          //   formData.append('image', this.files[i]);
+          // }
           console.log('checkin POST body', formData);
           this.service.postData('addProduct', formData).subscribe({
             next: (res: any) => {
