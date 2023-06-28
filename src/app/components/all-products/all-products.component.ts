@@ -333,10 +333,6 @@ export class AllProductsComponent {
           formData.append('inventoryStatus', formVaules.inventoryStatus);
           formData.append('productDescription', formVaules.productDescription);
           formData.append('image', formVaules.image);
-
-          // for (let i = 0; i < this.files.length; i++) {
-          //   formData.append('image', this.files[i]);
-          // }
           this.service.postData('addProduct', formData).subscribe({
             next: (res: any) => {
               if (res.data.status === '201') {

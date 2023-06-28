@@ -44,6 +44,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { InVoiceComponent } from './components/in-voice/in-voice.component';
 import { DashboardComponent } from './components/dashboards/dashboard/dashboard.component';
 import { DatePipe } from '@angular/common';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, SidebarComponent, FooterComponent, AdminDashboardComponent, LoginComponent, AllProductsComponent, PageNotFoundComponent, AddCategoryComponent, TaxPageComponent, PlaceOrderComponent, InVoiceComponent, DashboardComponent],
@@ -78,8 +79,16 @@ CommonModule,
     
     CalendarModule,
     MultiSelectModule,
-    DatePipe,
-
+    DatePipe,NgCircleProgressModule
+    .forRoot({
+      // set defaults here
+      radius: 100,
+      outerStrokeWidth: 16,
+      innerStrokeWidth: 8,
+      outerStrokeColor: "#78C000",
+      innerStrokeColor: "#C7E596",
+      animationDuration: 300,
+    })
 ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

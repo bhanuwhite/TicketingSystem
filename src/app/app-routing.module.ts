@@ -11,9 +11,10 @@ import { AddCategoryComponent } from './components/add-category/add-category.com
 import { PlaceOrderComponent } from './components/place-order/place-order.component';
 import { TaxPageComponent } from './components/tax-page/tax-page.component';
 import { InVoiceComponent } from './components/in-voice/in-voice.component';
+import { DashboardComponent } from './components/dashboards/dashboard/dashboard.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
 
   {
@@ -34,7 +35,7 @@ const routes: Routes = [
       {
         path: 'support',
         component: SupportComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
       },
       {
         path: 'addcategory',
@@ -44,10 +45,11 @@ const routes: Routes = [
       {
         path: 'support/raise-ticket',
         component: RaiseTicketComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
       },
       { path: 'tax-page', component: TaxPageComponent },
-      { path: 'order', component: PlaceOrderComponent }
+      { path: 'order', component: PlaceOrderComponent },
+      { path:'dashboard' , component:DashboardComponent}
     ],
   },
   { path: '**', component: PageNotFoundComponent },

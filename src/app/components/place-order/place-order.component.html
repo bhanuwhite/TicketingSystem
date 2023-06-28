@@ -1,30 +1,47 @@
 <div class="content-inner">
   <h3 class="px-4 py-2">Place order</h3>
   <div class="container-fulid">
+    <form [formGroup]="addProduct" style="width: 100%;">
+
     <div class="bg-white customer-info-card px-3 py-3 mx-4 box-shadow">
       <h5 class=" cutomer_heading mb-4"> Customer Info</h5>
       <div class="d-flex" style="gap: 20px;">
-        <div class="w-100">
-          <label class="d-block font-weight-bold" For="username">Customer Name</label>
-          <input pInputText id="username" aria-describedby="username-help" style="height: 40px" class="w-100" />
+        <div class="w-25">
+          <label class="d-block font-weight-bold" For="username">Customer Name<sup class="required">*</sup></label>
+          <input formControlName="customerName" placeholder="Customer Name" pInputText id="username" aria-describedby="username-help" style="height: 40px" class="w-100" />
+          <div *ngIf="
+          addProduct.get('customerName')?.invalid &&
+          addProduct.get('customerName')?.touched
+        ">
+        <div class="p-error" *ngIf="addProduct.get('customerName')?.hasError('required')">
+          Customer name is required.
         </div>
-        <div class="w-100">
-          <label class="d-block font-weight-bold" For="username">Customer number</label>
-          <input type="telephone" pInputText id="username" aria-describedby="username-help" class="w-100"
+      </div>
+        </div>
+        <div class="w-25">
+          <label class="d-block font-weight-bold" For="username">Customer number<sup class="required">*</sup></label>
+          <input formControlName="mobile" placeholder="Mobile Number" type="telephone" pInputText id="username" aria-describedby="username-help" class="w-100"
             style="height: 40px" />
+            <div *ngIf="
+            addProduct.get('mobile')?.invalid &&
+            addProduct.get('mobile')?.touched
+          ">
+          <div class="p-error" *ngIf="addProduct.get('mobile')?.hasError('required')">
+            Mobile number is required.
+          </div>
         </div>
-        <div class="w-100">
+        </div>
+        <!-- <div class="w-100">
           <label class="d-block font-weight-bold" For="username">Customer Name</label>
           <input pInputText id="username" aria-describedby="username-help" class="w-100" style="height: 40px" />
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="bg-white my-4 customer-info-card px-3 py-3 mx-4 box-shadow">
       <h5 class=" cutomer_heading mb-4">Add Products</h5>
-      <form [formGroup]="addProduct" style="width: 100%;">
         <div class="d-flex" style="gap: 20px;">
           <div>
-            <label for="integer" class="font-weight-bold d-block mb-2">Select Product</label>
+            <label for="integer" class="font-weight-bold d-block mb-2">Select Product<sup class="required">*</sup></label>
             <p-autoComplete #autoComplete placeholder="Select Product" (ngModelChange)="selectProduct($event)"
               formControlName="name" [(ngModel)]="selectedCountry" [suggestions]="filteredCountries"
               (completeMethod)="filterCountry($event)" field="name" class="product-dropdown-block" [ngClass]="{
@@ -42,7 +59,7 @@
             </div>
           </div>
           <div>
-            <label for="number" class="font-weight-bold d-block mb-2">Quantity</label>
+            <label for="number" class="font-weight-bold d-block mb-2">Quantity<sup class="required">*</sup></label>
             <input (keyup)="onQuantityChange($event)" pInputText type="text" class="quantity-information-content"
               formControlName="quantity" [ngClass]="{
                 'is-invalid':
@@ -54,7 +71,7 @@
                 addProduct.get('quantity')?.touched
               ">
               <div class="p-error" *ngIf="addProduct.get('quantity')?.hasError('required')">
-                Quantity name is required.
+                Quantity  is required.
               </div>
               <div class="p-error" *ngIf="addProduct.get('quantity')?.hasError('pattern')">
                 This field only allows numbers.
@@ -82,19 +99,20 @@
           </div>
           <div >
             <label for="alphanumeric" class="font-weight-bold block mb-2">Add Items</label>
-            <div class="text-center">
-              <i class="pi pi-plus mt-2" style="font-size: 1.5rem ;color: blue;"></i>
+            <div class="text-center additems">
+              <i class="pi pi-plus " style="font-size: 1.5rem ;color: blue;" (click)="add_Product()"></i>
             </div> 
           </div>
         </div>
-        <div class=" d-flex mt-2 justify-content-end" style="gap: 10px">
+        <!-- <div class=" d-flex mt-2 justify-content-end" style="gap: 10px">
           <button pButton pRipple label="Order" class="p-button-success" (click)="placeOrder()"
             [disabled]="tableData.length === 0"></button>
           <button pButton pRipple label="Add" styleClass="p-button-help" [disabled]="addProduct.invalid"
             (click)="add_Product()"></button>
-        </div>
-      </form>
+        </div> -->
       </div>
+    </form>
+
     </div>
     <div class="px-3 py-3 mx-2 box-shadow" style="position: relative;">
       <p-table [value]="tableData" style="margin-bottom: 20px;">
@@ -118,7 +136,7 @@
             <td>{{ product?.name }}</td>
             <td>{{ product?.quantity }}</td>
             <td>${{ product?.price }}</td>
-            <td>${{ product?.tax ? product?.tax : "-" }}</td>
+            <td>${{ product?.tax ? product?.tax : "0" }}</td>
             <td>${{ product?.totalamount }}</td>
             <td>
               <i class="pi pi-times" style="font-size: 1.5rem" (click)="removeProduct(i)"></i>
@@ -130,13 +148,13 @@
       <div class="ammount-wrapper my-2" >
         <div class="d-flex  justify-content-end ">
           <h6 class="font-weight-bold">
-           Total : 1200
+           Total : {{TotalOrderAmount}}
           </h6>
          </div>
          <div class="d-flex justify-content-end" style="gap: 10px">
-           <button pButton pRipple label="Canel" class="p-button-success"  
+           <button pButton pRipple label="Cancel" class="p-button-danger"  
            ></button>
-         <button pButton pRipple label="Submit" styleClass="p-button-help"  
+         <button pButton pRipple label="Order" styleClass="p-button-help"  [disabled]="tableData.length === 0" (click)="placeOrder()"
            ></button>
           </div>
       </div>
