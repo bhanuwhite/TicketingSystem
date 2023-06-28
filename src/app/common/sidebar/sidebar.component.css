@@ -24,14 +24,8 @@
 }
 
 .sidenav {
-  width: 10rem;
   background-color: #559192;
-  top: 0;
-  left: 0;
   height: 100vh !important;
- 
-
-  position: sticky;
   display: flex;
   flex-direction: column;
 }

@@ -54,6 +54,7 @@ export class AddCategoryComponent {
     this.product = {};
     this.submitted = false;
     this.productDialog = true;
+    this.categoryForm.reset();
   }
   multiSelected(category:any){
     this.multiSelectedDelete.push(category._id);

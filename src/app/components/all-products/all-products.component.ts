@@ -147,7 +147,7 @@ export class AllProductsComponent {
   onFileChange(event: any): void {
     const target = event.target as HTMLInputElement;
     if (target && target.files && target.files.length > 0) {
-      const file = target.files[0].name;
+      const file = target.files[0];
       this.addProductForm.patchValue({
         image: file
       });
