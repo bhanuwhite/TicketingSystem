@@ -38,7 +38,7 @@ export class LoginComponent {
       console.log(res.data.roleId);
       if (res.data.status === '200') {
         if (res.data.roleId === 3) {
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/dashboard/home']);
         }
         this.storingValuesInLS(res.data);
       }

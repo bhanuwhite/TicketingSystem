@@ -14,7 +14,7 @@ import { InVoiceComponent } from './components/in-voice/in-voice.component';
 import { DashboardComponent } from './components/dashboards/dashboard/dashboard.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
 
   {
@@ -22,6 +22,11 @@ const routes: Routes = [
     component: AdminDashboardComponent,
     canActivate: [AuthGuard],
     children: [
+      {
+        path:'home',
+        component: DashboardComponent,
+        canActivate:[AuthGuard],
+      },
       {
         path:'invoice',
         component: InVoiceComponent,
@@ -35,7 +40,7 @@ const routes: Routes = [
       {
         path: 'support',
         component: SupportComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
       },
       {
         path: 'addcategory',
@@ -45,11 +50,11 @@ const routes: Routes = [
       {
         path: 'support/raise-ticket',
         component: RaiseTicketComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
       },
       { path: 'tax-page', component: TaxPageComponent },
       { path: 'order', component: PlaceOrderComponent },
-      { path:'dashboard' , component:DashboardComponent}
+      // { path:'dashboard' , component:DashboardComponent}
     ],
   },
   { path: '**', component: PageNotFoundComponent },
