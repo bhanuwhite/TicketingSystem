@@ -1,31 +1,76 @@
+// const mongoose = require('mongoose');
+
+// const orderSchema = new mongoose.Schema({
+//     id: {
+//         type: Number
+//     },
+//     custName: {
+//         type: String,
+//     },
+//     mobile: {
+//         type: Number,
+//     },
+//     itemsList: [
+//         {
+//             productName: {
+//                 type: String,
+//             },
+//             quantity: {
+//                 type: Number,
+//             },
+//             price: {
+//                 type: Number,
+//             },
+//             tax: {
+//                 type: Number,
+//             },
+//             amount: {
+//                 type: Number,
+//             },
+//         }
+//     ]
+// },
+//     { timestamps: true, versionKey: false }
+// );
+
+
+// const Order = mongoose.model('Order', orderSchema);
+// module.exports = Order;
+
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
     id: {
         type: Number
     },
-    name: {
-        type: String,
-        required: true
-    },
-    quantity: {
-        type: Number,
-        required: true
-    },
-    price: {
-        type: Number,
-        required: true
-    },
-    tax: {
+    custName: {
         type: String,
     },
-    totalAmount: {
+    mobile: {
         type: Number,
     },
+    itemsList: [
+        {
+            productName: {
+                type: String,
+            },
+            quantity: {
+                type: Number,
+            },
+            price: {
+                type: Number,
+            },
+            tax: {
+                type: Number,
+            },
+            amount: {
+                type: Number,
+            },
+        }
+    ]
 },
-    { timestamps: true ,versionKey: false}
+    { timestamps: true, versionKey: false }
 );
-
 
 const Order = mongoose.model('Order', orderSchema);
 module.exports = Order;

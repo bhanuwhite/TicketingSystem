@@ -1,5 +1,6 @@
 const Product = require('../models/productSchema');
 const upload = require('../middlewares/upload');
+const Category = require('../models/categorySchema');
 
 exports.editProducts = async (req, res) => {
   try {
@@ -37,14 +38,31 @@ exports.editProducts = async (req, res) => {
         updatedRecord.quantity = req.body.quantity || updatedRecord.quantity;
         updatedRecord.inventoryStatus = req.body.inventoryStatus || updatedRecord.inventoryStatus;
         updatedRecord.image = body.image || updatedRecord.image;
-        await updatedRecord.save();
-        data = {
-          message: "Product edited successfully",
-          status: '200',
-          edited: updatedRecord
-        };
+        let categoryList = await Category.find().select('name');
+        let list = [];
 
-        return res.status(200).send({ data });
+        if (categoryList.length != 0) {
+          for (let i = 0; i < categoryList.length; i++) {
+            list.push(categoryList[i].name);
+          }
+          console.log(list)
+          for (let i = 0; i < updatedRecord.category.length; i++) {
+            if (list.includes(updatedRecord.category[i])) { }
+            else { return res.status(400).send({ message: `${updatedRecord.category[i]} doesn't exists in the category list` }) }
+
+          }
+          await updatedRecord.save();
+          data = {
+            message: "Product edited successfully",
+            status: '200',
+            edited: updatedRecord
+          };
+          return res.status(200).send({ data });
+        }
+        return res.status(400).send({
+          message: `Category doesn't exists`,
+          status: '400'
+        })
       } catch (err) {
         return res.status(400).send(err);
       }

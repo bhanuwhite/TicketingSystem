@@ -8,7 +8,8 @@ exports.selectProductField = async (req, res) => {
             arr.push({
                 id: productList[i].id,
                 name: productList[i].productName,
-                price: productList[i].price
+                price: productList[i].price,
+                quantity: productList[i].quantity
             });
         }
         let data = {

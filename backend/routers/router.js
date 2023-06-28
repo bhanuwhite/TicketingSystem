@@ -26,7 +26,7 @@ const InventoryStatus = require('../controllers/inventoryStatus');
 const UpdateProducts = require('../controllers/editProducts');
 const DeleteProduct = require('../controllers/deleteProducts');
 const JSONToCSV = require('../controllers/jsonToCSV');
-const DateDetails = require('../controllers/createPeriod');
+// const DateDetails = require('../controllers/createPeriod');
 const TaxDetails = require('../controllers/createTaxForm');
 const DisplayTax = require('../controllers/listAllTaxes');
 const EditTaxDetails = require('../controllers/editTax');
@@ -66,7 +66,7 @@ router.get("/status", InventoryStatus.inventoryStatus);
 router.put('/display/:_id', UpdateProducts.editProducts);
 router.get('/deleteProduct/:id', DeleteProduct.deleteProduct)
 router.get("/convert", JSONToCSV.convertingToCSV);
-router.post('/date', DateDetails.getDateDetails);
+// router.post('/date', DateDetails.getDateDetails);
 router.post('/tax', TaxDetails.getTaxDetails);
 router.get('/tax', DisplayTax.getAllTaxDisplay);
 router.put('/tax/:_id', EditTaxDetails.taxEdit);
@@ -76,7 +76,7 @@ router.get('/taxLists', TaxList.getTaxList);
 router.patch('/deleteMultiple', DeleteMultipleProducts.deleteMultipleProducts)
 router.post('/tax/order', PlaceOrder.getOrderPlaced);
 router.get('/tax/order', DisplayOrders.displayAllOrders);
-router.post('/tax/order/invoice', InvoiceDetails.detailsOfInvoice);
+router.get('/tax/order/invoice', InvoiceDetails.detailsOfInvoice);
 router.get('/tax/order/invoice', DisplayInvoice.displayAllInvoices);
 
 // router.get('/employee/:id', NamesById.getAllTheNamesById);
