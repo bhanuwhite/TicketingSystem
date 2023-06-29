@@ -45,9 +45,10 @@ import { InVoiceComponent } from './components/in-voice/in-voice.component';
 import { DashboardComponent } from './components/dashboards/dashboard/dashboard.component';
 import { DatePipe } from '@angular/common';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { CustomerComponent } from './components/customer/customer.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, SidebarComponent, FooterComponent, AdminDashboardComponent, LoginComponent, AllProductsComponent, PageNotFoundComponent, AddCategoryComponent, TaxPageComponent, PlaceOrderComponent, InVoiceComponent, DashboardComponent],
+  declarations: [AppComponent, HeaderComponent, SidebarComponent, FooterComponent, AdminDashboardComponent, LoginComponent, AllProductsComponent, PageNotFoundComponent, AddCategoryComponent, TaxPageComponent, PlaceOrderComponent, InVoiceComponent, DashboardComponent, CustomerComponent],
   imports: [
 CommonModule,
     BrowserModule,

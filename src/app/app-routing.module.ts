@@ -12,6 +12,7 @@ import { PlaceOrderComponent } from './components/place-order/place-order.compon
 import { TaxPageComponent } from './components/tax-page/tax-page.component';
 import { InVoiceComponent } from './components/in-voice/in-voice.component';
 import { DashboardComponent } from './components/dashboards/dashboard/dashboard.component';
+import { CustomerComponent } from './components/customer/customer.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -49,7 +50,8 @@ const routes: Routes = [
       },
       { path: 'tax-page', component: TaxPageComponent },
       { path: 'order', component: PlaceOrderComponent },
-      { path:'dashboard' , component:DashboardComponent}
+      { path:'dashboard' , component:DashboardComponent},
+      { path:'customer',component:CustomerComponent}
     ],
   },
   { path: '**', component: PageNotFoundComponent },

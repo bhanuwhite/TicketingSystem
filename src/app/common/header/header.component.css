@@ -13,6 +13,8 @@
     display: flex;
     justify-content: space-between;
     background-color: #9fc5c6;
+    /* background: linear-gradient(#559192,#9fc5c6); */
+    /* background: linear-gradient(165.62deg,#de5b1a -104.55%,#d81bdc 216.3%);; */
     align-items: center;
     
 

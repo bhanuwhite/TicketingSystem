@@ -47,10 +47,14 @@ export class TaxPageComponent {
 
   showDialog() {
     this.taxForm.reset();
+    this.checknew = true;
+    this.checkEdit = false;
     this.edit = false;
     if (!this.edit) {
-      this.selectedDateRange = [new Date(), new Date()];
-      
+      this.selectedDateRange = [this.date1, new Date()];
+      // this.selectedDateRange = [startDate, endDate];
+    //   this.selectedDateRange[0] = undefined; // Clear the start date
+    // this.selectedDateRange[1] = new Date(); // Set the end date to the current date
     }
     this.visible = true;
   }
@@ -67,9 +71,19 @@ export class TaxPageComponent {
     this.taxForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
       startDate: ['', [Validators.required]],
-      endDate: [''],
+      endDate: ['',[Validators.required, this.endDateValidator.bind(this)]],
       percentage: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
     });
+  }
+
+  
+  endDateValidator(control: AbstractControl): { [key: string]: any } | null {
+    const startDate = new Date(control.parent?.get('startDate')?.value);
+    const endDate = new Date(control.value);
+    if (endDate <= startDate) {
+      return { endDateInvalid: true };
+    }
+    return null;
   }
 
   getTaxFormData(): void {
@@ -186,12 +200,15 @@ export class TaxPageComponent {
       const startDate = new Date(x.period.startDate);
       const endDate = new Date(x.period.endDate);
       this.selectedDateRange = [startDate, endDate];
-      this.taxForm.patchValue({ startDate, endDate });
-      this.visible = true;
-      this.taxForm.patchValue({
-        name: x.name,
-        percentage: x.percentage,
-      });
+        this.taxForm.patchValue({ startDate, endDate });
+        this.visible = true;
+        this.checknew = false;
+        this.checkEdit = true;
+        this.taxForm.patchValue({
+          name: x.name,
+          percentage: x.percentage,
+        });
+      
     }
   }
 

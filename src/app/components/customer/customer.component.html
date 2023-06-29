@@ -1,0 +1,136 @@
+<div class="content-inner">
+    <div class="card">
+        <p-toast></p-toast>
+        <p-toolbar styleClass="gap-2">
+            <ng-template pTemplate="left">
+                <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
+                    (click)="openNew()"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()"
+                    [disabled]="!selectedProducts || !selectedProducts.length"></button>
+            </ng-template>
+        </p-toolbar>
+
+        <p-table #dt [value]="products" [rows]="10" [paginator]="true"
+            [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+            [tableStyle]="{ 'min-width': '69rem' }" [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [showCurrentPageReport]="true">
+            <ng-template pTemplate="caption">
+                <div class="flex align-items-center justify-content-between">
+                    <h5 class="mb-3">Customer</h5>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input #textInput pInputText type="text" (input)="dt.filterGlobal(textInput.value, 'contains')"
+                            placeholder="Search..." />
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 4rem">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th pSortableColumn="customerName" style="min-width:13rem">Customer Name <p-sortIcon
+                            field="customerName"></p-sortIcon></th>
+                    <th pSortableColumn="mobileNumber">Mobile Number<p-sortIcon field="mobileNumber"></p-sortIcon></th>
+
+                    <th>Action</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td>
+                        <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <button pButton pRipple icon="pi pi-pencil"
+                            class="p-button-rounded p-button-success mr-2"></button>
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-container *ngIf="!products || products.length === 0">
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td style="color: red;" class="text-center" [attr.colspan]="6">
+                            No data found
+                        </td>
+                    </tr>
+                </ng-template>
+            </ng-container>
+            <ng-template pTemplate="summary">
+                <div class="flex align-items-center justify-content-between">In total there are {{ products ?
+                    products.length : 0 }} products.</div>
+            </ng-template>
+        </p-table>
+    </div>
+    <p-dialog [(visible)]="productDialog" [style]="{ width: '50vw' }" [closable]="true" class="category-heading" (onHide)="customerForm.reset()">
+        <h3 class="form-heading mt-3">Customer Details</h3>
+        <ng-template pTemplate="content">
+            <form [formGroup]="customerForm">
+                <div class="form-fields mt-3">
+                    <div>
+                        <label for="productname" class="formbold-form-label d-block">
+                            Customer Name<span class="required">*</span>
+                        </label>
+                        <input pInputText id="productname" placeholder="Customer name" class="formbold-form-input "
+                            formControlName="customerName" />
+                        <div *ngIf="
+                          customerForm.get('customerName') as productnameControl
+                        ">
+                            <div *ngIf="
+                            productnameControl.errors &&
+                            (productnameControl.dirty || productnameControl.touched)
+                          ">
+                                <div class="invalid-error" *ngIf="productnameControl.errors['required']">
+                                    Customer name is required.
+                                </div>
+                                <div class="invalid-error" *ngIf="productnameControl.errors['pattern']">
+                                    This field only allows alphabets
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <label for="productname" class="formbold-form-label d-block ml-5">
+                            Mobile Number<span class="required">*</span>
+                        </label>
+                        <input pInputText id="productname" placeholder="Mobile number" class="formbold-form-input ml-5"
+                            formControlName="mobileNumber" />
+                        <div *ngIf="
+                    customerForm.get('mobileNumber') as productnameControl
+                  ">
+                            <div *ngIf="
+                      productnameControl.errors &&
+                      (productnameControl.dirty || productnameControl.touched)
+                    ">
+                                <div class="invalid-error ml-5" *ngIf="productnameControl.errors['required']">
+                                    Mobile number is required.
+                                </div>
+                                <div class="invalid-error ml-5" *ngIf="productnameControl.errors['pattern']">
+                                    This field only allows numbers
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 d-flex justify-content-end mb-2 mt-5">
+                    <div class="bottom-0 d-flex footer-button">
+                        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text mr-2"
+                            type="button" (click)="hideDialog()"></button>
+                        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"
+                            [disabled]="customerForm.invalid"></button>
+                    </div>
+
+                </div>
+
+
+            </form>
+
+        </ng-template>
+
+
+    </p-dialog>
+</div>

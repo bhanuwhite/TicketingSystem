@@ -149,7 +149,7 @@ app-sidebar{
 }
 app-all-products,
 app-add-category,
-app-support,app-dashboard
+app-support,app-dashboard,app-place-order,app-customer,app-in-voice
 {
   width: 88%;
 }

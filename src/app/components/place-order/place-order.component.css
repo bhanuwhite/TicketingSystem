@@ -1,3 +1,6 @@
+.container-fulid{
+    width: 100% !important;
+}
 .card {
     background: var(--surface-card);
     padding: 2rem;
