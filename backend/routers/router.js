@@ -40,6 +40,8 @@ const InvoiceDetails = require('../controllers/invoiceDetails');
 const DisplayInvoice = require('../controllers/invoiceList');
 const CustomerDetails = require('../controllers/customerDetails');
 const ListCustomerDetails = require('../controllers/listCustomerDetails');
+const EditCustomerDetails = require('../controllers/editCustomerDetails');
+const DeleteCustomers =require('../controllers/deleteCustomersDetails');
 const AddFields = require('../controllers/addFields');
 const NamesById = require('../controllers/getEmployeeNamesById');
 
@@ -81,7 +83,9 @@ router.get('/tax/order', DisplayOrders.displayAllOrders);
 router.get('/tax/order/invoice', InvoiceDetails.detailsOfInvoice);
 router.get('/tax/order/invoice', DisplayInvoice.displayAllInvoices);
 router.post('/customerDetails', CustomerDetails.getCustomerDetails);
-router.get('/customerDetails', ListCustomerDetails.customersListDetails)
+router.get('/customerDetails', ListCustomerDetails.customersListDetails);
+router.put('/customerDetails/:id', EditCustomerDetails.editCustomerDetails);
+router.patch('/customerDetails', DeleteCustomers.deleteCustomerDetails)
 // router.get('/employee/:id', NamesById.getAllTheNamesById);
 // router.post('/role/addFields', AddFields.addFields);
 

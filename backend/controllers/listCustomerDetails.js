@@ -7,7 +7,7 @@ exports.customersListDetails = async(req,res)=> {
        let data = {
         message: 'Successfully created',
         status: '200',
-        data: customerList
+        lists: customerList
     }
     return res.status(200).send({ data });
     }

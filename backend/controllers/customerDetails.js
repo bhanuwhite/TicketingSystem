@@ -20,7 +20,7 @@ exports.getCustomerDetails = async(req,res)=> {
       let data = {
         message: "Customer details added successfully",
         status: '201',
-        orderDetails: customer
+        customerDetails: customer
     }
     return res.status(201).send({ data });
     }
