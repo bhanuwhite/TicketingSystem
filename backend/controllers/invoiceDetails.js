@@ -49,7 +49,7 @@ exports.detailsOfInvoice = async (req, res) => {
       }
     }
     let data = await Invoice.find();
-    return res.status(201).send({ data });
+    return res.status(200).send({ data });
   }
   catch (err) {
     return res.status(400).send(err);
