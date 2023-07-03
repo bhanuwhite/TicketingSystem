@@ -24,6 +24,7 @@ export class AddCategoryComponent {
   categoryForm!: FormGroup;
   editsave!: string;
   editId: any;
+  multiSelectedDelete: any[]=[];
 
   constructor(
     private messageService: MessageService,
@@ -53,24 +54,50 @@ export class AddCategoryComponent {
     this.product = {};
     this.submitted = false;
     this.productDialog = true;
+    this.categoryForm.reset();
   }
+  multiSelected(category:any){
+    this.multiSelectedDelete.push(category._id);
+    console.log(this.multiSelectedDelete);
 
-  deleteSelectedProducts() {
+  }
+  deleteSelectedProducts(product:any) {
+    console.log(product)
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete the selected products?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.products = this.products.filter(
-          (val: any) => !this.selectedProducts.includes(val)
-        );
-        this.selectedProducts = null;
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successful',
-          detail: 'Category Deleted',
-          life: 3000,
-        });
+        try {
+          // const delete_id :any=[]
+          // delete_id.push(product._id)
+          const data = {
+            itemIds:this.multiSelectedDelete
+          }
+          this.service
+            .patchData('deleteCategory' , data)
+            .subscribe((res) => {
+              if (res.data.status === '200') {
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Successful',
+                  detail: 'Category Deleted',
+                  life: 3000,
+                });
+                this.getCategory();
+              }
+            });
+        } catch (err) {
+          if (err) {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'error',
+              detail: 'Something went wrong',
+              life: 3000,
+            });
+          }
+          console.log(err);
+        }
       },
     });
   }

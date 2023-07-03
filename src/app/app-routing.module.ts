@@ -15,7 +15,7 @@ import { DashboardComponent } from './components/dashboards/dashboard/dashboard.
 import { CustomerComponent } from './components/customer/customer.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
 
   {
@@ -23,6 +23,11 @@ const routes: Routes = [
     component: AdminDashboardComponent,
     canActivate: [AuthGuard],
     children: [
+      {
+        path:'home',
+        component: DashboardComponent,
+        canActivate:[AuthGuard],
+      },
       {
         path:'invoice',
         component: InVoiceComponent,
@@ -36,7 +41,7 @@ const routes: Routes = [
       {
         path: 'support',
         component: SupportComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
       },
       {
         path: 'addcategory',
@@ -46,12 +51,13 @@ const routes: Routes = [
       {
         path: 'support/raise-ticket',
         component: RaiseTicketComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
       },
       { path: 'tax-page', component: TaxPageComponent },
       { path: 'order', component: PlaceOrderComponent },
       { path:'dashboard' , component:DashboardComponent},
       { path:'customer',component:CustomerComponent}
+      // { path:'dashboard' , component:DashboardComponent}
     ],
   },
   { path: '**', component: PageNotFoundComponent },

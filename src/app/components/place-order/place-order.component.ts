@@ -10,7 +10,7 @@ import { DataFetchService } from 'src/app/shared/services/common.service';
 })
 export class PlaceOrderComponent {
   tableData: any = [];
-  products_lists: any ;
+  products_lists: any;
   selectedCountry: any;
   filteredCountries!: any[];
   addProduct!: FormGroup;
@@ -25,6 +25,7 @@ export class PlaceOrderComponent {
   taxvalue: any;
   data: any;
   tax_amount!: number;
+  TotalOrderAmount: number = 0;
 
   constructor(private services: DataFetchService, private fb: FormBuilder) {}
   ngOnInit(): void {
@@ -35,6 +36,8 @@ export class PlaceOrderComponent {
 
   productinit(): void {
     this.addProduct = this.fb.group({
+      customerName: ['', [Validators.required]],
+      mobile: ['', [Validators.required]],
       name: ['', [Validators.required]],
       quantity: ['1', [Validators.required, Validators.pattern('^[0-9]+$')]],
       price: [''],
@@ -46,6 +49,7 @@ export class PlaceOrderComponent {
   getProducts(): void {
     this.services.getData('select').subscribe((res: any) => {
       this.products_lists = res.data.lists;
+      console.log(this.products_lists);
     });
   }
   getTax() {
@@ -95,7 +99,7 @@ export class PlaceOrderComponent {
     this.filteredCountries = filtered;
   }
 
-  add_Product() :void{
+  add_Product(): void {
     let name = this.addProduct.controls['name'].value.name;
     let quantity = this.addProduct.controls['quantity'].value;
     let tax_percentage = this.addProduct.controls['tax']?.value?.value
@@ -116,24 +120,42 @@ export class PlaceOrderComponent {
     console.log(this.data);
 
     this.tableData.push(this.data);
+    this.TotalOrderAmount = this.TotalOrderAmount + this.data.totalamount;
     console.log(this.tableData);
-    this.addProduct.reset();
+    // this.addProduct.reset();
+    this.addProduct.controls['name'].reset();
+    this.addProduct.controls['quantity'].reset();
+    this.addProduct.controls['price'].reset();
+    this.addProduct.controls['tax'].reset();
+    this.addProduct.controls['amount'].reset();
   }
   removeProduct(index: number): void {
-    this.tableData.splice(index, 1);
+     const removed_item =this.tableData.splice(index, 1);
+     let getremoved_amount= removed_item[0].totalamount;
+     console.log(getremoved_amount);
+     this.TotalOrderAmount= this.TotalOrderAmount-getremoved_amount;
+
+     
+    // this.TotalOrderAmount=
   }
 
   placeOrder(): void {
+    const formValues = this.addProduct.value;
+    console.log(formValues);
     const data: [] = this.tableData;
-    console.log(data);
-    try{
-      this.services.postData('tax/order ', data).subscribe((data) => {
+    const body = {
+      custName: formValues.customerName,
+      mobile: formValues.mobile,
+      itemsList: data,
+      // totalamount: this.TotalOrderAmount,
+    };
+    console.log(body);
+    this.tableData = [];
+    this.addProduct.reset();
+    try {
+      this.services.postData('tax/order ', body).subscribe((data) => {
         console.log(data);
       });
-    }
-    catch{
-
-    }
-  
+    } catch {}
   }
 }
