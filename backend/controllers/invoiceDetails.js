@@ -4,8 +4,11 @@ let count = 1;
 exports.detailsOfInvoice = async (req, res) => {
   try {
     let invoice;
-    let orderList = await Order.find();
+    let orderList = await Order.find().sort({ createdAt: -1 });
+
     for (let i = 0; i < orderList.length; i++) {
+      console.log(orderList[i].custName);
+
       let checkId = await Invoice.find({ orderId: orderList[i].id });
       if (!checkId || checkId.length === 0) {
 
@@ -41,7 +44,7 @@ exports.detailsOfInvoice = async (req, res) => {
           counter: count,
           invoice_date: date,
           due_date: due_date,
-          custName: req.body.name,
+          custName: orderList[i].custName,
           mobile_no: orderList[i].mobile,
           items: orderList[i].itemsList
         })
