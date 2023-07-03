@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Select_product, tax } from 'src/app/shared/constant';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
+import { tax } from 'src/app/shared/constant';
 import { DataFetchService } from 'src/app/shared/services/common.service';
 
 @Component({
@@ -26,6 +33,7 @@ export class PlaceOrderComponent {
   data: any;
   tax_amount!: number;
   TotalOrderAmount: number = 0;
+  selectedProduct_quantity: any = 1;
 
   constructor(private services: DataFetchService, private fb: FormBuilder) {}
   ngOnInit(): void {
@@ -39,7 +47,14 @@ export class PlaceOrderComponent {
       customerName: ['', [Validators.required]],
       mobile: ['', [Validators.required]],
       name: ['', [Validators.required]],
-      quantity: ['1', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      quantity: [
+        '1',
+        [
+          Validators.required,
+          Validators.pattern('^[0-9]+$'),
+          this.checkQuantityValidator(),
+        ],
+      ],
       price: [''],
       tax: [''],
       amount: [''],
@@ -49,7 +64,6 @@ export class PlaceOrderComponent {
   getProducts(): void {
     this.services.getData('select').subscribe((res: any) => {
       this.products_lists = res.data.lists;
-      console.log(this.products_lists);
     });
   }
   getTax() {
@@ -62,9 +76,23 @@ export class PlaceOrderComponent {
     let total_amount = this.total_amount + this.total_amount * (deotax / 100);
     this.addProduct.patchValue({ amount: total_amount });
   }
+  checkQuantityValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      if (!value) {
+        return null;
+      }
+      const selectedquantity = value;
+      const selectedProductQuantity = this.selectedProduct_quantity;
+
+      const check = selectedquantity <= selectedProductQuantity;
+      return !check ? { passwordStrength: true } : null;
+    };
+  }
 
   onQuantityChange(event: any): void {
     this.quantity = event.target.value;
+
     let tax = this.addProduct?.value['tax']?.value
       ? this.addProduct.value['tax'].value
       : '';
@@ -75,6 +103,7 @@ export class PlaceOrderComponent {
     this.addProduct.patchValue({ amount: this.selectedPrice_quantity });
   }
   selectProduct(event: any): void {
+    this.selectedProduct_quantity = event?.quantity ? event?.quantity : 0;
     this.quantity = 1;
     this.addProduct.patchValue({ quantity: this.quantity });
     this.selectedPrice_product = event?.price;
@@ -111,18 +140,17 @@ export class PlaceOrderComponent {
     let tax = price * (tax_percentage / 100);
 
     this.data = {
-      name: name,
+      productName: name,
       quantity: quantity,
       tax: tax,
       price: price,
-      totalamount: totalamount,
+      amount: totalamount,
     };
-    console.log(this.data);
 
     this.tableData.push(this.data);
-    this.TotalOrderAmount = this.TotalOrderAmount + this.data.totalamount;
-    console.log(this.tableData);
-    // this.addProduct.reset();
+    this.TotalOrderAmount = +parseFloat(
+      this.TotalOrderAmount + this.data.amount
+    ).toFixed(2);
     this.addProduct.controls['name'].reset();
     this.addProduct.controls['quantity'].reset();
     this.addProduct.controls['price'].reset();
@@ -130,18 +158,15 @@ export class PlaceOrderComponent {
     this.addProduct.controls['amount'].reset();
   }
   removeProduct(index: number): void {
-     const removed_item =this.tableData.splice(index, 1);
-     let getremoved_amount= removed_item[0].totalamount;
-     console.log(getremoved_amount);
-     this.TotalOrderAmount= this.TotalOrderAmount-getremoved_amount;
+    const removed_item = this.tableData.splice(index, 1);
+    let getremoved_amount = removed_item[0].totalamount;
+    this.TotalOrderAmount = this.TotalOrderAmount - getremoved_amount;
 
-     
     // this.TotalOrderAmount=
   }
 
   placeOrder(): void {
     const formValues = this.addProduct.value;
-    console.log(formValues);
     const data: [] = this.tableData;
     const body = {
       custName: formValues.customerName,
@@ -149,13 +174,10 @@ export class PlaceOrderComponent {
       itemsList: data,
       // totalamount: this.TotalOrderAmount,
     };
-    console.log(body);
     this.tableData = [];
     this.addProduct.reset();
     try {
-      this.services.postData('tax/order ', body).subscribe((data) => {
-        console.log(data);
-      });
+      this.services.postData('tax/order ', body).subscribe((data) => {});
     } catch {}
   }
 }
