@@ -131,7 +131,7 @@ select .select-tax{
     display: flex;
     justify-content: center;
     font-size: 25px;
-    
+        margin-top: 6px;
     /* padding-bottom: 20px; */
   }
   

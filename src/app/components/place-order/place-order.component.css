@@ -1,6 +1,8 @@
-.content-inner {
-  width: 100%;
-  background: var(--surface-ground);
+.container-fulid{
+    width: 100% !important;}
+.content-inner{
+    width: 100%;
+     background: var(--surface-ground);
 }
 .customer-info-card {
   box-shadow: 0px 0px 2px 0px;
