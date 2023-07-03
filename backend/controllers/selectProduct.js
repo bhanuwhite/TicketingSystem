@@ -5,12 +5,14 @@ exports.selectProductField = async (req, res) => {
         let arr = [];
         let productList = await Product.find();
         for (let i = 0; i < productList.length; i++) {
-            arr.push({
-                id: productList[i].id,
-                name: productList[i].productName,
-                price: productList[i].price,
-                quantity: productList[i].quantity
-            });
+            if (productList[i].quantity != 0) {
+                arr.push({
+                    id: productList[i].id,
+                    name: productList[i].productName,
+                    price: productList[i].price,
+                    quantity: productList[i].quantity
+                });
+            }
         }
         let data = {
             message: 'success',
