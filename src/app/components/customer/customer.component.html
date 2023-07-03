@@ -5,14 +5,14 @@
             <ng-template pTemplate="left">
                 <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
                     (click)="openNew()"></button>
-                <button pButton pRipple icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()"
-                    [disabled]="!selectedProducts || !selectedProducts.length"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedCustomer()"
+                    [disabled]="!selectedCustomer || !selectedCustomer.length"></button>
             </ng-template>
         </p-toolbar>
 
-        <p-table #dt [value]="products" [rows]="10" [paginator]="true"
+        <p-table #dt [value]="customerDetails" [rows]="10" [paginator]="true"
             [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
-            [tableStyle]="{ 'min-width': '69rem' }" [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
+            [tableStyle]="{ 'min-width': '69rem' }" [(selection)]="selectedCustomer" [rowHover]="true" dataKey="id"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
             [showCurrentPageReport]="true">
             <ng-template pTemplate="caption">
@@ -37,21 +37,21 @@
                     <th>Action</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-product>
+            <ng-template pTemplate="body" let-item>
                 <tr>
                     <td>
-                        <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                        <p-tableCheckbox [value]="item"></p-tableCheckbox>
                     </td>
-                    <td></td>
-                    <td></td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.mobile_no}}</td>
                     <td>
                         <button pButton pRipple icon="pi pi-pencil"
-                            class="p-button-rounded p-button-success mr-2"></button>
-                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"></button>
+                            class="p-button-rounded p-button-success mr-2 edit" (click)="onEditCustomer(item,'edit')"></button>
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning edit" (click)="onDeleteCustomer(item)"></button>
                     </td>
                 </tr>
             </ng-template>
-            <ng-container *ngIf="!products || products.length === 0">
+            <ng-container *ngIf="!customerDetails || customerDetails.length === 0">
                 <ng-template pTemplate="emptymessage">
                     <tr>
                         <td style="color: red;" class="text-center" [attr.colspan]="6">
@@ -61,8 +61,8 @@
                 </ng-template>
             </ng-container>
             <ng-template pTemplate="summary">
-                <div class="flex align-items-center justify-content-between">In total there are {{ products ?
-                    products.length : 0 }} products.</div>
+                <div class="flex align-items-center justify-content-between">In total there are {{ customerDetails ?
+                    customerDetails.length : 0 }} products.</div>
             </ng-template>
         </p-table>
     </div>
@@ -121,7 +121,7 @@
                         <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text mr-2"
                             type="button" (click)="hideDialog()"></button>
                         <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"
-                            [disabled]="customerForm.invalid"></button>
+                            [disabled]="customerForm.invalid" (click)="onSubmitCustomerForm()"></button>
                     </div>
 
                 </div>
@@ -133,4 +133,5 @@
 
 
     </p-dialog>
+    <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
 </div>

@@ -174,7 +174,8 @@ body {
 .edit {
   width: 1.7rem !important;
   padding: 0.75rem 0 !important;
-}.p-button-text{
+}
+.p-button-text{
   background-color: #559192;
   color: #ffffff;
 }
