@@ -34,12 +34,15 @@ export class PlaceOrderComponent {
   tax_amount!: number;
   TotalOrderAmount: number = 0;
   selectedProduct_quantity: any = 1;
+  customerLists: any;
+  filterCustomer!: any[];
 
   constructor(private services: DataFetchService, private fb: FormBuilder) {}
   ngOnInit(): void {
     this.getProducts();
     this.productinit();
     this.getTax();
+    this.getCustomersDetails();
   }
 
   productinit(): void {
@@ -61,6 +64,13 @@ export class PlaceOrderComponent {
     });
   }
 
+  getCustomersDetails():void{
+    this.services.getData('customerDetails').subscribe((res)=>{
+      this.customerLists=res.data.lists;
+      console.log(this.customerLists)
+    })
+
+  }
   getProducts(): void {
     this.services.getData('select').subscribe((res: any) => {
       this.products_lists = res.data.lists;
@@ -127,8 +137,25 @@ export class PlaceOrderComponent {
 
     this.filteredCountries = filtered;
   }
+  filterCustomers(event: any) {
+    let filtered: any[] = [];
+    let query = event?.query;
+    if (event.query.length > 1) {
+      for (let i = 0; i < this.customerLists.length; i++) {
+        let country = this.customerLists[i];
+        if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+          filtered.push(country);
+        }
+      }
+    }
 
+    this.filterCustomer = filtered;
+  }
+  selectedcustomer(customer_no:any){
+ this.addProduct.patchValue({'mobile':customer_no[0].mobile_no})
+  }
   add_Product(): void {
+    this.getProducts();
     let name = this.addProduct.controls['name'].value.name;
     let quantity = this.addProduct.controls['quantity'].value;
     let tax_percentage = this.addProduct.controls['tax']?.value?.value
@@ -169,7 +196,7 @@ export class PlaceOrderComponent {
     const formValues = this.addProduct.value;
     const data: [] = this.tableData;
     const body = {
-      custName: formValues.customerName,
+      custName: formValues.customerName.name ,
       mobile: formValues.mobile,
       itemsList: data,
       // totalamount: this.TotalOrderAmount,
@@ -177,6 +204,7 @@ export class PlaceOrderComponent {
     this.tableData = [];
     this.addProduct.reset();
     try {
+      console.log(body);
       this.services.postData('tax/order ', body).subscribe((data) => {});
     } catch {}
   }
