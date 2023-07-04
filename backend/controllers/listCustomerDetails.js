@@ -5,7 +5,7 @@ exports.customersListDetails = async(req,res)=> {
        let customerList= await Customer.find().sort({ createdAt: -1 });
 
        let data = {
-        message: 'Successfully created',
+        message: 'success',
         status: '200',
         lists: customerList
     }

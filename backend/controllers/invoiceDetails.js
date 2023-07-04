@@ -7,8 +7,6 @@ exports.detailsOfInvoice = async (req, res) => {
     let orderList = await Order.find().sort({ createdAt: -1 });
 
     for (let i = 0; i < orderList.length; i++) {
-      console.log(orderList[i].custName);
-
       let checkId = await Invoice.find({ orderId: orderList[i].id });
       if (!checkId || checkId.length === 0) {
 
