@@ -3,12 +3,12 @@
     width: 100%;
 }
 .sidebar_main{
-    width: 10rem;
+    width: 12%;
     height: 100%;
     overflow-y: hidden;
 }
 .content-part{
-    width: calc(100% - 10rem);
+    width: 88%;
     height: 100%;
     overflow-y: auto
 }

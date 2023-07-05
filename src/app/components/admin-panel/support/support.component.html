@@ -1,413 +1,350 @@
-<div class="content-inner p-3">
-  <h3 class="my-4">Support</h3>
-  <div class="row">
-    <div class="col-lg-6">
-      <div class="form-group has-search">
-        <input
-          type="text"
-          class="form-control searchBox mt-3"
-          placeholder="Search"
-          [(ngModel)]="searchedValue"
-        />
-        <span class="fa fa-search form-control-feedback" (click)="search()"></span>
+<div class="content-inner-1">
+  <div class="content-inner p-3">
+    <h3 class="my-4">Support</h3>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group has-search">
+          <input type="text" class="form-control searchBox mt-3" placeholder="Search" [(ngModel)]="searchedValue" />
+          <span class="fa fa-search form-control-feedback" (click)="search()"></span>
+        </div>
       </div>
-    </div>
-    <div class="col-lg-6 mt-3">
-      <div class="d-flex justify-content-end">
-        <!-- <div class="dropdown">
+      <div class="col-lg-6 mt-3">
+        <div class="d-flex justify-content-end">
+          <!-- <div class="dropdown">
           <p-dropdown [options]="fliters" optionLabel="name"></p-dropdown>
         </div> -->
 
-        <button
-          class="raiseButton ml-3"
-          type="button"
-          routerLink="raise-ticket"
-        >
-          Raise Ticket
-        </button>
+          <button class="raiseButton ml-3" type="button" routerLink="raise-ticket">
+            Raise Ticket
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="row justify-content-end mt-3 mx-2" style="gap: 30px">
-    <button
-      [ngClass]="{ selectedButton: selectedButtons.selectAll }"
-      class="btn btn-primary filterButton"
-      type="button"
-      (click)="onToggle($event, '2')"
-    >
-      All Tickets
-    </button>
-    <button
-      [ngClass]="{ selectedButton: selectedButtons.selectunassigned }"
-      class="btn btn-danger filterButton"
-      type="button"
-      (click)="onToggle($event, '1')"
-    >
-      Unassigned
-    </button>
+    <div class="row justify-content-end mt-3 mx-2" style="gap: 30px">
+      <button [ngClass]="{ selectedButton: selectedButtons.selectAll }" class="btn btn-primary filterButton"
+        type="button" (click)="onToggle($event, '2')">
+        All Tickets
+      </button>
+      <button [ngClass]="{ selectedButton: selectedButtons.selectunassigned }" class="btn btn-danger filterButton"
+        type="button" (click)="onToggle($event, '1')">
+        Unassigned
+      </button>
 
-    <button
-      [ngClass]="{ selectedButton: selectedButtons.selectResolved }"
-      class="btn btn-success filterButton"
-      type="button"
-      (click)="onToggle($event, '3')"
-    >
-      Resloved
-    </button>
-    <button
-      [ngClass]="{ selectedButton: selectedButtons.selectInternal }"
-      class="btn btn-secondary filterButton"
-      type="button"
-      (click)="onToggle($event, '4')"
-    >
-      Internal
-    </button>
-   
-  </div>
-  <div *ngIf="!fliteredData || fliteredData.length === 0" class="no-data-found-error-info">
-    No data found
-  </div>
-  <div
-    class="button-content mt-2"
-    *ngFor="
+      <button [ngClass]="{ selectedButton: selectedButtons.selectResolved }" class="btn btn-success filterButton"
+        type="button" (click)="onToggle($event, '3')">
+        Resloved
+      </button>
+      <button [ngClass]="{ selectedButton: selectedButtons.selectInternal }" class="btn btn-secondary filterButton"
+        type="button" (click)="onToggle($event, '4')">
+        Internal
+      </button>
+
+    </div>
+    <div *ngIf="!fliteredData || fliteredData.length === 0" class="no-data-found-error-info">
+      No data found
+    </div>
+    <div class="button-content mt-2" *ngFor="
       let data of fliteredData
         | paginate : { itemsPerPage: 3, currentPage: currentPage };let i=index
-    "
-  >
-    <div class="row mx-2 align-items-center">
-     
-      <div class="col-md-6">
-        <div class="d-flex" style="gap: 40px">
-          <h6
-            (click)="get_id(data._id)"
-            class="modalButton"
-            data-toggle="modal"
-            data-target="#exampleModal"
-          >
-            {{ data.title }}
-          </h6>
-          <!-- <h6 *ngIf="isShow.companyName">| {{ data.company }}</h6> -->
-          <!-- <h6 *ngIf="isShow.type">| {{ data.type }}</h6> -->
+    ">
+      <div class="row mx-2 align-items-center">
+
+        <div class="col-md-6">
+          <div class="d-flex" style="gap: 40px">
+            <h6 (click)="get_id(data._id)" class="modalButton" data-toggle="modal" data-target="#exampleModal">
+              {{ data.title }}
+            </h6>
+            <!-- <h6 *ngIf="isShow.companyName">| {{ data.company }}</h6> -->
+            <!-- <h6 *ngIf="isShow.type">| {{ data.type }}</h6> -->
+          </div>
         </div>
-      </div>
-      <div class="col-md-6">
-        <div
-          class="d-flex align-items-center justify-content-end"
-          style="gap: 40px"
-        >
-          <!-- <div *ngIf="isShow.newMessage">
+        <div class="col-md-6">
+          <div class="d-flex align-items-center justify-content-end" style="gap: 40px">
+            <!-- <div *ngIf="isShow.newMessage">
             <p class="newMessage"><span class="dot"></span> New message</p>
           </div> -->
-          <div *ngIf="isShow.resolved">
-            <p class="resolvedMessage">Resolved</p>
-          </div>
-          <div *ngIf="isShow.search" style="position: relative">
-            <!-- <input type="text" class="form-control" placeholder="Assign to" />
+            <div *ngIf="isShow.resolved">
+              <p class="resolvedMessage">Resolved</p>
+            </div>
+            <div *ngIf="isShow.search" style="position: relative">
+              <!-- <input type="text" class="form-control" placeholder="Assign to" />
             <span class="fa fa-search fa-inner form-control-feedback"></span> -->
-            <!-- <div class="position-relative" style="width: 38%"> -->
+              <!-- <div class="position-relative" style="width: 38%"> -->
               <!-- <p-dropdown [options]="employeesList" optionLabel="employee" ></p-dropdown> -->
-            <!-- </div> -->
-            <select (change)="assigneeChange($event,data._id)">
-              <option *ngFor="let items of data?.employeeNames"  >{{items.name}}</option>
-            </select>
+              <!-- </div> -->
+              <select (change)="assigneeChange($event,data._id)">
+                <option *ngFor="let items of data?.employeeNames">{{items.name}}</option>
+              </select>
+            </div>
+
+            <h6>{{ data.createdAt | date : "mediumDate" }}</h6>
           </div>
-
-          <h6>{{ data.createdAt | date : "mediumDate" }}</h6>
         </div>
-      </div>
-      <div class="col-lg-12 mt-1">
-        <p>
-          {{ data.message }}
-        </p>
-      </div>
-      <div class="col-md-6 mt-3">
-        <p-tag value="Access settings"></p-tag>
-        <p-tag class="ml-2" value="Tech"></p-tag>
+        <div class="col-lg-12 mt-1">
+          <p>
+            {{ data.message }}
+          </p>
+        </div>
+        <div class="col-md-6 mt-3">
+          <p-tag value="Access settings"></p-tag>
+          <p-tag class="ml-2" value="Tech"></p-tag>
 
-      </div>
-      <!-- <div class="col-md-6 mt-3">
+        </div>
+        <!-- <div class="col-md-6 mt-3">
         <div class="d-flex justify-content-end">
           <i class="pi pi-comment text-3xl" pBadge value="3"></i>
         </div>
       </div> -->
-    </div>
-  </div>
-  <pagination-controls
-    (pageChange)="currentPage = $event"
-  ></pagination-controls>
-</div>
-
-<div
-  class="modal fade"
-  id="exampleModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-dialog-centered modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <div class="col-md-7">
-          <div>
-            <img src="../../../assets/red_Dot.png" />
-            <span class="ml-2">{{ modalData?.ticketId }}</span>
-          </div>
-        </div>
-        <div class="col-md-5">
-          <div class="row">
-            <div class="col-md-4">
-              <i class="fa fa-bullhorn" aria-hidden="true"></i
-              ><span class="ml-2">Give feedback</span>
-            </div>
-            <div class="col-md-2">
-              <i class="fa fa-eye" aria-hidden="true"></i>
-              <span class="ml-2">{{ modalData?.view_count }}</span>
-            </div>
-            <div class="col-md-1">
-              <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-            </div>
-            <div class="col-md-1">
-              <i class="fa fa-share-alt" aria-hidden="true"></i>
-            </div>
-            <div class="col-md-1">
-              <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
-            </div>
-            <div class="col-md-3 d-flex justify-content-end">
-              <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-md-8">
-            <div class="body_title">
-              <h5>{{ modalData?.title }}</h5>
+    </div>
+    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+  </div>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="col-md-7">
+            <div>
+              <img src="../../../assets/red_Dot.png" />
+              <span class="ml-2">{{ modalData?.ticketId }}</span>
             </div>
-            <div class="d-flex my-2 mx-1" style="gap: 10px">
-              <span class="five-icons">
-                <i class="fa fa-paperclip" aria-hidden="true"></i>
-              </span>
-              <span class="five-icons">
-                <i class="fa fa-check-square" aria-hidden="true"></i>
-              </span>
-              <span class="five-icons">
-                <i class="fa fa-link" aria-hidden="true"></i>
-              </span>
-              <span class="five-icons">
-                <i class="fa fa-rocket" aria-hidden="true"></i>
-              </span>
-              <span class="five-icons">
-                <i class="fa fa-check-circle" aria-hidden="true"></i>
-              </span>
+          </div>
+          <div class="col-md-5">
+            <div class="row">
+              <div class="col-md-4">
+                <i class="fa fa-bullhorn" aria-hidden="true"></i><span class="ml-2">Give feedback</span>
+              </div>
+              <div class="col-md-2">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+                <span class="ml-2">{{ modalData?.view_count }}</span>
+              </div>
+              <div class="col-md-1">
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+              </div>
+              <div class="col-md-1">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+              </div>
+              <div class="col-md-1">
+                <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+              </div>
+              <div class="col-md-3 d-flex justify-content-end">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
             </div>
-            <div class="my-3 mx-1">
-              <h6 class="mb-2">Description</h6>
-              <p class="mb-3">
-                {{ modalData?.message }}
-              </p>
-              <!-- <p class="mb-4">
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="body_title">
+                <h5>{{ modalData?.title }}</h5>
+              </div>
+              <div class="d-flex my-2 mx-1" style="gap: 10px">
+                <span class="five-icons">
+                  <i class="fa fa-paperclip" aria-hidden="true"></i>
+                </span>
+                <span class="five-icons">
+                  <i class="fa fa-check-square" aria-hidden="true"></i>
+                </span>
+                <span class="five-icons">
+                  <i class="fa fa-link" aria-hidden="true"></i>
+                </span>
+                <span class="five-icons">
+                  <i class="fa fa-rocket" aria-hidden="true"></i>
+                </span>
+                <span class="five-icons">
+                  <i class="fa fa-check-circle" aria-hidden="true"></i>
+                </span>
+              </div>
+              <div class="my-3 mx-1">
+                <h6 class="mb-2">Description</h6>
+                <p class="mb-3">
+                  {{ modalData?.message }}
+                </p>
+                <!-- <p class="mb-4">
                 tempora dolor sed rerum nobis officia necessitatibus aliquam ab,
                 voluptatibus nisi exercitationem ipsa doloribus architecto.
               </p> -->
-              <h6 class="mb-3">Environment</h6>
-              <p>None</p>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="cardd">
-                  <div class="card-image">
-                    <img src="../../../assets/Screenshot (73).png" alt="" />
-                    <div class="overlay"></div>
-                  </div>
-                  <div class="card-details">
-                    <p class="image_text">IMG_3596.MOV</p>
-                    <p class="image_text">5 MAY 2023, 08:20 PM</p>
+                <h6 class="mb-3">Environment</h6>
+                <p>None</p>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="cardd">
+                    <div class="card-image">
+                      <img src="../../../assets/Screenshot (73).png" alt="" />
+                      <div class="overlay"></div>
+                    </div>
+                    <div class="card-details">
+                      <p class="image_text">IMG_3596.MOV</p>
+                      <p class="image_text">5 MAY 2023, 08:20 PM</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="mt-5">
-              <h6>Activity</h6>
-            </div>
-            <div class="row my-2">
-              <div class="col-md-8">
-                <span style="font-weight: bold"> Show : </span>
-                <span class="activity-button ml-2"> All </span>
-                <span class="ml-2 activity-button text-white bg-dark">
-                  Comments
-                </span>
-                <span class="activity-button ml-2"> History </span>
-                <span class="activity-button ml-2"> Worklogs </span>
+              <div class="mt-5">
+                <h6>Activity</h6>
               </div>
-              <div
-                class="col-md-4 d-flex justify-content-end align-items-center"
-              >
-                <span class="mr-2" style="font-weight: bold">Newest first</span>
-                <i class="pi pi-filter" style="font-size: 1rem"></i>
-              </div>
-              <div class="col-md-12 mt-4 d-flex align-items-center">
-                <span class="user_name mr-3"> SS </span>
-                <textarea
-                  rows="1"
-                  cols="100"
-                  placeholder="Add a comment"
-                  pInputTextarea
-                ></textarea>
+              <div class="row my-2">
+                <div class="col-md-8">
+                  <span style="font-weight: bold"> Show : </span>
+                  <span class="activity-button ml-2"> All </span>
+                  <span class="ml-2 activity-button text-white bg-dark">
+                    Comments
+                  </span>
+                  <span class="activity-button ml-2"> History </span>
+                  <span class="activity-button ml-2"> Worklogs </span>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end align-items-center">
+                  <span class="mr-2" style="font-weight: bold">Newest first</span>
+                  <i class="pi pi-filter" style="font-size: 1rem"></i>
+                </div>
+                <div class="col-md-12 mt-4 d-flex align-items-center">
+                  <span class="user_name mr-3"> SS </span>
+                  <textarea rows="1" cols="100" placeholder="Add a comment" pInputTextarea></textarea>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="col-md-4">
-            <div class="mb-1 d-flex align-items-center justify-content-between">
-              <div class="filter_box" style="width: 60%">
-                <p-dropdown [options]="fliters" optionLabel="name"></p-dropdown>
+            <div class="col-md-4">
+              <div class="mb-1 d-flex align-items-center justify-content-between">
+                <div class="filter_box" style="width: 60%">
+                  <p-dropdown [options]="fliters" optionLabel="name"></p-dropdown>
+                </div>
+                <div class="position-relative" style="width: 38%">
+                  <p-dropdown [options]="fliters" optionLabel="name"></p-dropdown>
+                </div>
               </div>
-              <div class="position-relative" style="width: 38%">
-                <p-dropdown [options]="fliters" optionLabel="name"></p-dropdown>
-              </div>
-            </div>
-            <div class="accordian accord_area">
-              <p-accordion [multiple]="true" [activeIndex]="[0]">
-                <p-accordionTab header="Your pinned fields">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <span style="font-weight: 500"> Labels </span>
-                    </div>
-                    <div class="col-md-4">
-                      <span style="font-weight: 400">
-                        {{ modalData?.label }}
-                      </span>
-                    </div>
-                  </div>
-                </p-accordionTab>
-                <p-accordionTab header="Details">
-                  <ul class="accord-ul">
-                    <div>
-                      <li>Assignee</li>
-                    </div>
-                    <div>
-                      <li class="d-flex align-items-center">
-                        <span class="user_name mr-3" style="width: 33px">
-                          SS
+              <div class="accordian accord_area">
+                <p-accordion [multiple]="true" [activeIndex]="[0]">
+                  <p-accordionTab header="Your pinned fields">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <span style="font-weight: 500"> Labels </span>
+                      </div>
+                      <div class="col-md-4">
+                        <span style="font-weight: 400">
+                          {{ modalData?.label }}
                         </span>
-                        {{ modalData?.assignee }}
-                      </li>
+                      </div>
                     </div>
-                  </ul>
-                  <ul class="accord-ul">
-                    <div>
-                      <li>Reporter</li>
-                    </div>
-                    <div class="">
-                      <li class="d-flex align-items-center">
-                        <span class="user_name mr-3" style="width: 33px">
-                          SL
-                        </span>
-                        {{ modalData?.reporter }}
-                      </li>
-                    </div>
-                  </ul>
-                  <ul class="accord-ul">
-                    <div>
-                      <li>Priority</li>
-                    </div>
-                    <div>
-                      <li
-                        class="d-flex align-items-center ml-3"
-                        style="gap: 25px"
-                      >
-                        <div class="d-block mr-2 position-relative">
-                          <i
-                            class="fa fa-minus d-block"
-                            style="color: yellow"
-                            aria-hidden="true"
-                          ></i>
+                  </p-accordionTab>
+                  <p-accordionTab header="Details">
+                    <ul class="accord-ul">
+                      <div>
+                        <li>Assignee</li>
+                      </div>
+                      <div>
+                        <li class="d-flex align-items-center">
+                          <span class="user_name mr-3" style="width: 33px">
+                            SS
+                          </span>
+                          {{ modalData?.assignee }}
+                        </li>
+                      </div>
+                    </ul>
+                    <ul class="accord-ul">
+                      <div>
+                        <li>Reporter</li>
+                      </div>
+                      <div class="">
+                        <li class="d-flex align-items-center">
+                          <span class="user_name mr-3" style="width: 33px">
+                            SL
+                          </span>
+                          {{ modalData?.reporter }}
+                        </li>
+                      </div>
+                    </ul>
+                    <ul class="accord-ul">
+                      <div>
+                        <li>Priority</li>
+                      </div>
+                      <div>
+                        <li class="d-flex align-items-center ml-3" style="gap: 25px">
+                          <div class="d-block mr-2 position-relative">
+                            <i class="fa fa-minus d-block" style="color: yellow" aria-hidden="true"></i>
 
-                          <i
-                            class="fa fa-minus minus-icon"
-                            aria-hidden="true"
-                          ></i>
-                        </div>
-                        {{ modalData?.priority }}
-                      </li>
-                    </div>
-                  </ul>
-                </p-accordionTab>
-                <p-accordionTab header="More fields">
-                  <ul class="accord-ul">
-                    <div class="w-50">
-                      <li>Original Estimate</li>
-                    </div>
-                    <div class="w-50">
-                      <li>
-                        <span class="estimate">
-                          {{ modalData?.original_estimate }}
-                        </span>
-                      </li>
-                    </div>
-                  </ul>
-                  <ul class="accord-ul">
-                    <div class="w-50">
-                      <li>Time Tracking</li>
-                    </div>
-                    <div class="w-50">
-                      <li>No time logged</li>
-                    </div>
-                  </ul>
-                  <ul class="accord-ul">
-                    <div class="w-50">
-                      <li>Components</li>
-                    </div>
-                    <div class="w-50">
-                      <li>None</li>
-                    </div>
-                  </ul>
-                  <ul class="accord-ul">
-                    <div class="w-50">
-                      <li>Sprint</li>
-                    </div>
-                    <div class="w-50">
-                      <li>
-                        {{ modalData?.sprint }}
-                      </li>
-                    </div>
-                  </ul>
-                  <ul class="accord-ul">
-                    <div class="w-50"><li>Fix Version</li></div>
-                    <div class="w-50">
-                      <li>
-                        {{ modalData?.Fix_version }}
-                      </li>
-                    </div>
-                  </ul>
-                </p-accordionTab>
-              </p-accordion>
-            </div>
-            <div class="d-flex justify-content-between align-items-center">
-              <div>
-                <p>Updated {{ modalData?.updatedAt | date : "short" }}</p>
-                <p>Created {{ modalData?.createdAt | date : "short" }}</p>
+                            <i class="fa fa-minus minus-icon" aria-hidden="true"></i>
+                          </div>
+                          {{ modalData?.priority }}
+                        </li>
+                      </div>
+                    </ul>
+                  </p-accordionTab>
+                  <p-accordionTab header="More fields">
+                    <ul class="accord-ul">
+                      <div class="w-50">
+                        <li>Original Estimate</li>
+                      </div>
+                      <div class="w-50">
+                        <li>
+                          <span class="estimate">
+                            {{ modalData?.original_estimate }}
+                          </span>
+                        </li>
+                      </div>
+                    </ul>
+                    <ul class="accord-ul">
+                      <div class="w-50">
+                        <li>Time Tracking</li>
+                      </div>
+                      <div class="w-50">
+                        <li>No time logged</li>
+                      </div>
+                    </ul>
+                    <ul class="accord-ul">
+                      <div class="w-50">
+                        <li>Components</li>
+                      </div>
+                      <div class="w-50">
+                        <li>None</li>
+                      </div>
+                    </ul>
+                    <ul class="accord-ul">
+                      <div class="w-50">
+                        <li>Sprint</li>
+                      </div>
+                      <div class="w-50">
+                        <li>
+                          {{ modalData?.sprint }}
+                        </li>
+                      </div>
+                    </ul>
+                    <ul class="accord-ul">
+                      <div class="w-50">
+                        <li>Fix Version</li>
+                      </div>
+                      <div class="w-50">
+                        <li>
+                          {{ modalData?.Fix_version }}
+                        </li>
+                      </div>
+                    </ul>
+                  </p-accordionTab>
+                </p-accordion>
               </div>
-              <div>
-                <i class="pi pi-cog" style="font-size: 1rem"></i>
-                Configuration
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <p>Updated {{ modalData?.updatedAt | date : "short" }}</p>
+                  <p>Created {{ modalData?.createdAt | date : "short" }}</p>
+                </div>
+                <div>
+                  <i class="pi pi-cog" style="font-size: 1rem"></i>
+                  Configuration
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-          Close
-        </button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
       </div>
     </div>
   </div>

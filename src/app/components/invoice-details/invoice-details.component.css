@@ -1,0 +1,36 @@
+
+.invoice-right{
+    display: flex;
+    float: right;
+}
+p{
+    margin: 0px;
+    padding: 0px;
+}
+td{
+    padding: 5px;
+}
+th{
+    padding-bottom: 5px;
+}
+.amount-due{
+    color: red;
+}
+.table-heading{
+    background-color: #559192;
+}
+.table-heading th{
+    font-weight: 500;
+}
+.total-price{
+    margin-right: 40px;
+}
+/* .invoice-left{
+    margin-left: 40px;
+}
+.invoice-right{
+    margin-right: 40px;
+} */
+.card-body{
+    padding: 3rem;
+}

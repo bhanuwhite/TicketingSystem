@@ -1,0 +1,84 @@
+<div class="content-inner">
+    <div class="invoice-header d-flex justify-content-between border-bottom" style="border-bottom: 1px;">
+        <div class="ml-5">
+          <h4>AHEX</h4>
+          <p>Hyderabad</p>
+          <p>15000036</p>
+        </div>
+        <div class="invoice-right mr-5">
+            <h4 style="color: #559192;">#INVOICE</h4>
+        </div>
+    </div>
+    <div class="invoice-header d-flex justify-content-between mt-2">
+        <div class="ml-5" *ngFor="let item of invoiceDetailsData">
+            <h6>Bill to </h6>
+            <p>{{ item.custName }}</p>
+            <p>{{ item.mobile_no}}</p>
+        </div>
+        <div class="d-flex">
+            <div class="mr-5">
+                <p>#Invoice Id</p>
+                <p>Invoice Date</p>
+                <p>Due Date</p>
+            </div>
+            <div class="mr-5" *ngFor="let item of invoiceDetailsData"> 
+                <p>{{ item.invoiceId }}</p>
+                <p>{{ item.invoice_date | date:'shortDate' }}</p>
+                <p>{{ item.due_date | date:'shortDate'}}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-body mt-1">
+        <table style="width: 100%;" class="border-bottom">
+            <thead>
+                <tr class="table-heading">
+                    <th>S.No</th>
+                    <th>Product Name</th>
+                    <th>quantity</th>
+                    <th>unit price</th>
+                    <th>tax</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of productDetails; let i = index" class="border-top">
+                    <td>{{ getSerialNumber(i) }}</td>
+                    <td>{{ item.productName }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ item.price }}</td>
+                    <!-- <ng-container *ngFor="let product of item.items">
+                        <td>{{ product.productName }}</td>
+                        <td>${{ product.price }}</td>
+                    </ng-container> -->
+                    <td>${{ item.tax }}</td>
+                    <td>${{ item.amount }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div class="invoice-header d-flex justify-content-between border-bottom">
+        <div class="invoice-left">
+        </div>
+        <div class="d-flex mr-5">
+            <div class="total-price">
+                <p>Sub Total</p>
+                <p>Total Tax</p>
+                <p class="border-bottom">Discount</p>
+                <p class="amount-due">Total</p>
+            </div>
+            <div class="" *ngFor="let item of invoiceDetailsData">
+                <p>$878</p>
+                <p>${{ item.totalTax }}</p>
+                <p>$0</p>
+                <p class="amount-due">${{ item.totalAmount}}</p>
+            </div>
+        </div>
+        
+    </div>
+    <div class="ml-5 mt-2">
+        <h6>Terms & Condition</h6>
+        <p>Thank you for your bussiness. please process this invoice within the due date.</p>
+    </div>
+</div>

@@ -39,7 +39,7 @@
     </div>
     <div class="bg-white my-4 customer-info-card px-3 py-3 mx-4 box-shadow">
       <h5 class=" cutomer_heading mb-4">Add Products</h5>
-        <div class="d-flex" style="gap: 20px;">
+        <div class="d-flex" style="gap: 4px;">
           <div>
             <label for="integer" class="font-weight-bold d-block mb-2">Select Product<sup class="required">*</sup></label>
             <p-autoComplete #autoComplete placeholder="Select Product" (ngModelChange)="selectProduct($event)"
@@ -147,7 +147,7 @@
             <td>${{ product?.tax ? product?.tax : "0" }}</td>
             <td>${{ product?.amount }}</td>
             <td>
-                <i disabled class="pi pi-times" style="font-size: 1.5rem" (click)="removeProduct(i)" ></i>
+                <i disabled class="pi pi-times" style="font-size: 1.5rem; cursor: pointer;" (click)="removeProduct(i)" ></i>
             </td>
           </tr>
         </ng-template>

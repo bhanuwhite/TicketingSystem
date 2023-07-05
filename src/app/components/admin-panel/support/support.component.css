@@ -182,3 +182,8 @@ span.estimate {
     margin: 10px 0px;
     color: red;
 }
+.content-inner-1 {
+    width: 100% !important;
+    overflow-y: auto;
+    height: 100%;
+  }
