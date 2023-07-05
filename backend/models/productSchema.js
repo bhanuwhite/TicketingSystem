@@ -27,7 +27,6 @@ let productSchema = new mongoose.Schema({
     inventoryStatus: {
         type: String,
         enum: ['OUTOFSTOCK', 'INSTOCK', 'LOWSTOCK'],
-        required: true
     },
     quantity: {
         type: Number,

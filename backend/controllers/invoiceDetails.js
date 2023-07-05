@@ -5,7 +5,6 @@ exports.detailsOfInvoice = async (req, res) => {
   try {
     let invoice;
     let orderList = await Order.find().sort({ createdAt: -1 });
-
     for (let i = 0; i < orderList.length; i++) {
       let checkId = await Invoice.find({ orderId: orderList[i].id });
       if (!checkId || checkId.length === 0) {
@@ -49,7 +48,7 @@ exports.detailsOfInvoice = async (req, res) => {
         await invoice.save();
       }
     }
-    let data = await Invoice.find();
+    let data = await Invoice.find().sort({ createdAt: -1 });
     return res.status(200).send({ data });
   }
   catch (err) {

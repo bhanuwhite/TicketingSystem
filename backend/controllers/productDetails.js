@@ -1,40 +1,67 @@
 const Product = require('../models/productSchema');
 const path = require('path');
 
-var k = 1000;
+var count;
 exports.addProductsList = async (req, res) => {
     try {
+        let inventoryStatus;
+        let result = await Product.find();
+        const quantity = req.body.quantity;
+        if(quantity>=5 && quantity <=15){
+            inventoryStatus = "LOWSTOCK"
+         }
+         if(quantity>15)
+         {
+             inventoryStatus = "INSTOCK"
+         }
+         if(quantity<=0)
+         {
+             inventoryStatus = "OUTOFSTOCK"
+
+         }
+        if (result.length == 0) {
+            count = 1000;
+        }
+        else {
+            let updateCount = result[result.length - 1].id;
+            count = updateCount + 1;
+        }
         let productList = new Product({
-            id: k,
+            id: count,
             productName: req.body.productName,
             productDescription: req.body.productDescription,
             productCode: req.body.productCode,
             price: req.body.price,
             category: req.body.category.split(","),
-            inventoryStatus: req.body.inventoryStatus,
-            quantity: req.body.quantity,
+            inventoryStatus: inventoryStatus,
+            quantity: quantity,
         });
-        k++;
-        console.log(k)
+
+       
         let details = await Product.find();
         if (req.files) {
             const url = 'http://206.189.140.51:4300/';
             // const url = 'http://192.168.0.242:4300/';
             const paths = req.files.map((file) => url + file.path);
-            console.log(paths)
             const concat = paths.join(', ');
             productList.image = concat;
         }
 
-        for (let i = 0; i < details.length; i++) {
+        for (let i = 0; i < details.length; i++) 
+        {
             let code = details[i].productCode;
-            let data = {
-                message: "Product code already exists",
-                status: '400'
+            if (details[i].productName == req.body.productName) {
+                return res.status(400).json({
+                    message: "Product name already exists",
+                    status: "400"
+                })
+
             }
             if (code === req.body.productCode) {
-                return res.status(400).send({ data })
-            }
+                return res.status(400).json({
+                    message: "Product code already exists",
+                    status: "400"
+                })            }
         }
         await productList.save();
         let data = {

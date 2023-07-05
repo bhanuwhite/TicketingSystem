@@ -65,9 +65,9 @@ router.post('/addProduct', upload.array('image'), ProductDetails.addProductsList
 router.get('/displayProduct', productDisplay.displayAllProducts);
 router.get("/getCategory", GetCategory.gettingCategories);
 router.post("/addCategory", AddCategory.addingCategories);
-router.get("/listCategory", ListCategory.listingCategories);
-router.put('/listCategory/:id', UpdateCategory.editCategory);
-router.patch('/deleteCategory', DeleteCategory.deleteCategories);
+router.get("/addCategory", ListCategory.listingCategories);
+router.put('/addCategory/:id', UpdateCategory.editCategory);
+router.get('/deleteCategory/:id', DeleteCategory.deleteCategories);
 router.get("/status", InventoryStatus.inventoryStatus);
 router.put('/display/:_id', UpdateProducts.editProducts);
 router.get('/deleteProduct/:id', DeleteProduct.deleteProduct)

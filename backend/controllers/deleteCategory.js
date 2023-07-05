@@ -1,17 +1,18 @@
 const Category = require('../models/categorySchema');
 
 exports.deleteCategories = async (req, res) => {
-    let { itemIds } = req.body;
+    const id = req.params.id;
     try {
-        // let id = req.params.id;
-        let result = await Category.deleteMany({ _id: { $in: itemIds } });
+        let updatedCategory = await Category.updateOne({ id }, { $set: { status: "block" } });
+
         let data = {
-            message: `${result.deletedCount} items deleted`,
+            message: `Category blocked`,
             status: '200',
+            categoryStatus: "block"
         }
-        return res.status(200).send({ data });
+        return res.status(200).send(data);
     }
     catch (err) {
-        return res.status(400).send({ err });
+        return res.status(400).send(err.message);
     }
 }

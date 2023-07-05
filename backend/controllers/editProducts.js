@@ -1,6 +1,7 @@
 const Product = require('../models/productSchema');
 const upload = require('../middlewares/upload');
 const Category = require('../models/categorySchema');
+const { inventoryStatus } = require('./inventoryStatus');
 
 exports.editProducts = async (req, res) => {
   try {
@@ -25,18 +26,29 @@ exports.editProducts = async (req, res) => {
 
         const imageUrls = req.files.map((file) => url + file.path);
         body.image = imageUrls.join(',');
-        console.log(body.image)
       }
 
       try {
+        let quantity = req.body.quantity;
+        let inventoryStatus;
+        if (quantity >= 5 && quantity <= 15) {
+          inventoryStatus = "LOWSTOCK";
+        }
+        if (quantity > 15) {
+          inventoryStatus = "INSTOCK";
+        }
+        if (quantity <= 0) {
+          inventoryStatus = "OUTOFSTOCK";
+        }
+
         const updatedRecord = await Product.findByIdAndUpdate({ _id: _id }, { new: true });
         updatedRecord.productName = req.body.productName || updatedRecord.productName;
         updatedRecord.productDescription = req.body.productDescription || updatedRecord.productDescription;
         updatedRecord.productCode = req.body.productCode || updatedRecord.productCode;
         updatedRecord.price = req.body.price || updatedRecord.price;
-        updatedRecord.category = req.body.category.split(",") || updatedRecord.category.split(",");
-        updatedRecord.quantity = req.body.quantity || updatedRecord.quantity;
-        updatedRecord.inventoryStatus = req.body.inventoryStatus || updatedRecord.inventoryStatus;
+        updatedRecord.category = req.body.category ? req.body.category.split(",") : updatedRecord.category;
+        updatedRecord.quantity = quantity || updatedRecord.quantity;
+        updatedRecord.inventoryStatus = inventoryStatus || updatedRecord.inventoryStatus;
         updatedRecord.image = body.image || updatedRecord.image;
         let categoryList = await Category.find().select('name');
         let list = [];
@@ -45,10 +57,9 @@ exports.editProducts = async (req, res) => {
           for (let i = 0; i < categoryList.length; i++) {
             list.push(categoryList[i].name);
           }
-          console.log(list)
           for (let i = 0; i < updatedRecord.category.length; i++) {
             if (list.includes(updatedRecord.category[i])) { }
-            else { return res.status(400).send({ message: `${updatedRecord.category[i]} doesn't exists in the category list` }) }
+            else { return res.status(400).send({ message: `${updatedRecord.category[i]} doesn't exist in the category list` }) }
 
           }
           await updatedRecord.save();
@@ -60,15 +71,14 @@ exports.editProducts = async (req, res) => {
           return res.status(200).send({ data });
         }
         return res.status(400).send({
-          message: `Category doesn't exists`,
+          message: `Category doesn't exist`,
           status: '400'
         })
       } catch (err) {
-        return res.status(400).send(err);
+        return res.status(400).send(err.message);
       }
     });
   } catch (err) {
     return res.status(400).send(err);
   }
 };
-
