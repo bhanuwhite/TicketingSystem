@@ -9,17 +9,21 @@ import {
 } from '@angular/forms';
 import { tax } from 'src/app/shared/constant';
 import { DataFetchService } from 'src/app/shared/services/common.service';
+import {  MessageService } from 'primeng/api';
+import { HttpErrorResponse } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-place-order',
   templateUrl: './place-order.component.html',
   styleUrls: ['./place-order.component.css'],
+  providers: [MessageService],
 })
 export class PlaceOrderComponent {
   tableData: any = [];
   products_lists: any;
   selectedCountry: any;
-  filteredCountries!: any[];
+  filteredProduct!: any[];
   addProduct!: FormGroup;
   idcount: any;
   productsDemo = [];
@@ -36,8 +40,13 @@ export class PlaceOrderComponent {
   selectedProduct_quantity: any = 1;
   customerLists: any;
   filterCustomer!: any[];
+  duplicateProducts: any;
 
-  constructor(private services: DataFetchService, private fb: FormBuilder) {}
+  constructor(
+    private services: DataFetchService,
+    private fb: FormBuilder,
+    private messageService: MessageService,
+  ) {}
   ngOnInit(): void {
     this.getProducts();
     this.productinit();
@@ -54,7 +63,7 @@ export class PlaceOrderComponent {
         '1',
         [
           Validators.required,
-          Validators.pattern('^[0-9]+$'),
+          Validators.pattern(/^[1-9][0-9]*$/),
           this.checkQuantityValidator(),
         ],
       ],
@@ -64,25 +73,26 @@ export class PlaceOrderComponent {
     });
   }
 
-  getCustomersDetails():void{
-    this.services.getData('customerDetails').subscribe((res)=>{
-      this.customerLists=res.data.lists;
-      console.log(this.customerLists)
-    })
-
+  getCustomersDetails(): void {
+    this.services.getData('customerDetails').subscribe((res) => {
+      this.customerLists = res.data.lists;
+      console.log(this.customerLists);
+    });
   }
   getProducts(): void {
     this.services.getData('select').subscribe((res: any) => {
       this.products_lists = res.data.lists;
+
+      this.duplicateProducts = this.products_lists;
     });
   }
-  getTax() {
+  getTax(): void {
     this.services.getData('taxLists').subscribe((res: any) => {
       this.taxlist = res.taxList;
     });
   }
   ontaxChange(event: any): void {
-    const deotax = event.value?.value;
+    const deotax = event.value?.percentage;
     let total_amount = this.total_amount + this.total_amount * (deotax / 100);
     this.addProduct.patchValue({ amount: total_amount });
   }
@@ -96,7 +106,7 @@ export class PlaceOrderComponent {
       const selectedProductQuantity = this.selectedProduct_quantity;
 
       const check = selectedquantity <= selectedProductQuantity;
-      return !check ? { passwordStrength: true } : null;
+      return !check ? { quantityCheck: true } : null;
     };
   }
 
@@ -113,7 +123,7 @@ export class PlaceOrderComponent {
     this.addProduct.patchValue({ amount: this.selectedPrice_quantity });
   }
   selectProduct(event: any): void {
-    this.selectedProduct_quantity = event?.quantity ? event?.quantity : 0;
+    this.selectedProduct_quantity = event?.quantity;
     this.quantity = 1;
     this.addProduct.patchValue({ quantity: this.quantity });
     this.selectedPrice_product = event?.price;
@@ -123,21 +133,22 @@ export class PlaceOrderComponent {
     this.addProduct.patchValue({ amount: this.total_amount });
   }
 
-  filterCountry(event: any) {
+  filterProduct(event: any): void {
     let filtered: any[] = [];
     let query = event?.query;
     if (event.query.length > 1) {
-      for (let i = 0; i < this.products_lists.length; i++) {
-        let country = this.products_lists[i];
+      for (let i = 0; i < this.duplicateProducts.length; i++) {
+        let country = this.duplicateProducts[i];
         if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
           filtered.push(country);
         }
       }
     }
 
-    this.filteredCountries = filtered;
+    this.filteredProduct = filtered;
+    console.log(this.filteredProduct);
   }
-  filterCustomers(event: any) {
+  filterCustomers(event: any): void {
     let filtered: any[] = [];
     let query = event?.query;
     if (event.query.length > 1) {
@@ -151,12 +162,41 @@ export class PlaceOrderComponent {
 
     this.filterCustomer = filtered;
   }
-  selectedcustomer(customer_no:any){
- this.addProduct.patchValue({'mobile':customer_no[0].mobile_no})
+  selectedcustomer(customer_no: any) {
+    this.addProduct.patchValue({ mobile: customer_no[0].mobile_no });
+  }
+
+
+// need to remove need suggestions///////////////
+  quantity_count(): void {
+    const formValues = this.addProduct.value;
+
+    const body = {
+      productName: formValues.name.name,
+      quantity: formValues.quantity,
+    };
+    console.log(body);
+    this.services.patchData('addItems', body).subscribe((res) => {
+      console.log(res);
+    });
   }
   add_Product(): void {
-    this.getProducts();
+    // this.quantity_count();
+    // setTimeout(() => {
+    //   this.getProducts();
+    // }, 1000);
+    let formvalues = this.addProduct.value;
+    let product_id = formvalues.name.id;
+    let product_quantity = formvalues.quantity;
+    this.duplicateProducts.map((x: any) => {
+      if (x.id == product_id) {
+        x.quantity = x.quantity - product_quantity;
+      }
+    });
+    console.log(this.duplicateProducts);
+    console.log(this.tableData);
     let name = this.addProduct.controls['name'].value.name;
+    let id = this.addProduct.controls['name'].value.id;
     let quantity = this.addProduct.controls['quantity'].value;
     let tax_percentage = this.addProduct.controls['tax']?.value?.value
       ? this.addProduct.controls['tax']?.value?.value
@@ -167,6 +207,7 @@ export class PlaceOrderComponent {
     let tax = price * (tax_percentage / 100);
 
     this.data = {
+      id: id,
       productName: name,
       quantity: quantity,
       tax: tax,
@@ -175,6 +216,7 @@ export class PlaceOrderComponent {
     };
 
     this.tableData.push(this.data);
+    console.log(this.tableData);
     this.TotalOrderAmount = +parseFloat(
       this.TotalOrderAmount + this.data.amount
     ).toFixed(2);
@@ -184,8 +226,19 @@ export class PlaceOrderComponent {
     this.addProduct.controls['tax'].reset();
     this.addProduct.controls['amount'].reset();
   }
-  removeProduct(index: number): void {
+  removeProduct(product: any): void {
+    const index = this.tableData.indexOf(product);
+    console.log(this.tableData[index].id);
+
+    this.duplicateProducts.map((x: any) => {
+      if (x.id == this.tableData[index].id) {
+        x.quantity = x.quantity + this.tableData[index].quantity;
+        console.log(x.quantity);
+      }
+    });
+    console.log(this.duplicateProducts);
     const removed_item = this.tableData.splice(index, 1);
+
     let getremoved_amount = removed_item[0].totalamount;
     this.TotalOrderAmount = this.TotalOrderAmount - getremoved_amount;
 
@@ -194,18 +247,80 @@ export class PlaceOrderComponent {
 
   placeOrder(): void {
     const formValues = this.addProduct.value;
-    const data: [] = this.tableData;
+    let key = 'id';
+    let newArray = this.tableData.map(({ [key]: omittedKey, ...rest }) => rest);
+    console.log(newArray);
+    const data: [] = newArray;
+    console.log(formValues.customerName.name);
     const body = {
-      custName: formValues.customerName.name ,
+      custName: formValues.customerName.name,
       mobile: formValues.mobile,
       itemsList: data,
-      // totalamount: this.TotalOrderAmount,
     };
     this.tableData = [];
     this.addProduct.reset();
     try {
-      console.log(body);
-      this.services.postData('tax/order ', body).subscribe((data) => {});
-    } catch {}
+      // this.services.postData('tax/order', body).subscribe({
+      //   next: (res: any) => {
+      //     if (res.data.status === '201') {
+      //       this.messageService.add({
+      //         severity: 'success',
+      //         summary: 'Successful',
+      //         detail: 'Product Created',
+      //         life: 3000,
+      //       });
+      //       // this.getProducts();
+      //     }
+      //   },
+      //   error: (err: HttpErrorResponse) => {
+      //     if (err.error.data.status == 400) {
+      //       this.messageService.add({
+      //         severity: 'error',
+      //         summary: 'error',
+      //         detail: 'Product code already exists',
+      //         life: 3000,
+      //       });
+      //     } else {
+      //       this.messageService.add({
+      //         severity: 'error',
+      //         summary: 'error',
+      //         detail: 'Something went wrong',
+      //         life: 3000,
+      //       });
+      //     }
+      //   },
+      // });
+   
+      this.services.postData('tax/order', body).subscribe({
+        next: (res: any) => {
+          if (res.data.status === '201') {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Successful',
+              detail: 'Product Created',
+              life: 3000,
+            });
+          }
+        },
+        error: (err: HttpErrorResponse) => {
+          if (err.error.data.status == 400) {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'error',
+              detail: 'Product code already exists',
+              life: 3000,
+            });
+          } else {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'error',
+              detail: 'Something went wrong',
+              life: 3000,
+            });
+          }
+        },
+      });
+    }
+     catch {}
   }
 }
