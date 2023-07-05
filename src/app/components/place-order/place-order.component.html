@@ -1,114 +1,211 @@
 <div class="content-inner">
   <h3 class="px-4 py-2">Place order</h3>
   <div class="container-fulid">
-    <form [formGroup]="addProduct" style="width: 100%;">
-
-    <div class="bg-white customer-info-card px-3 py-3 mx-4 box-shadow">
-      <h5 class=" cutomer_heading mb-4"> Customer Info</h5>
-      <div class="d-flex" style="gap: 20px;">
-        <div class="w-25">
-          <label class="d-block font-weight-bold" For="username">Customer Name<sup class="required">*</sup></label>
-          <input formControlName="customerName" placeholder="Customer Name" pInputText id="username" aria-describedby="username-help" style="height: 40px" class="w-100" />
-          <div *ngIf="
-          addProduct.get('customerName')?.invalid &&
-          addProduct.get('customerName')?.touched
-        ">
-        <div class="p-error" *ngIf="addProduct.get('customerName')?.hasError('required')">
-          Customer name is required.
-        </div>
-      </div>
-        </div>
-        <div class="w-25">
-          <label class="d-block font-weight-bold" For="username">Customer number<sup class="required">*</sup></label>
-          <input formControlName="mobile" placeholder="Mobile Number" type="telephone" pInputText id="username" aria-describedby="username-help" class="w-100"
-            style="height: 40px" />
-            <div *ngIf="
-            addProduct.get('mobile')?.invalid &&
-            addProduct.get('mobile')?.touched
-          ">
-          <div class="p-error" *ngIf="addProduct.get('mobile')?.hasError('required')">
-            Mobile number is required.
+    <form [formGroup]="addProduct" style="width: 100%">
+      <div class="bg-white customer-info-card px-3 py-3 mx-4 box-shadow">
+        <h5 class="cutomer_heading mb-4">Customer Info</h5>
+        <div class="d-flex" style="gap: 20px">
+          <div class="w-25">
+            <label class="d-block font-weight-bold" For="username"
+              >Customer Name<sup class="required">*</sup></label
+            >
+            <!-- <input formControlName="customerName" placeholder="Customer Name" pInputText id="username" aria-describedby="username-help" style="height: 40px" class="w-100" /> -->
+            <p-autoComplete
+            placeholder="Customer Name"
+              formControlName="customerName"
+              [suggestions]="filterCustomer"
+              (completeMethod)="filterCustomers($event)"
+              (change)="selectedcustomer(filterCustomer)"
+              field="name"
+              class="auto_box"
+            ></p-autoComplete>
+            <div
+              *ngIf="
+                addProduct.get('customerName')?.invalid &&
+                addProduct.get('customerName')?.touched
+              "
+            >
+              <div
+                class="p-error"
+                *ngIf="addProduct.get('customerName')?.hasError('required')"
+              >
+                Customer name is required.
+              </div>
+            </div>
           </div>
-        </div>
-        </div>
-        <!-- <div class="w-100">
+          <div class="w-25">
+            <label class="d-block font-weight-bold" For="username"
+              >Customer number<sup class="required">*</sup></label
+            >
+            <input
+              formControlName="mobile"
+              placeholder="Mobile Number"
+              type="telephone"
+              pInputText
+              id="username"
+              aria-describedby="username-help"
+              class="w-100"
+              style="height: 40px"
+            />
+            <div
+              *ngIf="
+                addProduct.get('mobile')?.invalid &&
+                addProduct.get('mobile')?.touched
+              "
+            >
+              <div
+                class="p-error"
+                *ngIf="addProduct.get('mobile')?.hasError('required')"
+              >
+                Mobile number is required.
+              </div>
+            </div>
+          </div>
+          <!-- <div class="w-100">
           <label class="d-block font-weight-bold" For="username">Customer Name</label>
           <input pInputText id="username" aria-describedby="username-help" class="w-100" style="height: 40px" />
         </div> -->
+        </div>
       </div>
-    </div>
-    <div class="bg-white my-4 customer-info-card px-3 py-3 mx-4 box-shadow">
-      <h5 class=" cutomer_heading mb-4">Add Products</h5>
-        <div class="d-flex" style="gap: 4px;">
+      <div class="bg-white my-4 customer-info-card px-3 py-3 mx-4 box-shadow">
+        <h5 class="cutomer_heading mb-4">Add Products</h5>
+        <div class="d-flex" style="gap: 20px">
           <div>
-            <label for="integer" class="font-weight-bold d-block mb-2">Select Product<sup class="required">*</sup></label>
-            <p-autoComplete #autoComplete placeholder="Select Product" (ngModelChange)="selectProduct($event)"
-              formControlName="name" [(ngModel)]="selectedCountry" [suggestions]="filteredCountries"
-              (completeMethod)="filterCountry($event)" field="name" class="product-dropdown-block" [ngClass]="{
+            <label for="integer" class="font-weight-bold d-block mb-2"
+              >Select Product<sup class="required">*</sup></label
+            >
+            <p-autoComplete
+              #autoComplete
+              placeholder="Select Product"
+              (ngModelChange)="selectProduct($event)"
+              formControlName="name"
+              [(ngModel)]="selectedCountry"
+              [suggestions]="filteredProduct"
+              (completeMethod)="filterProduct($event)"
+              field="name"
+              class="product-dropdown-block"
+              [ngClass]="{
                 'is-invalid':
                   addProduct.get('name')?.invalid &&
                   addProduct.get('name')?.touched
-              }"></p-autoComplete>
-            <div *ngIf="
+              }"
+            ></p-autoComplete>
+            <div
+              *ngIf="
                 addProduct.get('name')?.invalid &&
                 addProduct.get('name')?.touched
-              ">
-              <div class="p-error" *ngIf="addProduct.get('name')?.hasError('required')">
+              "
+            >
+              <div
+                class="p-error"
+                *ngIf="addProduct.get('name')?.hasError('required')"
+              >
                 Product name is required.
               </div>
             </div>
           </div>
           <div>
-            <label for="number" class="font-weight-bold d-block mb-2">Quantity<sup class="required">*</sup></label>
-            <input (keyup)="onQuantityChange($event)" pInputText type="text" class="quantity-information-content"
-              formControlName="quantity" [ngClass]="{
+            <label for="number" class="font-weight-bold d-block mb-2"
+              >Quantity<sup class="required">*</sup></label
+            >
+            <input
+              (keyup)="onQuantityChange($event)"
+              pInputText
+              type="text"
+              class="quantity-information-content"
+              formControlName="quantity"
+              [ngClass]="{
                 'is-invalid':
                   addProduct.get('quantity')?.invalid &&
                   addProduct.get('quantity')?.touched
-              }" />
-            <div *ngIf="
+              }"
+            />
+            <div
+              *ngIf="
                 addProduct.get('quantity')?.invalid &&
                 addProduct.get('quantity')?.touched
-              ">
-              <div class="p-error" *ngIf="addProduct.get('quantity')?.hasError('required')">
-                Quantity  is required.
+              "
+            >
+              <div
+                class="p-error"
+                *ngIf="addProduct.get('quantity')?.hasError('required')"
+              >
+                Quantity is required.
               </div>
-              <div class="p-error" *ngIf="addProduct.get('quantity')?.hasError('passwordStrength')">
-                Quantity  is less.
+              <div
+                class="p-error"
+                *ngIf="addProduct.get('quantity')?.hasError('quantityCheck')"
+              >
+                Quantity not available.
               </div>
-              <div class="p-error" *ngIf="addProduct.get('quantity')?.hasError('pattern')">
+              <div
+                class="p-error"
+                *ngIf="addProduct.get('quantity')?.hasError('pattern')"
+              >
                 This field only allows numbers.
               </div>
             </div>
           </div>
           <div>
             <div class="price-content-tax-block">
-              <label for="money" class="font-weight-bold block mb-2">Price</label>
-              <input pInputText type="text" class="price-information-content" placeholder="Price" readonly
-                formControlName="price" />
+              <label for="money" class="font-weight-bold block mb-2"
+                >Price</label
+              >
+              <input
+                pInputText
+                type="text"
+                class="price-information-content"
+                placeholder="Price"
+                readonly
+                formControlName="price"
+              />
             </div>
           </div>
           <div>
-            <label for="alphabetic" class="font-weight-bold d-block mb-2">Select Tax</label>
+            <label for="alphabetic" class="font-weight-bold d-block mb-2"
+              >Select Tax</label
+            >
             <div class="select_tax_dropdown">
-              <p-dropdown (onChange)="ontaxChange($event)" [options]="taxlistdemo" optionLabel="name"
-                placeholder="Select Tax" class="select-tax-block" formControlName="tax"></p-dropdown>
+              <p-dropdown
+                (onChange)="ontaxChange($event)"
+                [options]="taxlist"
+                optionLabel="name"
+                placeholder="Select Tax"
+                class="select-tax-block"
+                formControlName="tax"
+              ></p-dropdown>
             </div>
           </div>
           <div class="amount-content-tax-block">
-            <label for="alphanumeric" class="font-weight-bold block mb-2">Total</label>
-            <input pInputText type="text" class="amount-content-tax-block-input-info" placeholder="Total Amount"
-              formControlName="amount" readonly />
+            <label for="alphanumeric" class="font-weight-bold block mb-2"
+              >Total</label
+            >
+            <input
+              pInputText
+              type="text"
+              class="amount-content-tax-block-input-info"
+              placeholder="Total Amount"
+              formControlName="amount"
+              readonly
+            />
           </div>
-          <div >
-            <label for="alphanumeric" class="font-weight-bold block mb-2">Add Items</label>
+          <div>
+            <label for="alphanumeric" class="font-weight-bold block mb-2"
+              >Add Items</label
+            >
             <div class="text-center additems">
-              <button type="button" class="removeclass"  (click)="add_Product()">
-                <i class="pi pi-plus " style="font-size: 1.5rem ;color: blue;" ></i>
+              <button
+                type="button"
+                class="removeclass"
+                [disabled]="addProduct.invalid"
+                (click)="add_Product()"
+              >
+                <i
+                  class="pi pi-plus"
+                  style="font-size: 1.5rem; color: blue"
+                ></i>
               </button>
-
-              
-            </div> 
+            </div>
           </div>
         </div>
         <!-- <div class=" d-flex mt-2 justify-content-end" style="gap: 10px">
@@ -119,54 +216,58 @@
         </div> -->
       </div>
     </form>
-
-    </div>
-    <div class="px-3 py-3 mx-2 box-shadow" style="position: relative;">
-      <!-- <p-table [value]="tableData" style="margin-bottom: 20px"> -->
-      <p-table [value]="tableData">
-        <ng-template pTemplate="header">
-          <tr>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Tax</th>
-            <th>Amount</th>
-            <th>Action</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-product let-i="index">
-          <!-- <tr>
+  </div>
+  <div class="px-3 py-3 mx-2 box-shadow" style="position: relative">
+    <!-- <p-table [value]="tableData" style="margin-bottom: 20px"> -->
+    <p-table [value]="tableData">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Tax</th>
+          <th>Amount</th>
+          <th>Action</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product >
+        <!-- <tr>
             <td>
               123
             </td>
           </tr> -->
-          <tr>
-            <td>{{ product?.productName }}</td>
-            <td>{{ product?.quantity }}</td>
-            <td>${{ product?.price }}</td>
-            <td>${{ product?.tax ? product?.tax : "0" }}</td>
-            <td>${{ product?.amount }}</td>
-            <td>
-                <i disabled class="pi pi-times" style="font-size: 1.5rem; cursor: pointer;" (click)="removeProduct(i)" ></i>
-            </td>
-          </tr>
-        </ng-template>
-     
-      </p-table>
-      <div class="ammount-wrapper my-2" >
-        <div class="d-flex  justify-content-end ">
-          <h6 class="font-weight-bold">
-           Total : {{TotalOrderAmount}}
-          </h6>
-         </div>
-         <div class="d-flex justify-content-end" style="gap: 10px">
-           <button pButton pRipple label="Cancel" class="p-button-danger"  
-           ></button>
-         <button pButton pRipple label="Order" styleClass="p-button-help"  [disabled]="tableData.length === 0" (click)="placeOrder()"
-           ></button>
-          </div>
+        <tr>
+          <td>{{ product?.productName }}</td>
+          <td>{{ product?.quantity }}</td>
+          <td>${{ product?.price }}</td>
+          <td>${{ product?.tax ? product?.tax : "0" }}</td>
+          <td>${{ product?.amount }}</td>
+          <td>
+            <i
+              disabled
+              class="pi pi-times"
+              style="font-size: 1.5rem"
+              (click)="removeProduct(product)"
+            ></i>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <div class="ammount-wrapper my-2">
+      <div class="d-flex justify-content-end">
+        <h6 class="font-weight-bold">Total : {{ TotalOrderAmount }}</h6>
       </div>
- 
+      <div class="d-flex justify-content-end" style="gap: 10px">
+        <button pButton pRipple label="Cancel" class="p-button-danger"></button>
+        <button
+          pButton
+          pRipple
+          label="Order"
+          styleClass="p-button-help"
+          [disabled]="tableData.length === 0"
+          (click)="placeOrder()"
+        ></button>
+      </div>
     </div>
-  
   </div>
+</div>

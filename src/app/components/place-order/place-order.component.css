@@ -1,8 +1,9 @@
-.container-fulid{
-    width: 100% !important;}
-.content-inner{
-    width: 100%;
-     background: var(--surface-ground);
+.container-fulid {
+  width: 100% !important;
+}
+.content-inner {
+  width: 100%;
+  background: var(--surface-ground);
 }
 .customer-info-card {
   box-shadow: 0px 0px 2px 0px;
@@ -14,7 +15,6 @@
   width: fit-content;
 }
 .card {
-  /* background: var(--surface-card); */
   padding: 2rem;
   border-radius: 1px;
   font-family: var(--font-family);
@@ -53,7 +53,6 @@
 }
 .tax-total-content-block-empty {
   width: 31%;
-  /* margin-left: 40px; */
 }
 
 .quantity-information-content {
@@ -85,8 +84,7 @@
   font-size: medium;
   font-weight: 400;
 }
-.removeclass{
-  /* outline: none !important; */
+.removeclass {
   border: none;
   background: none;
 }
