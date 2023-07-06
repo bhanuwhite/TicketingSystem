@@ -21,6 +21,7 @@
 .sidebar-content {
   padding: 0.25rem;
   position: relative;
+ 
 }
 
 .sidenav {
@@ -33,6 +34,7 @@
   position: sticky; */
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .sidenav button {
