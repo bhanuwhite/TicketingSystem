@@ -1,4 +1,14 @@
-  <div class="sidenav">
+  <div class="sidenav" [class.sidebar-close]="!openSidebar" >
+    <!-- <div class="hamburger-menu">
+      <input type="checkbox" id="checkbox-hamburger-menu" [(ngModel)]="openSidebar" />
+      <label class="label-hamburger-menu" for="checkbox-hamburger-menu">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </label>
+      <h5 class="dashboard-heading">Dashboard</h5>
+      
+    </div> -->
     <div class="sidebar-content">
       <div class="list-wrapper">
         <ul class="listbox-list" >

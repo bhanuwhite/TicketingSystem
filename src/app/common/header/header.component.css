@@ -35,3 +35,6 @@
 .admin-dropdown-block{
     width: 140px;
 }
+.hamburger-menu{
+    display: none;
+}

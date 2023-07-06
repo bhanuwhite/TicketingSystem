@@ -11,7 +11,7 @@
   
   .cards-wrapper {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
   }
   .card img {
     max-width: 100%;
