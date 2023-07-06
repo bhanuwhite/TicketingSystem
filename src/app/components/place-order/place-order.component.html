@@ -35,7 +35,7 @@
           </div>
           <div class="w-25">
             <label class="d-block font-weight-bold" For="username"
-              >Customer number<sup class="required">*</sup></label
+              >Customer Number<sup class="required">*</sup></label
             >
             <input
               formControlName="mobile"
@@ -136,7 +136,7 @@
                 class="p-error"
                 *ngIf="addProduct.get('quantity')?.hasError('quantityCheck')"
               >
-                Quantity not available.
+                Only {{showQuantity}} quantity available.
               </div>
               <div
                 class="p-error"
@@ -191,7 +191,7 @@
           </div>
           <div>
             <label for="alphanumeric" class="font-weight-bold block mb-2"
-              >Add Items</label
+              >Add Item</label
             >
             <div class="text-center additems">
               <button
@@ -255,7 +255,7 @@
     </p-table>
     <div class="ammount-wrapper my-2">
       <div class="d-flex justify-content-end">
-        <h6 class="font-weight-bold">Total : {{ TotalOrderAmount }}</h6>
+        <!-- <h6 class="font-weight-bold">Total : {{ TotalOrderAmount }}</h6> -->
       </div>
       <div class="d-flex justify-content-end" style="gap: 10px">
         <button pButton pRipple label="Cancel" class="p-button-danger"></button>
