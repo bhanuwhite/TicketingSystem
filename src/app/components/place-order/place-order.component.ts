@@ -9,9 +9,8 @@ import {
 } from '@angular/forms';
 import { tax } from 'src/app/shared/constant';
 import { DataFetchService } from 'src/app/shared/services/common.service';
-import {  MessageService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { HttpErrorResponse } from '@angular/common/http';
-
 
 @Component({
   selector: 'app-place-order',
@@ -30,7 +29,6 @@ export class PlaceOrderComponent {
   selectedPrice_quantity: any;
   selectedPrice_product: any;
   taxlist: any;
-  taxlistdemo: any = tax;
   total_amount = 0;
   quantity: any;
   taxvalue: any;
@@ -40,13 +38,14 @@ export class PlaceOrderComponent {
   selectedProduct_quantity: any = 1;
   customerLists: any;
   filterCustomer!: any[];
-  duplicateProducts: any;
+  productsClone: any;
+  showQuantity: any;
 
   constructor(
     private services: DataFetchService,
     private fb: FormBuilder,
-    private messageService: MessageService,
-  ) {}
+    private messageService: MessageService
+  ) { }
   ngOnInit(): void {
     this.getProducts();
     this.productinit();
@@ -83,7 +82,7 @@ export class PlaceOrderComponent {
     this.services.getData('select').subscribe((res: any) => {
       this.products_lists = res.data.lists;
 
-      this.duplicateProducts = this.products_lists;
+      this.productsClone = this.products_lists;
     });
   }
   getTax(): void {
@@ -104,6 +103,7 @@ export class PlaceOrderComponent {
       }
       const selectedquantity = value;
       const selectedProductQuantity = this.selectedProduct_quantity;
+      this.showQuantity = selectedProductQuantity;
 
       const check = selectedquantity <= selectedProductQuantity;
       return !check ? { quantityCheck: true } : null;
@@ -113,8 +113,8 @@ export class PlaceOrderComponent {
   onQuantityChange(event: any): void {
     this.quantity = event.target.value;
 
-    let tax = this.addProduct?.value['tax']?.value
-      ? this.addProduct.value['tax'].value
+    let tax = this.addProduct?.value['tax']?.percentage
+      ? this.addProduct.value['tax'].percentage
       : '';
     let totalAmount: any = this.quantity * this.selectedPrice_product;
     this.selectedPrice_quantity = totalAmount + totalAmount * (tax / 100);
@@ -137,8 +137,8 @@ export class PlaceOrderComponent {
     let filtered: any[] = [];
     let query = event?.query;
     if (event.query.length > 1) {
-      for (let i = 0; i < this.duplicateProducts.length; i++) {
-        let country = this.duplicateProducts[i];
+      for (let i = 0; i < this.productsClone.length; i++) {
+        let country = this.productsClone[i];
         if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
           filtered.push(country);
         }
@@ -166,40 +166,22 @@ export class PlaceOrderComponent {
     this.addProduct.patchValue({ mobile: customer_no[0].mobile_no });
   }
 
-
-// need to remove need suggestions///////////////
-  quantity_count(): void {
-    const formValues = this.addProduct.value;
-
-    const body = {
-      productName: formValues.name.name,
-      quantity: formValues.quantity,
-    };
-    console.log(body);
-    this.services.patchData('addItems', body).subscribe((res) => {
-      console.log(res);
-    });
-  }
   add_Product(): void {
-    // this.quantity_count();
-    // setTimeout(() => {
-    //   this.getProducts();
-    // }, 1000);
     let formvalues = this.addProduct.value;
     let product_id = formvalues.name.id;
     let product_quantity = formvalues.quantity;
-    this.duplicateProducts.map((x: any) => {
+    this.productsClone.map((x: any) => {
       if (x.id == product_id) {
         x.quantity = x.quantity - product_quantity;
       }
     });
-    console.log(this.duplicateProducts);
+    console.log(this.productsClone);
     console.log(this.tableData);
     let name = this.addProduct.controls['name'].value.name;
     let id = this.addProduct.controls['name'].value.id;
     let quantity = this.addProduct.controls['quantity'].value;
-    let tax_percentage = this.addProduct.controls['tax']?.value?.value
-      ? this.addProduct.controls['tax']?.value?.value
+    let tax_percentage = this.addProduct.controls['tax']?.value?.percentage
+      ? this.addProduct.controls['tax']?.value?.percentage
       : '';
 
     let price = this.addProduct.controls['price'].value;
@@ -215,7 +197,28 @@ export class PlaceOrderComponent {
       amount: totalamount,
     };
 
-    this.tableData.push(this.data);
+    const existingProduct = this.tableData.find(
+      (x: any) => x.productName === this.data.productName
+    );
+    console.log(existingProduct);
+    if (existingProduct) {
+      existingProduct.quantity =
+        +this.data.quantity + +existingProduct.quantity;
+      console.log(existingProduct.quantity);
+
+      console.log(this.data.price);
+
+      existingProduct.price = this.data.price + existingProduct.price;
+      console.log(existingProduct.price);
+      existingProduct.tax = this.data.tax + existingProduct.tax;
+      console.log(existingProduct.tax);
+      existingProduct.amount = this.data.amount + existingProduct.amount;
+      console.log(existingProduct.amount);
+      console.log(this.tableData);
+    } else {
+      this.tableData.push(this.data);
+    }
+
     console.log(this.tableData);
     this.TotalOrderAmount = +parseFloat(
       this.TotalOrderAmount + this.data.amount
@@ -230,13 +233,13 @@ export class PlaceOrderComponent {
     const index = this.tableData.indexOf(product);
     console.log(this.tableData[index].id);
 
-    this.duplicateProducts.map((x: any) => {
+    this.productsClone.map((x: any) => {
       if (x.id == this.tableData[index].id) {
         x.quantity = x.quantity + this.tableData[index].quantity;
         console.log(x.quantity);
       }
     });
-    console.log(this.duplicateProducts);
+    console.log(this.productsClone);
     const removed_item = this.tableData.splice(index, 1);
 
     let getremoved_amount = removed_item[0].totalamount;
@@ -290,7 +293,7 @@ export class PlaceOrderComponent {
       //     }
       //   },
       // });
-   
+
       this.services.postData('tax/order', body).subscribe({
         next: (res: any) => {
           if (res.data.status === '201') {
@@ -320,7 +323,6 @@ export class PlaceOrderComponent {
           }
         },
       });
-    }
-     catch {}
+    } catch { }
   }
 }

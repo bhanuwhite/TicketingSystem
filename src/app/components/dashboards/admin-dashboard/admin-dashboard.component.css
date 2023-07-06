@@ -1,14 +1,14 @@
 .main_div_wrapper{
-    height: calc(100vh - 177px);
+    height: calc(100vh - 171px);
     width: 100%;
 }
 .sidebar_main{
-    width: 12%;
-    height: 100%;
-    overflow-y: hidden;
+    width: 10rem;
+    height: 100%; 
+     /* overflow-y: auto; */
 }
 .content-part{
-    width: 88%;
+    width:calc(100% - 10rem) !important; 
     height: 100%;
     overflow-y: auto
 }

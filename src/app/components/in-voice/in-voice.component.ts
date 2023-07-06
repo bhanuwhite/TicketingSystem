@@ -26,8 +26,8 @@ export class InVoiceComponent {
 this.getInvoices();
   }
  getInvoices():void{
-  this.Service.getData('tax/order/invoice').subscribe(res=>{
-   this.invoiceDetailsData = res.data;   
+  this.Service.getData('createInvoice').subscribe(res=>{
+   this.invoiceDetailsData = res;   
    console.log(this.invoiceDetailsData)
   })
  }
