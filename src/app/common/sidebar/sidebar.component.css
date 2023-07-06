@@ -32,6 +32,7 @@
   /* left: 0;
   top: 0;
   position: sticky; */
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   height: 100%;
