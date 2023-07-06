@@ -1,12 +1,12 @@
 <div class="content-inner">
-    <div class="invoice-header d-flex justify-content-between border-bottom" style="border-bottom: 1px;">
+    <div class="invoice-header d-flex justify-content-between border-bottom" style="border-bottom: 1px; background-color: #559192;">
         <div class="ml-5">
           <h4>AHEX</h4>
           <p>Hyderabad</p>
-          <p>15000036</p>
+          <p>5000036</p>
         </div>
         <div class="invoice-right mr-5">
-            <h4 style="color: #559192;">#INVOICE</h4>
+            <h4 >#INVOICE</h4>
         </div>
     </div>
     <div class="invoice-header d-flex justify-content-between mt-2">
@@ -35,9 +35,9 @@
                 <tr class="table-heading">
                     <th>S.No</th>
                     <th>Product Name</th>
-                    <th>quantity</th>
-                    <th>unit price</th>
-                    <th>tax</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Tax</th>
                     <th>Amount</th>
                 </tr>
             </thead>
@@ -69,9 +69,9 @@
                 <p class="amount-due">Total</p>
             </div>
             <div class="" *ngFor="let item of invoiceDetailsData">
-                <p>$878</p>
-                <p>${{ item.totalTax }}</p>
-                <p>$0</p>
+                    <p>${{item.totalPrice}}</p>
+                    <p>${{ item.totalTax }}</p>
+                    <p>$0</p> 
                 <p class="amount-due">${{ item.totalAmount}}</p>
             </div>
         </div>
@@ -79,6 +79,6 @@
     </div>
     <div class="ml-5 mt-2">
         <h6>Terms & Condition</h6>
-        <p>Thank you for your bussiness. please process this invoice within the due date.</p>
+        <p>Thank you for your bussiness. Please process this invoice within the due date.</p>
     </div>
 </div>

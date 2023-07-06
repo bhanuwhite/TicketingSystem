@@ -21,29 +21,10 @@ export class InvoiceDetailsComponent {
   
    }
   ngOnInit() {
-    console.log('hi')
     console.log(this.path,'i')
     this.getInvoiceDetails();
   }
-  data: any[] = [
-    {
-      channel: '1',
-      draft: '31',
-      confirmed: '75',
-      packed: '78',
-      shipped: '56',
-      invoiced: '656',
-    },
-    {
-      channel: '2',
-      draft: '45',
-      confirmed: '98',
-      packed: '34',
-      shipped: '25',
-      invoiced: '965',
-    },
-  ];
-
+  
   getInvoiceDetails() {
     this.service
       .getData('tax/order/invoice/'+this.path)
