@@ -136,6 +136,15 @@
             </td>
           </tr>
         </ng-template>
+        <ng-container *ngIf="!invoiceDetailsData || invoiceDetailsData .length === 0">
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td style="color: red;" class="text-center" [attr.colspan]="6">
+                No data found
+              </td>
+            </tr>
+          </ng-template>
+        </ng-container>
         <!-- <ng-container *ngIf="!products || products.length === 0">
           <ng-template pTemplate="emptymessage">
             <tr class="no-data-found-block">
@@ -143,11 +152,11 @@
             </tr>
           </ng-template>
         </ng-container> -->
-        <!-- <ng-template pTemplate="summary">
+        <ng-template pTemplate="summary">
           <div class="flex align-items-center justify-content-between">
-            {{ products ? products.length : 0 }} Products.
+           In total there are {{ invoiceDetailsData ? invoiceDetailsData.length : 0 }} Invoices.
           </div>
-        </ng-template> -->
+        </ng-template>
       </p-table>
     </div>
   </div>

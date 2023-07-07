@@ -171,9 +171,10 @@ export class AddCategoryComponent {
           name: this.categoryForm.value.name,
         };
         this.service
-          .putData('listCategory/' + this.editId, data)
+          .putData('addCategory/' + this.editId, data)
           .subscribe((res) => {
-            if (res.data.status === '200') {
+            console.log(res)
+            if (res.status === '200') {
               this.messageService.add({
                 severity: 'success',
                 summary: 'Successful',
@@ -182,6 +183,7 @@ export class AddCategoryComponent {
               });
               this.productDialog = false;
               this.getCategory();
+              console.log(this.getCategory);
             }
           });
       } else {
@@ -238,9 +240,9 @@ export class AddCategoryComponent {
   }
   getSeverity(status: string): any {
     switch (status) {
-      case 'active':
+      case 'ACTIVE':
         return 'success';
-      case 'block':
+      case 'BLOCK':
         return 'danger';
       
     }

@@ -27,7 +27,7 @@ export class InvoiceDetailsComponent {
   
   getInvoiceDetails() {
     this.service
-      .getData('tax/order/invoice/'+this.path)
+      .getData('createInvoice/'+this.path)
       .subscribe((response: any) => {
         this.invoiceDetailsData = response.invoice;
         console.log(this.invoiceDetailsData);
