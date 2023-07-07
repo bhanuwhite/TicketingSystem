@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { SelectItemGroup } from 'primeng/api';
 
@@ -24,7 +24,6 @@ logout() {
   this.router.navigateByUrl('/login');
   localStorage.clear();
 }
-
 
 
 
