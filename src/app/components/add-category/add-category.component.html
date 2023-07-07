@@ -1,4 +1,4 @@
-<div class="content-inner">
+<div class="content-inner add-category-content-inner">
   <div class="card card-content">
     <p-toast></p-toast>
     <p-toolbar styleClass="gap-2">
@@ -57,7 +57,7 @@
       dataKey="id"
     >
       <ng-template pTemplate="caption">
-        <div class="flex align-items-center justify-content-between">
+        <div class="flex align-items-center justify-content-between category-block">
           <h5 class="m-0 category-heading">Category</h5>
           <span class="p-input-icon-left mt-3">
             <i class="pi pi-search"></i>
@@ -127,7 +127,7 @@
       </ng-container>
 
       <ng-template pTemplate="summary">
-        <div class="flex align-items-center justify-content-between">
+        <div class="flex align-items-center justify-content-between ">
           {{ products ? products.length : 0 }} Category.
         </div>
       </ng-template>

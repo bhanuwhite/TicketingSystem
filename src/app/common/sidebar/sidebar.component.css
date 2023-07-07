@@ -36,6 +36,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  overflow-y: auto;
 }
 
 .sidenav button {
@@ -86,62 +87,24 @@ app-header {
   display: none !important;
 }
 
-
-/* hamburger-menu */
-.hamburger-menu {
-  position: relative;
-  width: 40px;
-  height: 40px;
-  margin: 0 15px;
-  margin-bottom: 15px;
-}
-
-.label-hamburger-menu {
-  position: absolute;
-  top: 50%;
-  left: 70%;
-  transform: translate(-50%, -50%);
-  cursor: pointer;
-  transition: 0.5s ease;
-}
-
-
-
-.label-hamburger-menu .bar {
-  width: 30px;
-  height: 4px;
-  background: gray;
-  /* box-shadow: 1px 1px 3px RGBa(0, 0, 0, 0.4); */
-  border-radius: 1px;
-  transition: 0.4s ease;
-}
-
-.label-hamburger-menu .bar:not(:first-child) {
-  margin-top: 5px;
-}
-
-#checkbox-hamburger-menu {
+.hamburger-menu{
   display: none;
 }
 
-#checkbox-hamburger-menu:checked + .label-hamburger-menu {
-  transform: translate(-50%, -50%) rotateY(180deg);
-}
+/* tab responsive starts here */
 
-#checkbox-hamburger-menu:checked + .label-hamburger-menu .bar {
-  width: 30px;
-  transform: rotateY(180deg) rotateX(360deg);
-}
+@media only screen and (min-width:768px) and (max-width:1028px){
 
-#checkbox-hamburger-menu:checked + .label-hamburger-menu .bar:first-child {
-  transform: translateY(9px) rotate(-45deg);
-}
 
-#checkbox-hamburger-menu:checked + .label-hamburger-menu .bar:nth-child(2) {
-  opacity: 0;
 }
+/* tab responsive ends here */
 
-#checkbox-hamburger-menu:checked + .label-hamburger-menu .bar:nth-child(3) {
-  transform: translateY(-10px) rotate(45deg);
+
+/*  mobile responsive starts here */
+@media only screen and (max-width:767px){
+
+
+
 }
+/*  mobile responsive ends here */
 
