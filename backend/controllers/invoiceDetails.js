@@ -49,9 +49,9 @@ exports.detailsOfInvoice = async (req, res) => {
       }
     }
     let data = await Invoice.find().sort({ createdAt: -1 });
-    return res.status(200).send({ data });
+    return res.status(200).send(data);
   }
   catch (err) {
-    return res.status(400).send(err);
+    return res.status(400).send(err.message);
   }
 }

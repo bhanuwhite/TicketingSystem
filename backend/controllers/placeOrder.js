@@ -1,4 +1,6 @@
 const Order = require('../models/orderSchema');
+const Product = require('../models/productSchema');
+
 let k;
 exports.getOrderPlaced = async (req, res) => {
     try {
@@ -8,6 +10,7 @@ exports.getOrderPlaced = async (req, res) => {
         // });
         // let result = await Promise.all(promise);
         let result = await Order.find();
+        let itemsList = req.body.itemsList;
         if (result.length == 0) {
             k = 1;
         }
@@ -22,14 +25,24 @@ exports.getOrderPlaced = async (req, res) => {
             itemsList: req.body.itemsList
         })
         await order.save();
+
+        for (let i = 0; i < itemsList.length; i++) 
+        {
+            let productName = itemsList[i].productName;
+            let check = await Product.find({ productName });
+            let finalQuantity = check[0].quantity - itemsList[i].quantity;
+            if (finalQuantity >= 0) {
+                let final = await Product.updateOne({ productName }, { $set: { quantity: finalQuantity } });
+            }
+        }
         let data = {
             message: "Orders added successfully",
             status: '201',
             orderDetails: order
         }
-        return res.status(201).send({ data });
+        return res.status(201).send(data);
     }
     catch (err) {
-        return res.status(400).send(err);
+        return res.status(400).send(err.message);
     }
 } 

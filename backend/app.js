@@ -17,7 +17,6 @@ require('./db/connections');
 
 app.use('/api', authRoute);
 // const ipAddress = '192.168.0.100';
-// const ipAddress = '103.248.210.2/32';
 
 app.listen(PORT,() => {
   console.log(`Server is running on the port ${PORT}`);

@@ -8,10 +8,10 @@ exports.displayAllInvoices = async (req, res) => {
             status: '200',
             data: invoiceList
         }
-        return res.status(200).send({ data });
+        return res.status(200).send(data);
     }
 
     catch (err) {
-        return res.status(400).send({ err });
+        return res.status(400).send(err.message);
     }
 }
