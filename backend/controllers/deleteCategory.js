@@ -3,12 +3,12 @@ const Category = require('../models/categorySchema');
 exports.deleteCategories = async (req, res) => {
     const id = req.params.id;
     try {
-        let updatedCategory = await Category.updateOne({ id }, { $set: { status: "block" } });
+        let updatedCategory = await Category.updateOne({ id }, { $set: { status: "BLOCK" } });
         if (updatedCategory.matchedCount === 1) {
             let data = {
                 message: `Category blocked`,
                 status: '200',
-                categoryStatus: "block"
+                categoryStatus: "BLOCK"
             }
             return res.status(200).send(data);
         }

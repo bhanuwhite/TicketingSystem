@@ -4,7 +4,7 @@ exports.editCategory = async (req, res) => {
     try {
         let id = req.params.id;
         const { name, status } = req.body;
-        let editedCategory = await Category.updateOne({ id }, { $set: { name, status } });
+        let editedCategory = await Category.updateOne({ id }, { $set: { name} });
         if (editedCategory.matchedCount === 1) {
             let data = {
                 message: "Category edited successfully",
