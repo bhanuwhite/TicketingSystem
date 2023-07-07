@@ -238,9 +238,9 @@ export class AddCategoryComponent {
   }
   getSeverity(status: string): any {
     switch (status) {
-      case 'active':
+      case 'ACTIVE':
         return 'success';
-      case 'block':
+      case 'BLOCK':
         return 'danger';
       
     }
