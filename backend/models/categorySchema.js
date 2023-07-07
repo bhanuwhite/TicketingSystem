@@ -11,7 +11,7 @@ const categorySchema = new mongoose.Schema({
     status: {
         type: String,
         enum: ["ACTIVE","BLOCK"],
-        default: "active"
+        default: "ACTIVE"
     }
 },
     { timestamps: true });
