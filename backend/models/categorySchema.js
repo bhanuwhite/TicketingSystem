@@ -10,7 +10,7 @@ const categorySchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ["active","block"],
+        enum: ["ACTIVE","BLOCK"],
         default: "active"
     }
 },
