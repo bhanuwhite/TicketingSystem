@@ -16,8 +16,8 @@ app.use(express.static('public'));
 require('./db/connections');
 
 app.use('/api', authRoute);
-const ipAddress = '192.168.0.100';
+// const ipAddress = '192.168.0.100';
 
-app.listen(PORT,ipAddress,() => {
+app.listen(PORT,() => {
   console.log(`Server is running on the port ${PORT}`);
 }) 
