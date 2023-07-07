@@ -101,6 +101,9 @@
     display: block;
 
   }
+.header-main-content{
+  justify-content: space-evenly;
+}
   
 }
 /* /  mobile responsive ends here / */

@@ -101,9 +101,7 @@ app-header {
 
 /*  mobile responsive starts here */
 @media only screen and (max-width:767px){
- .sidenav{
-  padding-top: 40px;
- }
+
 
 
 }

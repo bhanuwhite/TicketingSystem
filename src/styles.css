@@ -154,6 +154,12 @@ justify-content: center;
 .add-category-content-inner .category-block {
   justify-content: center
   }
-
+  .sidebar_main-mobile-container  .p-sidebar{
+    background: #559192;
+width: 13rem;
+   }
+   .sidebar_main-mobile-container  .p-sidebar .p-sidebar-header .p-sidebar-close, .p-sidebar .p-sidebar-header .p-sidebar-icon {
+color: #fff;
+   }
 }
 /* /  mobile responsive ends here / */

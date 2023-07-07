@@ -14,7 +14,7 @@ interface City {
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-
+ 
 user = localStorage.getItem('name');
 
 constructor( private router: Router){
@@ -24,7 +24,6 @@ logout() {
   this.router.navigateByUrl('/login');
   localStorage.clear();
 }
-
 
 
 }

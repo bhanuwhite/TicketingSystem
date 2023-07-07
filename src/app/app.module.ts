@@ -46,9 +46,14 @@ import { DashboardComponent } from './components/dashboards/dashboard/dashboard.
 import { DatePipe } from '@angular/common';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { CustomerComponent } from './components/customer/customer.component';
+import { SidebarModule } from 'primeng/sidebar';
+
+
+
 @NgModule({
   declarations: [AppComponent, HeaderComponent, SidebarComponent, FooterComponent, AdminDashboardComponent, LoginComponent, AllProductsComponent, PageNotFoundComponent, AddCategoryComponent, TaxPageComponent, PlaceOrderComponent, InVoiceComponent, DashboardComponent, CustomerComponent],
   imports: [
+    SidebarModule,
 CommonModule,
     BrowserModule,
     AppRoutingModule,
@@ -80,6 +85,8 @@ CommonModule,
     CalendarModule,
     MultiSelectModule,
     DatePipe,NgCircleProgressModule
+   
+
     .forRoot({
       // set defaults here
       radius: 100,
