@@ -75,9 +75,9 @@ export class AddCategoryComponent {
             itemIds:this.multiSelectedDelete
           }
           this.service
-            .patchData('deleteCategory' , data)
+            .getData('deleteCategory/' + data)
             .subscribe((res) => {
-              if (res.data.status === '200') {
+              if (res.status === '200') {
                 this.messageService.add({
                   severity: 'success',
                   summary: 'Successful',
@@ -117,14 +117,14 @@ export class AddCategoryComponent {
       accept: () => {
         try {
           const delete_id :any=[]
-          delete_id.push(product._id)
-          const data = {
-            itemIds:delete_id
-          }
+          delete_id.push(product.id)
+          const data = 
+            delete_id
+          
           this.service
-            .patchData('deleteCategory' , data)
+            .getData('deleteCategory/' + data)
             .subscribe((res) => {
-              if (res.data.status === '200') {
+              if (res.status === '200') {
                 this.messageService.add({
                   severity: 'success',
                   summary: 'Successful',
@@ -155,7 +155,7 @@ export class AddCategoryComponent {
   }
   getCategory(): void {
     try {
-      this.service.getData('listCategory').subscribe((data) => {
+      this.service.getData('addCategory').subscribe((data) => {
         this.products = data.categoryList;
         console.log(this.products);
       });
@@ -238,12 +238,11 @@ export class AddCategoryComponent {
   }
   getSeverity(status: string): any {
     switch (status) {
-      case 'INSTOCK':
+      case 'ACTIVE':
         return 'success';
-      case 'LOWSTOCK':
-        return 'warning';
-      case 'OUTOFSTOCK':
+      case 'BLOCK':
         return 'danger';
+      
     }
   }
 }

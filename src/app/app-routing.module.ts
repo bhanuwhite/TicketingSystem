@@ -13,11 +13,12 @@ import { TaxPageComponent } from './components/tax-page/tax-page.component';
 import { InVoiceComponent } from './components/in-voice/in-voice.component';
 import { DashboardComponent } from './components/dashboards/dashboard/dashboard.component';
 import { CustomerComponent } from './components/customer/customer.component';
+import { InvoiceDetailsComponent } from './components/invoice-details/invoice-details.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-
+  { path: 'invoice-details/:id', component: InvoiceDetailsComponent },
   {
     path: 'dashboard',
     component: AdminDashboardComponent,
@@ -56,9 +57,11 @@ const routes: Routes = [
       { path: 'tax-page', component: TaxPageComponent },
       { path: 'order', component: PlaceOrderComponent },
       { path:'dashboard' , component:DashboardComponent},
-      { path:'customer',component:CustomerComponent}
+      { path:'customer',component:CustomerComponent},
       // { path:'dashboard' , component:DashboardComponent}
+
     ],
+    
   },
   { path: '**', component: PageNotFoundComponent },
 ];

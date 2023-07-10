@@ -46,12 +46,13 @@ import { DashboardComponent } from './components/dashboards/dashboard/dashboard.
 import { DatePipe } from '@angular/common';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { CustomerComponent } from './components/customer/customer.component';
+import { InvoiceDetailsComponent } from './components/invoice-details/invoice-details.component';
 import { SidebarModule } from 'primeng/sidebar';
 
 
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, SidebarComponent, FooterComponent, AdminDashboardComponent, LoginComponent, AllProductsComponent, PageNotFoundComponent, AddCategoryComponent, TaxPageComponent, PlaceOrderComponent, InVoiceComponent, DashboardComponent, CustomerComponent],
+  declarations: [AppComponent, HeaderComponent, SidebarComponent, FooterComponent, AdminDashboardComponent, LoginComponent, AllProductsComponent, PageNotFoundComponent, AddCategoryComponent, TaxPageComponent, PlaceOrderComponent, InVoiceComponent, DashboardComponent, CustomerComponent, InvoiceDetailsComponent],
   imports: [
     SidebarModule,
     CommonModule,

@@ -72,10 +72,10 @@
             <form [formGroup]="customerForm">
                 <div class="form-fields mt-3">
                     <div>
-                        <label for="productname" class="formbold-form-label d-block">
+                        <label for="customerName" class="formbold-form-label d-block">
                             Customer Name<span class="required">*</span>
                         </label>
-                        <input pInputText id="productname" placeholder="Customer name" class="formbold-form-input "
+                        <input pInputText id="customerName" placeholder="Customer name" class="formbold-form-input "
                             formControlName="customerName" />
                         <div *ngIf="
                           customerForm.get('customerName') as productnameControl
@@ -94,10 +94,10 @@
                         </div>
                     </div>
                     <div class="">
-                        <label for="productname" class="formbold-form-label d-block ml-5">
+                        <label for="mobileNumber" class="formbold-form-label d-block ml-5">
                             Mobile Number<span class="required">*</span>
                         </label>
-                        <input pInputText id="productname" placeholder="Mobile number" class="formbold-form-input ml-5"
+                        <input pInputText id="mobileNumber" placeholder="Mobile number" class="formbold-form-input ml-5"
                             formControlName="mobileNumber" />
                         <div *ngIf="
                     customerForm.get('mobileNumber') as productnameControl

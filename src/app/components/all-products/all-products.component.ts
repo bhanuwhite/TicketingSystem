@@ -59,7 +59,7 @@ export class AllProductsComponent {
   ngOnInit() {
     this.productsInit();
     this.getcategory();
-    this.getstatus();
+    // this.getstatus();
     this.getProducts();
   }
  
@@ -110,15 +110,15 @@ export class AllProductsComponent {
   }
 
   getcategory(): void {
-    this.service.getData('listCategory').subscribe((res) => {
+    this.service.getData('addCategory').subscribe((res) => {
       this.categoryList = res.categoryList;
     });
   }
-  getstatus(): void {
-    this.service.getData('status').subscribe((res) => {
-      this.statusList = res.data.inventoryStatus;
-    });
-  }
+  // getstatus(): void {
+  //   this.service.getData('status').subscribe((res) => {
+  //     this.statusList = res.data.inventoryStatus;
+  //   });
+  // }
   productsInit(): void {
     this.addProductForm = this.fb.group({
       productName: [
@@ -132,7 +132,7 @@ export class AllProductsComponent {
       price: ['', [Validators.required, Validators.pattern(/^\d+(\.\d+)?$/)]],
       quantity: ['', [Validators.required, , Validators.pattern('^[0-9]+$')]],
       category: ['', Validators.required],
-      inventoryStatus: ['', Validators.required],
+      // inventoryStatus: [''],
       productDescription: ['', Validators.required],
       image:[null]
     });
@@ -209,7 +209,7 @@ export class AllProductsComponent {
       productName: product.productName,
       productCode: product.productCode,
       productDescription: product.productDescription,
-      inventoryStatus: product.inventoryStatus,
+      // inventoryStatus: product.inventoryStatus,
       category: product.category.map((x: any) => {
         return x;
       }),
@@ -279,7 +279,7 @@ export class AllProductsComponent {
           formData.append('price', formVaules.price);
           formData.append('quantity', formVaules.quantity);
           formData.append('category', catergoryArray);
-          formData.append('inventoryStatus', formVaules.inventoryStatus);
+          // formData.append('inventoryStatus', formVaules.inventoryStatus);
           formData.append('productDescription', formVaules.productDescription);
           // formData.append('image', formVaules.image);
           formData.append('image', formVaules.image);
@@ -329,7 +329,7 @@ export class AllProductsComponent {
           formData.append('price', formVaules.price);
           formData.append('quantity', formVaules.quantity);
           formData.append('category', catergoryArray);
-          formData.append('inventoryStatus', formVaules.inventoryStatus);
+          // formData.append('inventoryStatus', formVaules.inventoryStatus);
           formData.append('productDescription', formVaules.productDescription);
           formData.append('image', formVaules.image);
           this.service.postData('addProduct', formData).subscribe({

@@ -45,10 +45,10 @@
   
       <p-table
         #dataTable
-        [value]="tableData"
+        [value]="invoiceDetailsData"
         [rows]="10"
         [paginator]="true"
-        [globalFilterFields]="['productName']"
+        [globalFilterFields]="['invoiceId','custName']"
         [tableStyle]="{ 'min-width': '69rem' }"
         [(selection)]="selectedProducts"
         [rowHover]="true"
@@ -75,16 +75,16 @@
             <!-- <th style="width: 4rem">
               <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
             </th> -->
-            <th pSortableColumn="productName" style="min-width: 10rem">
-              Invoice no. <p-sortIcon field="productName"></p-sortIcon>
+            <th pSortableColumn="invoiceId" style="min-width: 10rem">
+              Invoice no. <p-sortIcon field="invoiceId"></p-sortIcon>
             </th>
-            <th pSortableColumn="productCode" style="min-width: 5rem">
-              Customer <p-sortIcon field="productCode"></p-sortIcon>
+            <th pSortableColumn="custName" style="min-width: 5rem">
+              Customer <p-sortIcon field="custName"></p-sortIcon>
             </th>
             <th>Date</th>
-            <th pSortableColumn="price">
+            <!-- <th pSortableColumn="price">
               Status <p-sortIcon field="price"></p-sortIcon>
-            </th>
+            </th> -->
             <!-- <th pSortableColumn="category" style="min-width: 10rem">
               Actions <p-sortIcon field="category"></p-sortIcon>
             </th>
@@ -97,16 +97,18 @@
             <th>Actions</th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
+        <ng-template pTemplate="body" let-item>
           <tr>
             <!-- <td>
               <p-tableCheckbox [value]="product"></p-tableCheckbox>
             </td> -->
-            <td>{{ product.productName }}</td>
-            <td>{{ product.productCode }}</td>
+            <td><a  target="_blank" (click)="openInvoiceInNewTab(item)" [routerLink]="['invoice-details/'+item.orderId]">
+              {{ item.invoiceId }}
+            </a></td>
+            <td>{{item.custName}}</td>
             
-            <td>{{ product.price | currency : "USD" }}</td>
-            <td>{{ product.category }}</td>
+            <td>{{item.invoice_date | date:'shortDate'}}</td>
+          
   
 <!--             
             <td>
@@ -117,19 +119,19 @@
               ></p-tag>
             </td> -->
             <td>
-              <button
+              <!-- <button
                 pButton
                 pRipple
                 icon="pi pi-pencil"
                 class="p-button-rounded p-button-success mr-2 edit"
-                (click)="editProduct(product, 'edit')"
-              ></button>
+                (click)="editProduct(item, 'edit')"
+              ></button> -->
               <button
                 pButton
                 pRipple
                 icon="pi pi-trash"
                 class="p-button-rounded p-button-warning edit"
-                (click)="deleteProduct(product)"
+                (click)="deleteProduct(item)"
               ></button>
             </td>
           </tr>
