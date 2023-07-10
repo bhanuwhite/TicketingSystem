@@ -21,6 +21,11 @@
 
 /* tab responsive starts here */
 @media only screen and (min-width:768px) and (max-width:1028px){
+
+  .main_div_wrapper {
+    height: calc(100vh - 276px);
+    width: 100%;
+}
   .sidebar_main {
     width: 0%;
    
@@ -44,7 +49,10 @@
 /*  mobile responsive starts here */
 @media only screen and (max-width:767px){
  
-
+  .main_div_wrapper {
+    height: calc(100vh - 230px);
+    width: 100%;
+}
   .sidebar_main {
     width: 0%;
    

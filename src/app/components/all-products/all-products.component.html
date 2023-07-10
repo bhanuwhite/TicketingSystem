@@ -125,21 +125,23 @@
               [severity]="getSeverity(product.inventoryStatus)"
             ></p-tag>
           </td>
-          <td>
+          <td >
+          <div  class="product-modification-options" >
             <button
-              pButton
-              pRipple
-              icon="pi pi-pencil"
-              class="p-button-rounded p-button-success mr-2 edit"
-              (click)="editProduct(product, 'edit')"
-            ></button>
-            <button
-              pButton
-              pRipple
-              icon="pi pi-trash"
-              class="p-button-rounded p-button-warning edit"
-              (click)="deleteProduct(product)"
-            ></button>
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-success mr-2 edit"
+            (click)="editProduct(product, 'edit')"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-warning edit"
+            (click)="deleteProduct(product)"
+          ></button>
+          </div>
           </td>
         </tr>
       </ng-template>

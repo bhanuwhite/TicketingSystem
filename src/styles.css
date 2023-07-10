@@ -156,6 +156,14 @@ width: 16rem;
   font-size: 17px;
 
 }
+.category-heading  .p-dialog-footer,
+.app-product-main .p-dialog-footer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:7px 0px !important;
+
+  }
 
 }
 /* / tab responsive ends here / */
@@ -171,7 +179,7 @@ justify-content: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding:2px 0px !important;
+  padding:7px 0px !important;
 
   }
   .category-heading  .p-dialog-footer .p-button {
@@ -218,6 +226,9 @@ color: #fff;
     position: absolute;
     right: 45px;
     top: 5px;
+}
+.add-category-content-inner .p-dialog .p-dialog-content {
+border: 1px solid #fff;
 }
 
 }
