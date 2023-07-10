@@ -3,7 +3,7 @@
 <div class="content-inner">
   <div class="card card-content">
     <p-toast></p-toast>
-    <p-toolbar styleClass=" gap-2">
+    <p-toolbar class="product-content" styleClass=" gap-2">
       <ng-template pTemplate="left">
         <button
           pButton
@@ -57,7 +57,7 @@
      
     >
       <ng-template pTemplate="caption">
-        <div class="flex align-items-center justify-content-between">
+        <div class="flex align-items-center justify-content-between product-search-block">
           <h5 class="m-0">Products</h5>
           <span class="p-input-icon-left mt-3">
             <i class="pi pi-search"></i>
@@ -380,7 +380,7 @@
             </p>
           </div>
         </div>
-        <div class="formbold-mb-3">
+        <div class="formbold-mb-3 formbold-block">
           <label for="message" class="formbold-form-label">
             Description<span class="required">*</span>
           </label>

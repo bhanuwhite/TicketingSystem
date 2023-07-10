@@ -54,7 +54,7 @@ import { SidebarModule } from 'primeng/sidebar';
   declarations: [AppComponent, HeaderComponent, SidebarComponent, FooterComponent, AdminDashboardComponent, LoginComponent, AllProductsComponent, PageNotFoundComponent, AddCategoryComponent, TaxPageComponent, PlaceOrderComponent, InVoiceComponent, DashboardComponent, CustomerComponent],
   imports: [
     SidebarModule,
-CommonModule,
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     AdminModule,
@@ -81,22 +81,22 @@ CommonModule,
     InputNumberModule,
     KeyFilterModule,
     AutoCompleteModule,
-    
+
     CalendarModule,
     MultiSelectModule,
-    DatePipe,NgCircleProgressModule
-   
+    DatePipe, NgCircleProgressModule
 
-    .forRoot({
-      // set defaults here
-      radius: 100,
-      outerStrokeWidth: 16,
-      innerStrokeWidth: 8,
-      outerStrokeColor: "#78C000",
-      innerStrokeColor: "#C7E596",
-      animationDuration: 300,
-    })
-],
+
+      .forRoot({
+        // set defaults here
+        radius: 100,
+        outerStrokeWidth: 16,
+        innerStrokeWidth: 8,
+        outerStrokeColor: "#78C000",
+        innerStrokeColor: "#C7E596",
+        animationDuration: 300,
+      })
+  ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: MyInterceptor,
@@ -105,4 +105,4 @@ CommonModule,
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppModule {}
+export class AppModule { }

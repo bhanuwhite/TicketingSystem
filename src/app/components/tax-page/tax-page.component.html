@@ -2,7 +2,7 @@
   <div class="content-inner">
     <div class="card card-content">
       <p-toast></p-toast>
-      <p-toolbar styleClass="gap-2">
+      <p-toolbar class="tax-content" styleClass="gap-2">
         <ng-template pTemplate="left">
           <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
             (click)="showDialog()"></button>
@@ -17,7 +17,7 @@
           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
           [showCurrentPageReport]="true">
           <ng-template pTemplate="caption">
-            <div class="flex align-items-center justify-content-between">
+            <div class="flex align-items-center justify-content-between tax-content-implemented">
               <h5 class="m-0 tax-heading">Tax</h5>
 
               <span class="p-input-icon-left mt-3">

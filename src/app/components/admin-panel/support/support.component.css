@@ -182,3 +182,74 @@ span.estimate {
     margin: 10px 0px;
     color: red;
 }
+#all-ticket-buttons{
+    gap: 30px;
+}
+
+
+
+
+
+/* / tab responsive starts here / */
+@media only screen and (min-width:768px) and (max-width:1028px){
+    
+    h6{
+        font-size: 18px;
+    }
+    p,span{
+        font-size: 17px !important;
+    }
+    
+    .support-content-inner h3{
+        margin: 0px auto !important;
+        text-align: center;
+        font-size: 25px;
+        }
+        #raisebutton-container{
+            margin-top: 0px !important;
+        }
+        .raiseButton{
+            font-size: 19px;
+            width: 100%;
+            margin-left: 0px;
+            margin-left: 0px !important;
+        
+        }
+        #all-ticket-buttons{
+            gap: 10px;
+            margin: 15px 0px !important;
+        }
+        .filterButton {
+            font-size: 19px;
+
+            width: 176px;
+        }
+
+}
+/* / tab responsive ends here / */
+
+
+/* /  mobile responsive starts here / */
+@media only screen and (max-width:767px){
+.support-content-inner h3{
+margin: 0px auto !important;
+text-align: center;
+font-size: 18px;
+}
+#raisebutton-container{
+    margin-top: 0px !important;
+}
+.raiseButton{
+    width: 100%;
+    margin-left: 0px;
+    margin-left: 0px !important;
+
+}
+#all-ticket-buttons{
+    gap: 10px;
+    margin: 5px 0px !important;
+}
+
+
+}
+/* /  mobile responsive ends here / */

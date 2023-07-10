@@ -1,7 +1,7 @@
-<div class="content-inner">
+<div class="content-inner customer-wrapper">
     <div class="card">
         <p-toast></p-toast>
-        <p-toolbar styleClass="gap-2">
+        <p-toolbar class="customer-block" styleClass="gap-2">
             <ng-template pTemplate="left">
                 <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
                     (click)="openNew()"></button>
@@ -16,7 +16,7 @@
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
             [showCurrentPageReport]="true">
             <ng-template pTemplate="caption">
-                <div class="flex align-items-center justify-content-between">
+                <div class="flex align-items-center justify-content-between customer-search-content">
                     <h5 class="mb-3">Customer</h5>
                     <span class="p-input-icon-left">
                         <i class="pi pi-search"></i>
@@ -116,7 +116,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12 d-flex justify-content-end mb-2 mt-5">
+                <div class="col-md-12 d-flex justify-content-end mb-2 mt-5" id="customer-button" >
                     <div class="bottom-0 d-flex footer-button">
                         <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text mr-2"
                             type="button" (click)="hideDialog()"></button>

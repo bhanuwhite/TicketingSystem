@@ -1,0 +1,25 @@
+/* / tab responsive starts here / */
+@media only screen and (min-width:768px) and (max-width:1028px){
+    h5{
+        font-size: 24px;
+    
+    }
+
+}
+/* / tab responsive ends here / */
+
+
+/* /  mobile responsive starts here / */
+@media only screen and (max-width:767px){
+h5{
+    font-size: 18px;
+
+}
+.invoice-list-block{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+}
+/* /  mobile responsive ends here / */
