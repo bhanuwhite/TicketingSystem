@@ -1,3 +1,26 @@
+.content-inner{
+    background-color: #edecec;
+    height: 100vh;
+    
+}
+.main-wrapper {
+    border: #559192 1px solid;
+    padding:20px;
+    margin-top: 10px;
+    background-color: #fff;
+}
+
+.print-button{
+    margin-left:100px;
+    margin-top: 20px;
+    height: 30px;
+    width: 100px;
+    background-color: #559192;
+    border: black 1px solid;
+    border-radius: 5px;
+   
+}
+
 
 .invoice-right{
     display: flex;

@@ -195,7 +195,7 @@ export class AllProductsComponent {
     });
   }
 
-  editProduct(product: any, editForm: any) {
+  editProduct(product: any, editForm: string) {
     this.editSubmitCheck = editForm;
     this.product_id = product._id;
     this.setFormValues(product);

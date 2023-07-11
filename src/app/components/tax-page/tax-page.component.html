@@ -46,7 +46,7 @@
               </td>
               <td>{{item.name}}</td>
               <td>{{item.period.startDate | date:'shortDate'}} - {{item.period.endDate | date:'shortDate'}}</td>
-              <td>{{ item.percentage }}</td>
+              <td>{{ item.percentage }}%</td>
               <td>
                 <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2 edit"
                   (click)="onEdit(item,'edit')"></button>
