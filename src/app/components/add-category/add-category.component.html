@@ -73,9 +73,8 @@
       </ng-template>
       <ng-template pTemplate="header">
         <tr>
-          <!-- <th style="width: 4rem">
-            <p-tableHeaderCheckbox ></p-tableHeaderCheckbox>
-          </th> -->
+           <th style="width: 10rem">
+S.no          </th> 
           <th pSortableColumn="name" style="min-width: 12rem">
             Name <p-sortIcon field="name"></p-sortIcon>
           </th>
@@ -86,11 +85,11 @@
         </tr>
       </ng-template>
 
-      <ng-template pTemplate="body" let-product>
+      <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
         <tr>
-          <!-- <td>
-            <p-tableCheckbox [value]="product" (click)="multiSelected(product)"></p-tableCheckbox>
-          </td> -->
+          <td>
+            {{rowIndex + 1}}
+          </td>
           <td>{{ product.name }}</td>
           <td>
             <p-tag
