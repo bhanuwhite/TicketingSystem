@@ -94,8 +94,12 @@ app-header {
 /* tab responsive starts here */
 
 @media only screen and (min-width:768px) and (max-width:1028px){
-
-
+.listbox-item i{
+  font-size: 22px !important;
+}
+.listbox-item a {
+font-size: 22px;
+}
 }
 /* tab responsive ends here */
 

@@ -205,3 +205,147 @@ p-dialog .p-dialog-footer{
   border: none !important;
  transform: translateX(420px);
 }
+
+/* / tab responsive starts here / */
+@media only screen and (min-width:768px) and (max-width:1028px){
+h5{
+  font-size: 24px;
+}
+
+.form-heading {
+  margin-left: 20px;
+  justify-content: unset;
+  font-size: 22px;
+padding-top: 20px !important;
+}
+  .form-fields {
+    flex-direction: column;
+    text-align: center;
+}
+.formbold-form-input {
+  width: 80%;
+}
+.formbold-form-label{
+  margin-top: 5px;
+  margin-left: 0px !important;
+
+}
+#customer-button{
+  margin-top:0px !important ;
+}
+.formbold-form-input {
+  margin-left: 0px !important;
+
+}
+.invalid-error{
+  margin-left: 0px !important;
+
+}
+.p-button-text{
+  padding: 8px 20px !important;
+  font-size: 16px;
+  margin-top: 12px;
+}
+.formbold-input-flex{
+  margin-left: 20px;
+  flex-direction: column;
+  gap: 3px;
+}
+.formbold-input-flex > div {
+  width: 100%;
+}
+.formbold-block{
+  margin-left: 20px;
+  
+}
+.formbold-form-file-flex {
+  margin-left: 20px;
+
+  flex-direction: column;
+  align-items:unset;
+  gap: 0px;
+  margin-bottom: 10px;
+}
+.product-modification-options{
+  display: flex;
+  flex-direction: row;
+}
+
+}
+/* / tab responsive ends here / */
+
+
+/* /  mobile responsive starts here / */
+@media only screen and (max-width:767px){
+  h5{
+    font-size: 17px;
+  }
+  
+.product-search-block{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.form-heading {
+  margin-left: 5px;
+  justify-content: unset;
+  font-size: 18px;
+margin-top: 10px !important;
+}
+  .form-fields {
+    flex-direction: column;
+    text-align: center;
+}
+.formbold-form-input {
+  width: 80%;
+}
+.formbold-form-label{
+  margin-top: 5px;
+  margin-left: 0px !important;
+
+}
+#customer-button{
+  margin-top:0px !important ;
+}
+.formbold-form-input {
+  margin-left: 0px !important;
+
+}
+.invalid-error{
+  margin-left: 0px !important;
+
+}
+.p-button-text{
+  padding: 5px 10px !important;
+  font-size: 12px;
+  margin-top: 5px;
+}
+.formbold-input-flex{
+  margin-left: 5px;
+  flex-direction: column;
+  gap: 3px;
+}
+.formbold-input-flex > div {
+  width: 100%;
+}
+.formbold-block{
+  margin-left: 5px;
+  
+}
+.formbold-form-file-flex {
+  margin-left: 5px;
+
+  flex-direction: column;
+  align-items:unset;
+  gap: 0px;
+  margin-bottom: 5px;
+}
+.product-modification-options{
+  display: flex;
+  flex-direction: row;
+}
+
+ 
+}
+/* /  mobile responsive ends here / */

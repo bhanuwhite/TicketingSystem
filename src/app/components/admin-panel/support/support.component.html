@@ -1,16 +1,20 @@
-<div class="content-inner-1">
-  <div class="content-inner p-3">
-    <h3 class="my-4">Support</h3>
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="form-group has-search">
-          <input type="text" class="form-control searchBox mt-3" placeholder="Search" [(ngModel)]="searchedValue" />
-          <span class="fa fa-search form-control-feedback" (click)="search()"></span>
-        </div>
+<div class="content-inner support-content-inner p-3">
+  <h3 class="my-4">Support</h3>
+  <div class="row">
+    <div class="col-lg-6 col-sm-12">
+      <div class="form-group has-search">
+        <input
+          type="text"
+          class="form-control searchBox mt-3"
+          placeholder="Search"
+          [(ngModel)]="searchedValue"
+        />
+        <span class="fa fa-search form-control-feedback" (click)="search()"></span>
       </div>
-      <div class="col-lg-6 mt-3">
-        <div class="d-flex justify-content-end">
-          <!-- <div class="dropdown">
+    </div>
+    <div class="col-lg-6 col-sm-12 mt-3" id="raisebutton-container" >
+      <div class="d-flex justify-content-end">
+        <!-- <div class="dropdown">
           <p-dropdown [options]="fliters" optionLabel="name"></p-dropdown>
         </div> -->
 
@@ -20,15 +24,24 @@
         </div>
       </div>
     </div>
-    <div class="row justify-content-end mt-3 mx-2" style="gap: 30px">
-      <button [ngClass]="{ selectedButton: selectedButtons.selectAll }" class="btn btn-primary filterButton"
-        type="button" (click)="onToggle($event, '2')">
-        All Tickets
-      </button>
-      <button [ngClass]="{ selectedButton: selectedButtons.selectunassigned }" class="btn btn-danger filterButton"
-        type="button" (click)="onToggle($event, '1')">
-        Unassigned
-      </button>
+  <!-- </div> -->
+  <div class="row justify-content-end mt-3 mx-2" id="all-ticket-buttons">
+    <button
+      [ngClass]="{ selectedButton: selectedButtons.selectAll }"
+      class="btn btn-primary filterButton"
+      type="button"
+      (click)="onToggle($event, '2')"
+    >
+      All Tickets
+    </button>
+    <button
+      [ngClass]="{ selectedButton: selectedButtons.selectunassigned }"
+      class="btn btn-danger filterButton"
+      type="button"
+      (click)="onToggle($event, '1')"
+    >
+      Unassigned
+    </button>
 
       <button [ngClass]="{ selectedButton: selectedButtons.selectResolved }" class="btn btn-success filterButton"
         type="button" (click)="onToggle($event, '3')">
@@ -348,4 +361,4 @@
       </div>
     </div>
   </div>
-</div>
+<!-- </div> -->

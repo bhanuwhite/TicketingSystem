@@ -166,3 +166,101 @@ select{
     width: 300px;
     outline: none;
 }
+
+/* / tab responsive starts here / */
+@media only screen and (min-width:768px) and (max-width:1028px){
+   
+    .main-heading {
+        font-size: 22px;
+    }
+    .form-field-1,
+    .form-field-2
+     {
+       
+        gap: 40px;
+    }
+    .form-field-1 > div,
+    .form-field-2 > div
+     {
+       
+     width: 46%;
+    }
+    .message-form-fields textarea {
+        width: auto;
+        outline: none;
+        margin-top: 5px;
+        border: 1px solid #ccc ;
+
+    }
+    .form-button-container {
+        justify-content: center;
+        gap: 10px;
+        margin-left: 0px;
+        margin-bottom: 10px;
+    }
+    .client-form-fields label {
+        margin-bottom: 1px;
+      }
+      select {
+        width: auto;
+        border: 1px solid #ccc ;
+
+    }
+    .client-form-fields input {
+        width: auto;
+        border: 1px solid #ccc ;
+
+    }
+    .upload-container .upload-text {
+        font-size: 16px;
+    }
+    label {
+        font-size: 18px;
+    }
+    .form-button-container button {
+        font-size: 17px;
+        padding: 4px 20px;
+    }
+
+}
+/* / tab responsive ends here / */
+
+
+/* /  mobile responsive starts here / */
+@media only screen and (max-width:767px){
+    .form-field-1,
+    .form-field-2
+     {
+        flex-direction: column;
+        gap: 0px;
+    }
+    .message-form-fields textarea {
+        width: auto;
+        margin-top: 5px;
+        border: 1px solid #ccc ;
+
+    }
+    .form-button-container {
+        justify-content: center;
+        gap: 10px;
+        margin-left: 0px;
+        margin-bottom: 10px;
+    }
+    .client-form-fields label {
+        margin-bottom: 1px;
+      }
+      select {
+        width: auto;
+        border: 1px solid #ccc ;
+
+    }
+    .client-form-fields input {
+        width: auto;
+        border: 1px solid #ccc ;
+    }
+    .main-heading {
+        font-size: 18px;
+    }
+
+}
+/* /  mobile responsive ends here / */

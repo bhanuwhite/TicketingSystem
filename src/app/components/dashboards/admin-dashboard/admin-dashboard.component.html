@@ -1,6 +1,6 @@
   <app-header ></app-header>
   <div class="d-flex main_div_wrapper">
-  <p-button class="pi-arrow-mobile" (click)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>
+  <p-button class="pi-arrow-mobile" (click)="sidebarVisible = true" icon="pi pi-bars"></p-button>
     
     <div class="sidebar_main" >
      
@@ -12,10 +12,11 @@
   </div>
   <app-footer></app-footer>
  
-<!-- Mobile screen sidebar -->
+<!-- Mobile and Tab  screen sidebar starts here -->
 <p-sidebar class="sidebar_main-mobile-container" [(visible)]="sidebarVisible">
   <div class="sidebar_main-mobile " >
      
     <app-sidebar></app-sidebar>
   </div>
 </p-sidebar>
+<!-- Mobile and Tab  screen sidebar ends here -->

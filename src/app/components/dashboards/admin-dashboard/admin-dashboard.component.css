@@ -8,7 +8,7 @@
 
 }
 .content-part{
-    width: 88% !important;
+    width: 88% ;
     height: 100%;
     overflow-y: auto
 }
@@ -22,7 +22,26 @@
 /* tab responsive starts here */
 @media only screen and (min-width:768px) and (max-width:1028px){
 
-
+  .main_div_wrapper {
+    height: calc(100vh - 276px);
+    width: 100%;
+}
+  .sidebar_main {
+    width: 0%;
+   
+  }
+  .sidebar_main-mobile {
+    width: 100%;
+  }
+  .content-part{
+    width: 100% ;
+  }
+  .pi-arrow-mobile{
+    display: block;
+    position: absolute;
+    top: 14px;
+    left: 5px;
+  }
 }
 /* tab responsive ends here */
 
@@ -30,17 +49,10 @@
 /*  mobile responsive starts here */
 @media only screen and (max-width:767px){
  
-  /* .sidebar_main {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 180px;
-    z-index: 80;
-    transition: all 0.5s ease;
-  
-
-  } */
+  .main_div_wrapper {
+    height: calc(100vh - 230px);
+    width: 100%;
+}
   .sidebar_main {
     width: 0%;
    
