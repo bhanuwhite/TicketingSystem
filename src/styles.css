@@ -129,3 +129,41 @@ app-in-voice {
 .auto_box .p-autocomplete{
   width: 100% !important;
 }
+
+/* / tab responsive starts here / */
+@media only screen and (min-width:768px) and (max-width:1028px){
+
+
+
+}
+/* / tab responsive ends here / */
+
+
+/* /  mobile responsive starts here / */
+@media only screen and (max-width:767px){
+  .add-category-content-inner .p-toolbar{
+justify-content: center;
+}
+
+.category-heading  .p-dialog-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:2px 0px !important;
+
+  }
+  .category-heading  .p-dialog-footer .p-button {
+    padding: 0.3rem;
+}
+.add-category-content-inner .category-block {
+  justify-content: center
+  }
+  .sidebar_main-mobile-container  .p-sidebar{
+    background: #559192;
+width: 13rem;
+   }
+   .sidebar_main-mobile-container  .p-sidebar .p-sidebar-header .p-sidebar-close, .p-sidebar .p-sidebar-header .p-sidebar-icon {
+color: #fff;
+   }
+}
+/* /  mobile responsive ends here / */

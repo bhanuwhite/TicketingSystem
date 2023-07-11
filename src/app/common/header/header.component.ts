@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { SelectItemGroup } from 'primeng/api';
 
@@ -14,7 +14,7 @@ interface City {
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-
+ 
 user = localStorage.getItem('name');
 
 constructor( private router: Router){
@@ -24,8 +24,6 @@ logout() {
   this.router.navigateByUrl('/login');
   localStorage.clear();
 }
-
-
 
 
 }
