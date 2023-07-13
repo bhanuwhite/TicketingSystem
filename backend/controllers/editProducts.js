@@ -31,7 +31,7 @@ exports.editProducts = async (req, res) => {
       try {
         let quantity = req.body.quantity;
         let inventoryStatus;
-        if (quantity >= 5 && quantity <= 15) {
+        if (quantity >= 1 && quantity <= 15) {
           inventoryStatus = "LOWSTOCK";
         }
         if (quantity > 15) {

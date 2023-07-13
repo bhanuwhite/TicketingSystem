@@ -7,7 +7,7 @@ exports.addProductsList = async (req, res) => {
         let inventoryStatus;
         let result = await Product.find();
         const quantity = req.body.quantity;
-        if(quantity>=5 && quantity <=15){
+        if(quantity>=1 && quantity <=15){
             inventoryStatus = "LOWSTOCK"
          }
          if(quantity>15)

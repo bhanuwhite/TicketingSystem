@@ -26,15 +26,28 @@ exports.getOrderPlaced = async (req, res) => {
         })
         await order.save();
 
-        for (let i = 0; i < itemsList.length; i++) 
-        {
-            let productName = itemsList[i].productName;
+        for (let i = 0; i < itemsList.length; i++) {
+           let productName = itemsList[i].productName;
             let check = await Product.find({ productName });
             let finalQuantity = check[0].quantity - itemsList[i].quantity;
-            if (finalQuantity >= 0) {
-                let final = await Product.updateOne({ productName }, { $set: { quantity: finalQuantity } });
+            // if (finalQuantity >= 0) {
+            //     let final = await Product.updateOne({ productName }, { $set: { quantity: finalQuantity } });
+            // }
+            if (finalQuantity >= 5 && finalQuantity <= 15) {
+
+                let final = await Product.updateOne({ productName }, { $set: { quantity: finalQuantity, inventoryStatus: "LOWSTOCK" } });
             }
+            if (finalQuantity > 15) {
+    
+                let final = await Product.updateOne({ productName }, { $set: { quantity: finalQuantity, inventoryStatus: "INSTOCK" } });
+            }
+            if (finalQuantity <= 0) {
+    
+                let final = await Product.updateOne({ productName }, { $set: { quantity: finalQuantity, inventoryStatus: "OUTOFSTOCK" } });
+            }
+    
         }
+       
         let data = {
             message: "Orders added successfully",
             status: '201',
