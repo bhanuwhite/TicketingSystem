@@ -13,19 +13,19 @@
                     </div>
 
                 </div>
-                <div class="card text-center  ml-0" [routerLink]="['/dashboard/products']" style="background-color:#ef95bb;">
+                <div class="card text-center  ml-0" [routerLink]="['/dashboard/products']" style="background-color:#ee96bb;">
                     <div class="card-body">
                         <h5 class="card-title" style="color:#38761d;">{{ salesActivityData?.totalProducts }}</h5>
                         <p class="card-text">PRODUCTS</p>
                     </div>
                 </div>
-                <div class="card text-center  ml-0" [routerLink]="['/dashboard/invoice']" style="background-color:#84d0a9;">
+                <div class="card text-center  ml-0" [routerLink]="['/dashboard/invoice']" style="background-color:#87e6b5;">
                     <div class="card-body">
                         <h5 class="card-title" style="color:#0000ff;">{{ salesActivityData?.totalInvoices }}</h5>
                         <p class="card-text">INVOICES</p>
                     </div>
                 </div>
-                <div class="card text-center  ml-0" [routerLink]="['/dashboard/addcategory']" style="background-color:#ddcc85;">
+                <div class="card text-center  ml-0" [routerLink]="['/dashboard/addcategory']" style="background-color:#e5d48f;">
                     <div class="card-body">
                         <h5 class="card-title" style="color:#bf9000;">{{ salesActivityData?.totalCategories }}</h5>
                         <p class="card-text">TYPES OF PRODUCTS</p>
@@ -64,11 +64,21 @@
 
         <div class="d-flex flex-column p-3 border mb-2 products-wrapper-container-firstblock">
             <div class="border-bottom">
-                <h6 class="product-details-title ">PRODUCT DETAILS</h6>
+                <h6 class="product-details-title ">YEARLY REPORT 2023</h6>
 
             </div>
+            <div class="chartBar"  style="display: block; width: 400px; height: 300px;">
+                <canvas baseChart 
+                [data]="barChartData"
+                [options]="barChartOptions"
+                [plugins]="barChartPlugins"
+                [legend]="barChartLegend"
+                [type]="'bar'">
+        </canvas>
+        
+              </div>
 
-            <div class="main-card-info d-flex mt-3">
+            <!-- <div class="main-card-info d-flex mt-3">
                 <div class="card main-card-info-first border-0">
                     <div class="card-body border-right">
 
@@ -94,7 +104,7 @@
                             [animationDuration]="300"></circle-progress>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="product-details-card d-flex flex-column border p-3 mb-2">
             <div class="d-flex border-bottom justify-content-between">
@@ -282,9 +292,7 @@
                         <tr *ngFor="let item of invoiceDetailsData; let i = index" class="table-data"
                             style="border-bottom: 0.3px solid #ccc;">
                             <td>{{ getSerialNumber(i) }}</td>
-                            <td><a  target="_blank" (click)="openInvoiceInNewTab(item)" [routerLink]="['invoice-details/'+item.orderId]">
-                                {{ item.invoiceId }}
-                              </a></td>
+                            <td>{{ item.invoiceId }}</td>
                             <td>{{ item.custName }}</td>
                             <td>{{ item.invoice_date | date:'longDate' }}</td>
 

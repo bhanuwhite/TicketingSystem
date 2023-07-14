@@ -138,7 +138,26 @@ div .contacts p {
 
 /* / tab responsive starts here / */
 @media only screen and (min-width:768px) and (max-width:1028px){
-
+    .leadgen-termsconditions {
+        padding: 10px 0px;
+    
+       justify-content: center;
+    }
+    .leadgen-socialmedia-links{
+        display: flex;
+        justify-content: center;
+        padding: 10px 0px;
+    }
+    .leadgen-logo-wrapper{
+        font-family: sans-serif;
+    }
+    .leadgen-logo-wrapper a,
+    .leadgen-logo-wrapper span{
+        font-size: 19px;
+    }
+    .company-title-footer{
+        font-size: 22px !important;
+    }
 
 }
 /* / tab responsive ends here / */

@@ -31,7 +31,18 @@
 
 /* / tab responsive starts here / */
 @media only screen and (min-width:768px) and (max-width:1028px){
-
+  h5{
+    font-size: 24px;
+  }
+  .category-heading .p-error,.category-heading label,.category-heading button{
+    font-size: 18px;
+  
+  }
+  .category-heading .form-name{
+    padding-top: 10px;
+    padding-right: 19px;
+  font-size: 20px;
+  }
 
 
 }
@@ -40,7 +51,10 @@
 
 /* /  mobile responsive starts here / */
 @media only screen and (max-width:767px){
- .category-heading .form-name{
+  h5{
+    font-size: 17px;
+  }
+  .category-heading .form-name{
   padding-top: 10px;
   padding-right: 19px;
 font-size: 16px;
@@ -49,7 +63,11 @@ font-size: 16px;
   font-size: 14px;
 
 }
+.category-block{
+  display: flex;
+  flex-direction: column;
 
+}
 
 
 }

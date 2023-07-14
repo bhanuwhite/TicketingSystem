@@ -29,7 +29,7 @@ export class AllProductsComponent {
   submitted!: boolean;
   visible!: boolean;
   addProductForm!: FormGroup;
-  categoryList!: any[];
+  categoryList: any[] = [];
   categoryName: string = 'Select Category';
   initalStatus: string = 'Select Inventory Status';
   files: File[] = [];
@@ -55,14 +55,14 @@ export class AllProductsComponent {
     private confirmationService: ConfirmationService,
     private fb: FormBuilder,
     private service: DataFetchService
-  ) {}
+  ) { }
   ngOnInit() {
     this.productsInit();
     this.getcategory();
     // this.getstatus();
     this.getProducts();
   }
- 
+
 
   exportToExcel(): void {
     const data = [...this.dataTable.value]; // Make a copy of the table data
@@ -111,7 +111,14 @@ export class AllProductsComponent {
 
   getcategory(): void {
     this.service.getData('addCategory').subscribe((res) => {
-      this.categoryList = res.categoryList;
+      const allCategories = res.categoryList
+      console.log(allCategories)
+      allCategories.filter((x: any) => {
+        if (x.status === 'ACTIVE') {
+          this.categoryList.push(x);
+        };
+      });
+
     });
   }
   // getstatus(): void {
@@ -134,7 +141,7 @@ export class AllProductsComponent {
       category: ['', Validators.required],
       // inventoryStatus: [''],
       productDescription: ['', Validators.required],
-      image:[null]
+      image: [null]
     });
   }
 
@@ -155,9 +162,9 @@ export class AllProductsComponent {
         avatarControl.updateValueAndValidity();
       }
 
- 
-  }
-    
+
+    }
+
   }
   onOptionClick(event: any) {
     if (event.value.name === 'Csv') {
@@ -284,7 +291,7 @@ export class AllProductsComponent {
           // formData.append('image', formVaules.image);
           formData.append('image', formVaules.image);
 
-        
+
 
 
           this.service

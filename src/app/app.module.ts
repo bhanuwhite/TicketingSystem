@@ -48,14 +48,13 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { CustomerComponent } from './components/customer/customer.component';
 import { InvoiceDetailsComponent } from './components/invoice-details/invoice-details.component';
 import { SidebarModule } from 'primeng/sidebar';
-
-
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, SidebarComponent, FooterComponent, AdminDashboardComponent, LoginComponent, AllProductsComponent, PageNotFoundComponent, AddCategoryComponent, TaxPageComponent, PlaceOrderComponent, InVoiceComponent, DashboardComponent, CustomerComponent, InvoiceDetailsComponent],
   imports: [
     SidebarModule,
-CommonModule,
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     AdminModule,
@@ -82,8 +81,8 @@ CommonModule,
     InputNumberModule,
     KeyFilterModule,
     AutoCompleteModule,
-    
     CalendarModule,
+    NgChartsModule,
     MultiSelectModule,
     DatePipe,NgCircleProgressModule.forRoot({
       // set defaults here
@@ -95,6 +94,7 @@ CommonModule,
       animationDuration: 300,
     })
 ],
+  
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: MyInterceptor,
@@ -103,4 +103,4 @@ CommonModule,
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppModule {}
+export class AppModule { }

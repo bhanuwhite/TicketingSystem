@@ -325,4 +325,8 @@ export class PlaceOrderComponent {
       });
     } catch { }
   }
+  onCancel() {
+    this.addProduct.reset();
+    this.tableData = [];
+  }
 }

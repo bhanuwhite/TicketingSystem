@@ -63,6 +63,10 @@
   border-radius: 5px;
   overflow: hidden;
 }
+.chartBar canvas{
+  width: 300px !important;
+  height: 200px !important;
+}
 
 @media (min-width: 768px) {
   .card img {
@@ -201,8 +205,91 @@
 /* tab responsive starts here */
 @media only screen and (min-width:768px) and (max-width:1028px) {
 
+  h1,h2,h3,h4,h5{
+    font-size: 23px !important;
+  }
+  .sales-invertor-block {
+    left: 0px;
+  }
 
+ 
 
+  .sales-invertor-block {
+    width: 100% !important;
+  }
+
+  .sales-invertor-block .card-container {
+    flex-wrap: wrap;
+    gap: 10px;
+
+  }
+  .sales-invertor-block .card {
+    width: 48%;
+    margin: 0px;
+}
+.inventory-Summary-wrapper{
+  width: 100%;
+}
+
+.inventory-content {
+ flex-direction: row !important;
+ justify-content: space-between;
+}
+.inventory-content .card-input {
+  width: 48%;
+
+ }
+.container-fluid{
+  padding: 10px !important;
+}
+.products-wrapper-container,.main-card-info,.order-container{
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.products-wrapper-container-firstblock {
+  width: 100%;
+}
+.product-details-title {
+  margin-bottom: 5px;
+  font-size: 18px;
+}
+.main-card-info-first{
+  width: 46% !important;
+  
+}
+.main-card-info-sec {
+  width: 46% !important;
+
+}
+.product-details-card{
+  width: 100%;
+  margin-bottom: 0px !important;
+}
+.product-details-card  h6{
+  font-size: 18px;
+
+}
+.purchase-order-block {
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px !important;
+
+}
+.purchase-order-block-second{
+  width: 100%;
+  height: auto;
+ 
+
+}
+.purchase-order-block-second .card-body{
+  padding: 5px !important;
+}
+.table-wrapper tr{
+  font-size: 16px;
+}
+.inventory-Summary-wrapper .card {
+  width: 100%;
+}
 
 }
 
@@ -232,7 +319,7 @@
 
   }
   .sales-invertor-block .card {
-    width: 48%;
+    width: 100%;
     margin: 0px;
 }
 .inventory-Summary-wrapper{
