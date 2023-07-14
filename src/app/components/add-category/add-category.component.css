@@ -20,7 +20,8 @@
 .form-name{
   display: flex;
   justify-content:center;
-  color: #2c8688
+  color: #2c8688;
+  margin-top:10px;
   /* align-items: center; */
 }
 .p-button-text{

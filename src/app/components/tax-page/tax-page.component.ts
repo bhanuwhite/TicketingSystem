@@ -202,6 +202,7 @@ export class TaxPageComponent {
     }
   }
   onEdit(x: any, edit: string) {
+    console.log(x)
     this.editId = x._id;
     this.edit = true;
     this.checkform_status = edit;

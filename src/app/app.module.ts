@@ -85,10 +85,7 @@ CommonModule,
     
     CalendarModule,
     MultiSelectModule,
-    DatePipe,NgCircleProgressModule
-   
-
-    .forRoot({
+    DatePipe,NgCircleProgressModule.forRoot({
       // set defaults here
       radius: 100,
       outerStrokeWidth: 16,

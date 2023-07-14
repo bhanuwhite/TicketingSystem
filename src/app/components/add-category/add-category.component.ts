@@ -81,7 +81,7 @@ export class AddCategoryComponent {
                 this.messageService.add({
                   severity: 'success',
                   summary: 'Successful',
-                  detail: 'Category Deleted',
+                  detail: 'Selected Category Blocked',
                   life: 3000,
                 });
                 this.getCategory();
@@ -128,7 +128,7 @@ export class AddCategoryComponent {
                 this.messageService.add({
                   severity: 'success',
                   summary: 'Successful',
-                  detail: 'Category Deleted',
+                  detail: 'Category Blocked',
                   life: 3000,
                 });
                 this.getCategory();
