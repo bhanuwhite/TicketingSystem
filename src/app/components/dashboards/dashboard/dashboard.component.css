@@ -59,6 +59,10 @@
   border-radius: 5px;
   overflow: hidden;
 }
+.chartBar canvas{
+  width: 300px !important;
+  height: 200px !important;
+}
 
 @media (min-width: 768px) {
   .card img {

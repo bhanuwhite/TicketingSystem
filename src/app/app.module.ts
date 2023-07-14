@@ -48,7 +48,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { CustomerComponent } from './components/customer/customer.component';
 import { InvoiceDetailsComponent } from './components/invoice-details/invoice-details.component';
 import { SidebarModule } from 'primeng/sidebar';
-
+import { NgChartsModule } from 'ng2-charts';
 
 
 @NgModule({
@@ -82,11 +82,11 @@ import { SidebarModule } from 'primeng/sidebar';
     InputNumberModule,
     KeyFilterModule,
     AutoCompleteModule,
-
     CalendarModule,
     MultiSelectModule,
-    DatePipe, NgCircleProgressModule
-
+    NgChartsModule,
+    DatePipe, 
+    NgCircleProgressModule
 
       .forRoot({
         // set defaults here

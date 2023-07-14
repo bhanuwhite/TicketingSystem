@@ -69,17 +69,19 @@
                 <h6 class="product-details-title ">YEARLY REPORT 2023</h6>
 
             </div>
-            <div>
-                <canvas id="myChart"></canvas>
+            <div class="chartBar"  style="display: block; width: 400px; height: 300px;">
+                <canvas baseChart 
+                [data]="barChartData"
+                [options]="barChartOptions"
+                [plugins]="barChartPlugins"
+                [legend]="barChartLegend"
+                [type]="'bar'">
+        </canvas>
+        
               </div>
 
-<<<<<<< Updated upstream
-            <div class="main-card-info d-flex mt-3">
-                <div class="card main-card-info-first border-0" >
-=======
             <!-- <div class="main-card-info d-flex mt-3">
                 <div class="card border-0" style="width: 13rem; height:13rem;">
->>>>>>> Stashed changes
                     <div class="card-body border-right">
 
                         <div class="product-details d-flex justify-content-between  mb-2">
@@ -290,14 +292,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of data">
+                        <!-- <tr *ngFor="let item of data">
                             <td>{{ item.channel }}</td>
                             <td>{{ item.draft }}</td>
                             <td>{{ item.confirmed }}</td>
                             <td>{{ item.packed }}</td>
                             <td>{{ item.shipped }}</td>
                             <td>{{ item.invoiced }}</td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
 
