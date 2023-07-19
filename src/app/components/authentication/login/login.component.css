@@ -225,3 +225,37 @@ body {
       position: static;
     }
   }
+  /* / tab responsive starts here / */
+@media only screen and (min-width:768px) and (max-width:1028px){
+
+  .wrapper {
+    width: 450px;
+    height: 450px;
+  }
+  .wrapper .inner-warpper {
+    box-shadow: none;
+}
+label {
+  font-size: 20px;
+}
+.wrapper .supporter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.wrapper  input[type="checkbox"]  {
+  float: none;
+}
+a{
+  font-size: 18px;
+}
+
+}
+/* / tab responsive ends here / */
+
+
+/* /  mobile responsive starts here / */
+@media only screen and (max-width:767px){
+
+}
+/* /  mobile responsive ends here / */

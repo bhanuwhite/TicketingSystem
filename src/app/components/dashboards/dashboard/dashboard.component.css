@@ -49,10 +49,7 @@
   padding: 16px;
 }
 
-.sales-invertor-block {
-  position: relative;
-  left: 8px;
-}
+
 
 .products-wrapper-container-firstblock,
 .product-details-card {
@@ -154,6 +151,7 @@
 }
 .sales-invertor-block{
   width: 68%;
+  padding-left: 8px;
 }
 .sales-invertor-block .card-container{
   width:100%;
@@ -255,7 +253,7 @@
 }
 .product-details-card{
   width: 100%;
-  margin-bottom: 0px !important;
+  margin-top: 0.5rem;
 }
 .product-details-card  h6{
   font-size: 18px;
