@@ -15,6 +15,8 @@ export class DashboardComponent  {
 
   invoiceDetailsData:any[]=[]
   salesActivityData :any;
+  topSellingData:any[]=[];
+  responsiveOptions: any;
   data: any[] = [
     { channel: 'other', draft: '31', confirmed: '176', packed: '78', shipped: '56' ,invoiced:'34'},
   ];
@@ -23,7 +25,24 @@ constructor(private service: DataFetchService,private router:Router){}
 ngOnInit(){
   this.getSalesActivityData(); 
   this.getInvoices();
-
+  this.getTopSellingItems();
+  this.responsiveOptions = [
+    {
+      breakpoint: '1400px',
+      numVisible: 3,
+      numScroll: 3
+  },
+  {
+      breakpoint: '1220px',
+      numVisible: 2,
+      numScroll: 2
+  },
+  {
+      breakpoint: '1100px',
+      numVisible: 1,
+      numScroll: 1
+  }
+];
 }
   getSalesActivityData(): void {
     this.service.getData('salesActivity').subscribe((response: any) => {
@@ -42,6 +61,13 @@ ngOnInit(){
      getSerialNumber(index: number): number {
       return index + 1;
     }
+
+   getTopSellingItems(){
+    this.service.getData('topSellingItems').subscribe(res=>{
+      this.topSellingData = res.topSellingItems;
+      console.log(this.topSellingData);
+    })
+   }
 
     openInvoiceInNewTab(orderId: any) {
       const url = this.router.serializeUrl(

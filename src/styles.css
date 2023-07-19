@@ -129,6 +129,13 @@ app-in-voice {
 .auto_box .p-autocomplete{
   width: 100% !important;
 }
+.product-details-card .p-carousel{
+  width: 64% !important;
+  margin: 0 auto;
+} 
+.product-details-card .p-carousel-items-content{
+  margin-top: 14px;
+}
 
 /* / tab responsive starts here / */
 @media only screen and (min-width:768px) and (max-width:1028px){

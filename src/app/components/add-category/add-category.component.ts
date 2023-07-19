@@ -168,7 +168,7 @@ export class AddCategoryComponent {
     try {
       if (this.editsave === 'edit') {
         const data = {
-          name: this.categoryForm.value.name,
+          name: this.categoryForm.value.name
         };
         this.service
           .putData('addCategory/' + this.editId, data)

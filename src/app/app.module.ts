@@ -49,6 +49,7 @@ import { CustomerComponent } from './components/customer/customer.component';
 import { InvoiceDetailsComponent } from './components/invoice-details/invoice-details.component';
 import { SidebarModule } from 'primeng/sidebar';
 import { NgChartsModule } from 'ng2-charts';
+import { CarouselModule } from 'primeng/carousel';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, SidebarComponent, FooterComponent, AdminDashboardComponent, LoginComponent, AllProductsComponent, PageNotFoundComponent, AddCategoryComponent, TaxPageComponent, PlaceOrderComponent, InVoiceComponent, DashboardComponent, CustomerComponent, InvoiceDetailsComponent],
@@ -84,6 +85,7 @@ import { NgChartsModule } from 'ng2-charts';
     CalendarModule,
     NgChartsModule,
     MultiSelectModule,
+    CarouselModule,
     DatePipe,NgCircleProgressModule.forRoot({
       // set defaults here
       radius: 100,

@@ -56,7 +56,7 @@ const routes: Routes = [
       },
       { path: 'tax-page', component: TaxPageComponent },
       { path: 'order', component: PlaceOrderComponent },
-      { path:'dashboard' , component:DashboardComponent},
+      { path:'dashboard' ,component:DashboardComponent},
       { path:'customer',component:CustomerComponent},
       // { path:'dashboard' , component:DashboardComponent}
 
