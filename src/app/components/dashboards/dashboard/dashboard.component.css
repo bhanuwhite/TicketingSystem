@@ -40,7 +40,10 @@
   border-radius: 5px;
   overflow: hidden;
 }
+.card-carousel{
+  height: 12rem;
 
+}
 .carousel-inner {
   padding: 1em;
 }

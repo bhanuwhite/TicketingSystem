@@ -136,6 +136,9 @@ app-in-voice {
 .product-details-card .p-carousel-items-content{
   margin-top: 14px;
 }
+.product-details-card .p-carousel .p-carousel-indicators {
+  padding: 5px 0px 0px 0px;
+}
 
 /* / tab responsive starts here / */
 @media only screen and (min-width:768px) and (max-width:1028px){

@@ -138,11 +138,17 @@
                       </div>
                     </div>
                   </div>
+                  <div *ngIf="taxForm.get('startDate')?.errors?.['startDateInvalid']">
+                    <div class="invalid-error-date">
+                     The start date cannot be after the end date.
+                    </div>
+                  </div>
                   <div *ngIf="taxForm.get('endDate')?.errors?.['endDateInvalid']">
                     <div class="invalid-error-date">
                      The end date cannot be before the start date.
                     </div>
                   </div>
+                 
 
 
                 </div>

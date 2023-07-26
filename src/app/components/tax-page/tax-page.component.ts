@@ -70,7 +70,7 @@ export class TaxPageComponent {
   taxFormValidation(): void {
     this.taxForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
-      startDate: ['', [Validators.required ]],
+      startDate: ['', [Validators.required, this.startDateValidator.bind(this)]],
       endDate: ['',[Validators.required, this.endDateValidator.bind(this)]],
       percentage: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
     });
@@ -86,14 +86,14 @@ export class TaxPageComponent {
     return null;
   }
 
-  // startDateValidator(control: AbstractControl): { [key: string]: any } | null {
-  //   const endDate = new Date(control.parent?.get('endDate')?.value);
-  //   const startDate = new Date(control.value);
-  //   if (endDate <= startDate) {
-  //     return { endDateInvalid: true };
-  //   }
-  //   return null;
-  // }
+  startDateValidator(control: AbstractControl): { [key: string]: any } | null {
+    const endDate = new Date(control.parent?.get('endDate')?.value);
+    const startDate = new Date(control.value);
+    if (endDate <= startDate) {
+      return { startDateInvalid: true };
+    }
+    return null;
+  }
 
   getTaxFormData(): void {
     this.service.getData('tax').subscribe((response: any) => {
